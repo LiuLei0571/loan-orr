@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_commom"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <include
+            layout="@layout/layout_ticket_null"/>
+
+        <ListView
+            android:id="@+id/lv_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:fadingEdge="none"
+            android:listSelector="@android:color/transparent"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_invite"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_gradient_title"
+        android:text="马上邀请"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>

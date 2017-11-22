@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_commom"/>
+
+    <LinearLayout
+        android:id="@+id/ll_xuexin_verify"
+        style="@style/ItemWhiteStyle"
+        android:background="@drawable/selector_item_white">
+
+        <TextView
+            style="@style/Text14spStyle"
+            android:layout_weight="1"
+            android:text="学信认证"
+            android:textColor="@color/text_3d3d3d"/>
+
+        <TextView
+            android:id="@+id/tv_xuexin_status"
+            style="@style/Text14spStyle"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_taobao_verify"
+        style="@style/ItemWhiteStyle"
+        android:visibility="gone"
+        android:background="@drawable/selector_item_white">
+
+        <TextView
+            style="@style/Text14spStyle"
+            android:layout_weight="1"
+            android:text="淘宝认证"
+            android:textColor="@color/text_3d3d3d"/>
+
+        <TextView
+            android:id="@+id/tv_taobao_status"
+            style="@style/Text14spStyle"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="14dp"
+        android:background="@color/grey_d3d3d3"/>
+</LinearLayout>

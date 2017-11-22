@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
+
+                <ImageView
+                    android:id="@+id/iv_idcard_front"
+                    android:layout_width="216dp"
+                    android:layout_height="135dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/idcard_front"/>
+
+                <ImageView
+                    android:id="@+id/iv_idcard_front_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_idcard_front"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_selected"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:id="@+id/iv_idcard_back"
+                    android:layout_width="216dp"
+                    android:layout_height="135dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/idcard_back"/>
+
+                <ImageView
+                    android:id="@+id/iv_idcard_back_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_idcard_back"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_selected"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:id="@+id/iv_idcard_photo"
+                    android:layout_width="216dp"
+                    android:layout_height="135dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/idcard_photo"/>
+
+                <ImageView
+                    android:id="@+id/iv_idcard_photo_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_idcard_photo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_selected"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:id="@+id/iv_life_photo"
+                    android:layout_width="216dp"
+                    android:layout_height="135dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/photo_life"/>
+
+                <ImageView
+                    android:id="@+id/iv_life_photo_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_life_photo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_selected"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp">
+
+                <ImageView
+                    android:id="@+id/iv_work_photo"
+                    android:layout_width="216dp"
+                    android:layout_height="135dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/photo_work"/>
+
+                <ImageView
+                    android:id="@+id/iv_work_photo_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/iv_work_photo"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/icon_selected"/>
+            </RelativeLayout>
+
+            <TextView
+                style="@style/Text12spStyle"
+                android:layout_marginTop="12dp"
+                android:text="请务必保证上传照片信息清晰，容易辨认"
+                android:textColor="@color/text_b5b5b5"/>
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/ButtonCommonStyle"
+                android:text="下一步"
+                android:layout_marginTop="40dp"/>
+
+            <TextView
+                style="@style/Text12spStyle"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="30dp"
+                android:text="这是最后一步；初次借贷，敬请谅解"
+                android:textColor="@color/text_b5b5b5"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/title_commom"/>
+
+</RelativeLayout>

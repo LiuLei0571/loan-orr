@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#fafafa</color>
+    <color name="main_color">#FF008FF2</color>
+    <color name="main_color_gradient">#FF008FF2</color>
+    <color name="white">#ffffff</color>
+    <color name="white_dialog">#fefdfa</color>
+    <color name="black">#000000</color>
+    <color name="grey_e6e6e6">#e6e6e6</color>
+    <color name="grey_d3d3d3">#d3d3d3</color>
+
+    <color name="text_3d3d3d">#3d3d3d</color>
+    <color name="text_5c5c5c">#5c5c5c</color>
+    <color name="text_898989">#898989</color>
+    <color name="text_8d8d8d">#8d8d8d</color>
+    <color name="text_b5b5b5">#b5b5b5</color>
+    <color name="text_007aff">#007aff</color>
+</resources>

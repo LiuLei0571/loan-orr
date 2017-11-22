@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_rectangle_dialog_white"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Text16spStyle"
+            android:layout_marginTop="20dp"
+            android:text="QQ客服"
+            android:textColor="@color/text_3d3d3d"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="14dp"
+            android:text="请选择客服类型"
+            android:textColor="@color/text_5c5c5c"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_marginTop="6dp"
+            android:background="@color/grey_d3d3d3"/>
+
+        <TextView
+            android:id="@+id/tv_before_borrow"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="借前客服"
+            android:textColor="@color/text_007aff"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1px"
+            android:layout_marginTop="6dp"
+            android:background="@color/grey_d3d3d3"/>
+
+        <TextView
+            android:id="@+id/tv_after_borrow"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:text="借后客服"
+            android:textColor="@color/text_007aff"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_rectangle_dialog_white"
+        android:gravity="center"
+        android:text="关闭"
+        android:textColor="@color/text_007aff"
+        android:textSize="20sp"/>
+
+
+</LinearLayout>

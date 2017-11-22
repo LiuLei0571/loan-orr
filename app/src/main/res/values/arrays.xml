@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="list_education">
+        <item>小学</item>
+        <item>中学</item>
+        <item>高中/职高</item>
+        <item>大专</item>
+        <item>本科</item>
+        <item>硕士</item>
+        <item>博士</item>
+    </string-array>
+
+    <string-array name="list_marriage">
+        <item>未婚</item>
+        <item>已婚</item>
+        <item>离异</item>
+        <item>丧偶</item>
+    </string-array>
+
+    <string-array name="list_child">
+        <item>没有</item>
+        <item>1个</item>
+        <item>2个</item>
+        <item>3个</item>
+        <item>多个</item>
+    </string-array>
+
+    <string-array name="list_address_time">
+        <item>3个月内</item>
+        <item>3-6个月</item>
+        <item>6个月-1年</item>
+        <item>1年以上</item>
+    </string-array>
+
+    <string-array name="list_job">
+        <item>销售经理</item>
+        <item>产品经理/程序员/设计师</item>
+        <item>营业员</item>
+        <item>服务员</item>
+        <item>厨师</item>
+        <item>淘宝店主</item>
+        <item>文员</item>
+        <item>客服</item>
+        <item>维修人员</item>
+        <item>行政/后勤</item>
+        <item>教师</item>
+        <item>会计</item>
+        <item>律师</item>
+        <item>司机</item>
+        <item>医生</item>
+        <item>理发师</item>
+        <item>网店店主</item>
+        <item>健身教练</item>
+        <item>翻译</item>
+        <item>离职1月</item>
+        <item>离职3月</item>
+        <item>自由职业</item>
+        <item>编辑</item>
+        <item>其他</item>
+    </string-array>
+
+    <string-array name="list_wages">
+        <item>0-1000</item>
+        <item>1000-3000</item>
+        <item>3000-5000</item>
+        <item>5000-8000</item>
+        <item>8000-10000</item>
+        <item>10000-15000</item>
+        <item>15000以上</item>
+    </string-array>
+
+    <string-array name="list_job_time">
+        <item>3个月内</item>
+        <item>3-6个月</item>
+        <item>6个月-1年</item>
+        <item>1年-3年</item>
+        <item>3年以上</item>
+    </string-array>
+
+    <string-array name="list_relation_family">
+        <item>父亲</item>
+        <item>母亲</item>
+        <item>配偶</item>
+    </string-array>
+
+    <string-array name="list_relation_social">
+        <item>兄弟姐妹</item>
+        <item>同事</item>
+        <item>亲戚</item>
+        <item>朋友</item>
+    </string-array>
+
+</resources>

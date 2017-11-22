@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_home_bottom_borrow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/ItemWhiteStyle"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                style="@style/Text14spStyle"
+                android:layout_weight="1"
+                android:text="快速审讯费"
+                android:textColor="@color/text_8d8d8d"/>
+
+            <TextView
+                android:id="@+id/tv_shenxunfei"
+                style="@style/Text14spStyle"
+                android:text="0元"
+                android:textColor="@color/text_8d8d8d"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemWhiteStyle"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                style="@style/Text14spStyle"
+                android:layout_weight="1"
+                android:text="总利息"
+                android:textColor="@color/text_8d8d8d"/>
+
+            <TextView
+                android:id="@+id/tv_zonglixi"
+                style="@style/Text14spStyle"
+                android:text="0元"
+                android:textColor="@color/text_8d8d8d"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemWhiteStyle"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                style="@style/Text14spStyle"
+                android:layout_weight="1"
+                android:text="账户管理费"
+                android:textColor="@color/text_8d8d8d"/>
+
+            <TextView
+                android:id="@+id/tv_guanlifei"
+                style="@style/Text14spStyle"
+                android:text="0元"
+                android:textColor="@color/text_8d8d8d"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/ItemWhiteStyle"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp">
+
+            <TextView
+                style="@style/Text16spStyle"
+                android:layout_weight="1"
+                android:text="实际到账"
+                android:textColor="@color/text_3d3d3d"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_shijidaozhang"
+                style="@style/Text16spStyle"
+                android:text="0元"
+                android:textColor="@color/text_3d3d3d"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_ticket"
+            style="@style/ItemWhiteStyle"
+            android:layout_height="36dp"
+            android:background="@drawable/selector_item_white"
+            android:visibility="gone"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/iv_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_more_ticket"
+                android:text="借贷券优惠：0元"
+                android:textColor="@color/main_color"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/background"/>
+
+        <TextView
+            android:id="@+id/tv_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="30dp"
+            android:text="点击确认借贷即表示您已同意《用户协议》"
+            android:textColor="@color/text_8d8d8d"
+            android:textSize="12sp"/>
+
+        <Button
+            android:id="@+id/btn_borrow"
+            style="@style/ButtonCommonStyle"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+</ScrollView>

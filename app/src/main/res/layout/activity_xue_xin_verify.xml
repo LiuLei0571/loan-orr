@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+b
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle"
+                android:background="@drawable/bg_white_with_grey_line">
+
+                <TextView
+                    style="@style/Text14spStyle"
+                    android:layout_width="68dp"
+                    android:text="学信账号"
+                    android:textColor="@color/text_3d3d3d"/>
+
+                <EditText
+                    android:id="@+id/edit_name"
+                    style="@style/EditWhiteStyle"
+                    android:layout_weight="1"
+                    android:hint="请输入学信账号"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle"
+                android:background="@drawable/bg_white_with_grey_line">
+
+                <TextView
+                    style="@style/Text14spStyle"
+                    android:layout_width="68dp"
+                    android:text="密码"
+                    android:textColor="@color/text_3d3d3d"/>
+
+                <EditText
+                    android:id="@+id/edit_psw"
+                    style="@style/EditWhiteStyle"
+                    android:layout_weight="1"
+                    android:hint="请输入密码"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle"
+                android:layout_marginTop="10dp"
+                android:layout_height="80dp"
+                android:background="@drawable/bg_white_with_grey_line">
+
+                <ImageView
+                    android:id="@+id/iv_verify_code"
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:padding="4dp"
+                    android:text="验证码"
+                    android:textColor="@color/text_3d3d3d"/>
+                <EditText
+                    android:id="@+id/edit_verify_code"
+                    style="@style/EditWhiteStyle"
+                    android:background="@color/white"
+                    android:layout_weight="1"
+                    android:hint="请输入验证码"/>
+
+                <TextView
+                    android:id="@+id/tv_get_verify"
+                    style="@style/Text14spStyle"
+                    android:text="获取图片验证码"
+                    android:gravity="center"
+                    android:layout_height="48dp"
+                    android:textColor="@color/main_color"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/ButtonCommonStyle"
+                android:layout_marginTop="60dp"
+                android:text="提交"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/title_commom"/>
+
+</RelativeLayout>

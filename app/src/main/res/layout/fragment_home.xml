@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_home_bottom"
+        android:layout_below="@+id/ll_home_title">
+
+        <Button
+            android:id="@+id/btn_repeyment"
+            style="@style/ButtonCommonStyle"
+            android:layout_marginTop="45dp"
+            android:text="我要还款"
+            android:visibility="gone"/>
+
+        <include
+            layout="@layout/layout_home_bottom_borrow"/>
+
+        <TextView
+            android:id="@+id/tv_request"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="网络请求失败\n\n点击重试"
+            android:textColor="@color/text_5c5c5c"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_home_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_logo"/>
+
+        <TextView
+            android:id="@+id/tv_check_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="查看借贷进度"
+            android:textColor="@color/text_8d8d8d"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll_home_title"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@drawable/bg_gradient_home_title">
+
+        <ImageView
+            android:id="@+id/iv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/icon_head_home"/>
+
+        <include
+            layout="@layout/layout_home_title_repayment"/>
+
+        <LinearLayout
+            android:id="@+id/ll_home_title_borrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextWhiteHome17spStyle"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="借贷金额"/>
+
+                <com.load.third.jqm.view.CycleWheelView
+                    android:id="@+id/wheel_borrow_money"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextWhiteStyle"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="26dp"
+                android:text="元"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="50dp"
+                android:background="@color/white"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/TextWhiteHome17spStyle"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="借贷时长"/>
+
+                <com.load.third.jqm.view.CycleWheelView
+                    android:id="@+id/wheel_borrow_time"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/TextWhiteStyle"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="26dp"
+                android:text="天"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
+

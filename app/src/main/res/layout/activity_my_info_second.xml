@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/iv_my_info_2"/>
+
+            <TextView
+                android:id="@+id/tv_job"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择职业"/>
+
+            <TextView
+                android:id="@+id/tv_wages"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请输入月收入"/>
+
+            <TextView
+                android:id="@+id/tv_wages_date"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请输入发薪日期"/>
+
+            <EditText
+                android:id="@+id/edit_company_name"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入单位名称"/>
+
+            <TextView
+                android:id="@+id/tv_company_province"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择单位所在省"/>
+
+            <TextView
+                android:id="@+id/tv_company_city"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择单位所在城市"/>
+
+            <EditText
+                android:id="@+id/edit_company_address"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入单位详细地址"/>
+
+            <TextView
+                android:id="@+id/tv_area_code"
+                style="@style/EditWhiteStyle"
+                android:hint="单位电话区号"/>
+
+            <EditText
+                android:id="@+id/edit_company_phone"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入单位电话"
+                android:inputType="number"/>
+
+            <TextView
+                android:id="@+id/tv_job_time"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择在职时长"/>
+
+            <TextView
+                style="@style/Text12spStyle"
+                android:layout_marginBottom="37dp"
+                android:layout_marginTop="24dp"
+                android:text="填写并提交个人信息，审核通过方可借贷"
+                android:textColor="@color/main_color"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/title_commom"/>
+
+</RelativeLayout>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/iv_my_info_1"/>
+
+            <EditText
+                android:id="@+id/edit_name"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入真实姓名"/>
+
+            <EditText
+                android:id="@+id/edit_id_card"
+                style="@style/EditWhiteStyle"
+                android:maxLength="18"
+                android:hint="请输入身份证号码"/>
+
+            <EditText
+                android:id="@+id/edit_QQ"
+                style="@style/EditWhiteStyle"
+                android:inputType="number"
+                android:hint="请输入QQ号码"/>
+
+            <EditText
+                android:id="@+id/edit_email"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入电子邮箱"/>
+
+            <TextView
+                android:id="@+id/tv_education"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择教育水平"/>
+
+            <TextView
+                android:id="@+id/tv_marriage"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择婚姻状况"/>
+
+            <TextView
+                android:id="@+id/tv_child"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择子女状况"/>
+
+            <EditText
+                android:id="@+id/edit_address"
+                style="@style/EditWhiteStyle"
+                android:hint="请输入暂住地址"/>
+
+            <TextView
+                android:id="@+id/tv_address_time"
+                style="@style/TextWhiteItemStyle"
+                android:drawableRight="@drawable/icon_more"
+                android:hint="请选择暂住时长"/>
+
+            <TextView
+                style="@style/Text12spStyle"
+                android:layout_marginBottom="37dp"
+                android:layout_marginTop="24dp"
+                android:text="填写并提交个人信息，审核通过方可借贷"
+                android:textColor="@color/main_color"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/title_commom"/>
+
+</RelativeLayout>

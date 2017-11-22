@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="com.getui:sdk-2.10.2.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-2.10.2.0.aar/caa0a350085cb688331f700e2d694c44/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/sdk-2.10.2.0.aar/caa0a350085cb688331f700e2d694c44/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

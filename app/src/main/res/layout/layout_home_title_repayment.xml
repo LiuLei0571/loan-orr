@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_home_title_repayment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+        style="@style/TextWhiteHome17spStyle"
+        android:text="距离还款日"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <TextView
+            android:id="@+id/tv_repayment_day"
+            style="@style/TextWhiteHome17spStyle"
+            android:textSize="50sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            style="@style/TextWhiteHome17spStyle"
+            android:layout_marginLeft="4dp"
+            android:text="天"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextWhiteHome17spStyle"
+        android:layout_marginTop="16dp"
+        android:text="提前还款信用增值"
+        android:textSize="14sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_repayment_time"
+            style="@style/TextWhiteHome17spStyle"
+            android:layout_width="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:textSize="15sp"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_repayment_money"
+            style="@style/TextWhiteHome17spStyle"
+            android:layout_width="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</LinearLayout>

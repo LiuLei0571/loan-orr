@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/btn_wechat"
+            style="@style/ButtonInviteStyle"
+            android:drawableTop="@drawable/share_wechat"
+            android:text="微信好友"/>
+
+        <Button
+            android:id="@+id/btn_circle"
+            style="@style/ButtonInviteStyle"
+            android:drawableTop="@drawable/share_circle"
+            android:text="微信朋友圈"/>
+
+        <Button
+            android:id="@+id/btn_sina"
+            style="@style/ButtonInviteStyle"
+            android:drawableTop="@drawable/share_sina"
+            android:text="新浪微博"/>
+
+        <Button
+            android:id="@+id/btn_invite_code"
+            style="@style/ButtonInviteStyle"
+            android:drawableTop="@drawable/share_code"
+            android:text="二维码"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey_d3d3d3"/>
+
+    <TextView
+        android:id="@+id/tv_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="取 消"
+        android:textColor="@color/text_5c5c5c"
+        android:textSize="17sp"/>
+
+</LinearLayout>

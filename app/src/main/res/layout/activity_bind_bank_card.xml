@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    style="@style/Text14spStyle"
+                    android:layout_width="64dp"
+                    android:text="卡号"
+                    android:textColor="@color/text_3d3d3d"/>
+
+                <EditText
+                    android:id="@+id/edit_bank_card"
+                    style="@style/EditWhiteStyle"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="请填写银行卡号"
+                    android:inputType="number"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@color/grey_d3d3d3"/>
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle">
+
+                <TextView
+                    style="@style/Text14spStyle"
+                    android:layout_width="64dp"
+                    android:text="所属银行"
+                    android:textColor="@color/text_3d3d3d"/>
+
+                <TextView
+                    android:id="@+id/tv_bank_name"
+                    style="@style/TextWhiteItemStyle"
+                    android:background="@color/white"
+                    android:hint="银行卡所属银行"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@color/grey_d3d3d3"/>
+
+            <LinearLayout
+                style="@style/ItemWhiteStyle">
+
+                <TextView
+                    style="@style/Text14spStyle"
+                    android:layout_width="64dp"
+                    android:text="开户银行"
+                    android:textColor="@color/text_3d3d3d"/>
+
+                <EditText
+                    android:id="@+id/edit_bank_detail_name"
+                    style="@style/EditWhiteStyle"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="请填写银行卡所在开户银行"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:background="@color/grey_d3d3d3"/>
+
+            <Button
+                android:id="@+id/btn_next"
+                style="@style/ButtonCommonStyle"
+                android:layout_marginTop="160dp"
+                android:text="下一步"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <include
+        layout="@layout/title_commom"/>
+
+</RelativeLayout>
