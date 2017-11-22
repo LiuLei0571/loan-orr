@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
 import com.load.third.jqm.utils.StringUtils;
 
@@ -20,13 +21,14 @@ public class ProgressDialog {
     }
 
     public static void showProgressBar(Context context, String tips) {
+        Context mContext=MyApp.getContext();
         if (progressBar!=null&&progressBar.isShowing( )) {
             if (StringUtils.isNotBlank(tips)) {
                 tv_tips.setVisibility(View.VISIBLE);
                 tv_tips.setText(tips);
             }
         } else {
-            progressBar = new Dialog(context, R.style.TransparentDialogStyle);
+            progressBar = new Dialog(mContext, R.style.TransparentDialogStyle);
             progressBar.setContentView(R.layout.dialog_progressbar);
             tv_tips=(TextView) progressBar.findViewById(R.id.tv_tips);
             if (StringUtils.isNotBlank(tips)) {

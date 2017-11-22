@@ -33,6 +33,8 @@ import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.httpUtil.TokenLoginUtil;
 import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.LoanObserver;
+import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
@@ -45,9 +47,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -269,29 +269,41 @@ public class HomeFragment extends Fragment {
                         })
 
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<List<HomeExpenseDataBean.ListBean>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
+                        .subscribe(new LoanObserver<List<HomeExpenseDataBean.ListBean>>() {
                             @Override
                             public void onNext(List<HomeExpenseDataBean.ListBean> listBeans) {
                                 expenseDataBean = listBeans;
                                 tvRequest.setVisibility(View.GONE);
                                 setHomeExpenseData();
                             }
-
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                                ToastUtils.showToast(context, "息费信息获取失败");
                             }
                         });
+//                        .subscribe(new Observer<List<HomeExpenseDataBean.ListBean>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(List<HomeExpenseDataBean.ListBean> listBeans) {
+//                                expenseDataBean = listBeans;
+//                                tvRequest.setVisibility(View.GONE);
+//                                setHomeExpenseData();
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        });
             } else {
                 setHomeExpenseData();
             }

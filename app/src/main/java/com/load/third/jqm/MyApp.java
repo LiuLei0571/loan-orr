@@ -2,6 +2,7 @@ package com.load.third.jqm;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,12 +12,21 @@ import android.util.Log;
 
 public class MyApp extends Application {
     public static boolean isNeedUpdate = false;
+    public static Context mContext;
+
+    public static Context getContext() {
+        if ((mContext != null)) {
+            return mContext;
+        }
+        return null;
+    }
 
     @Override
     public void onCreate() {
-        super.onCreate( );
+        super.onCreate();
+        mContext = getApplicationContext();
         //监听应用内Activity的生命周期
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks( ) {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
 
@@ -29,14 +39,14 @@ public class MyApp extends Application {
 
             @Override
             public void onActivityResumed(Activity activity) {
-                MyActivityManager.getInstance( ).setTopActivity(activity);
-                Log.e("MyActivityManager", activity.getLocalClassName( ) + " resume");
+                MyActivityManager.getInstance().setTopActivity(activity);
+                Log.e("MyActivityManager", activity.getLocalClassName() + " resume");
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                MyActivityManager.getInstance( ).setTopActivity(null);
-                Log.e("MyActivityManager", activity.getLocalClassName( ) + " pause");
+                MyActivityManager.getInstance().setTopActivity(null);
+                Log.e("MyActivityManager", activity.getLocalClassName() + " pause");
             }
 
             @Override
