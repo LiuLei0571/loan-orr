@@ -1,6 +1,6 @@
 package com.load.third.jqm.newHttp;
 
-import com.load.third.jqm.bean.newBean.HomeExpenseResult;
+import com.load.third.jqm.bean.HomeExpenseDataBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -20,6 +20,6 @@ public interface ApiRetrofit {
      * @return
      */
     @GET("{homeUrl}")
-    Observable<HomeExpenseResult> retrofitHomeExpenseData(@Path(value = "homeUrl",encoded = true)String homeUrl);
+    Observable<BaseResponse<HomeExpenseDataBean>> retrofitHomeExpenseData(@Path(value = "homeUrl",encoded = true)String homeUrl);
 }
 

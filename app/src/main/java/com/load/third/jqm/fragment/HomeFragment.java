@@ -28,13 +28,12 @@ import com.load.third.jqm.activity.mine.TicketActivity;
 import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserDao;
-import com.load.third.jqm.bean.newBean.HomeExpenseResult;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.httpUtil.TokenLoginUtil;
 import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.Apis;
-import com.load.third.jqm.newHttp.LoanObserver;
-import com.load.third.jqm.tips.ToastUtils;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
@@ -206,7 +205,7 @@ public class HomeFragment extends Fragment {
         tvRepaymentTime.setText("到期日期: " + due_time);
     }
 
-    private void setHomeExpenseData() {
+    public void setHomeExpenseData() {
         llHomeTitleBorrow.setVisibility(View.VISIBLE);
         llHomeBottomBorrow.setVisibility(View.VISIBLE);
         llHomeBottom.setVisibility(View.VISIBLE);
@@ -256,109 +255,84 @@ public class HomeFragment extends Fragment {
         if (status == STATUS_PAY_SUCCESS) {
             HomeGetUtils.getRepayment(context, handler);
         } else {
-            if (expenseDataBean == null) {
-//                HomeGetUtils.getHomeExpenseData(context, handler);
-                ApiManager.apiManager.getHomeExpenseData()
-                        .retrofitHomeExpenseData(Apis.home.getUrl())
-                        .subscribeOn(Schedulers.io())
-                        .map(new Function<HomeExpenseResult, List<HomeExpenseDataBean.ListBean>>() {
-                            @Override
-                            public List<HomeExpenseDataBean.ListBean> apply(HomeExpenseResult apiResult) throws Exception {
-                                return apiResult.getData().getList();
-                            }
-                        })
-
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new LoanObserver<List<HomeExpenseDataBean.ListBean>>() {
-                            @Override
-                            public void onNext(List<HomeExpenseDataBean.ListBean> listBeans) {
-                                expenseDataBean = listBeans;
-                                tvRequest.setVisibility(View.GONE);
+            //                HomeGetUtils.getHomeExpenseData(context, handler);
+            ApiManager.apiManager.getHomeExpenseData()
+                    .retrofitHomeExpenseData(Apis.home.getUrl())
+                    .subscribeOn(Schedulers.io())
+                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
+                        @Override
+                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
+                            return homeExpenseDataBeanBaseResponse;
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
+                        @Override
+                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+                            if (result.getData() != null) {
+                                expenseDataBean = result.getData().getList();
                                 setHomeExpenseData();
+
+                            } else {
+                                tvRequest.setVisibility(View.GONE);
                             }
-                            @Override
-                            public void onError(Throwable e) {
-                                ToastUtils.showToast(context, "息费信息获取失败");
-                            }
-                        });
-//                        .subscribe(new Observer<List<HomeExpenseDataBean.ListBean>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(List<HomeExpenseDataBean.ListBean> listBeans) {
-//                                expenseDataBean = listBeans;
-//                                tvRequest.setVisibility(View.GONE);
-//                                setHomeExpenseData();
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        });
-            } else {
-                setHomeExpenseData();
+                        }
+                    });
+
+            switch (status)
+
+            {
+                case -1:
+                    btnBorrow.setText("确认借贷");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case Consts.STATUS_BORROW_FIRST:
+                    btnBorrow.setText("确认借贷");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case STATUS_BORROW_AGAIN:
+                    btnBorrow.setText("确认借贷");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case STATUS_PSOT_INFO:
+                    btnBorrow.setText("提交个人资料");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case Consts.STATUS_CHECKING_INFO:
+                    btnBorrow.setText("个人资料审核中...");
+                    btnBorrow.setEnabled(false);
+                    break;
+                case STATUS_POST_BANK_CARD:
+                    btnBorrow.setText("绑定银行卡");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case STATUS_POAT_ID_CARD:
+                    btnBorrow.setText("绑定证件照");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case Consts.STATUS_CHECKING_ID_CARD:
+                    btnBorrow.setText("证件照审核中...");
+                    btnBorrow.setEnabled(false);
+                    break;
+                case STATUS_PAY_SUCCESS:
+                    break;
+                case Consts.STATUS_PAY_ERROR:
+                    btnBorrow.setText("放款失败");
+                    btnBorrow.setEnabled(false);
+                    break;
+                case Consts.STATUS_REPOST_ID_CARD:
+                    btnBorrow.setText("重新绑定证件照");
+                    btnBorrow.setEnabled(true);
+                    break;
+                case Consts.STATUS_WAIT_PAY_13:
+                    btnBorrow.setText("等待放款");
+                    btnBorrow.setEnabled(false);
+                    break;
+                case Consts.STATUS_WAIT_PAY_14:
+                    btnBorrow.setText("等待放款");
+                    btnBorrow.setEnabled(false);
+                    break;
             }
-        }
-        switch (status) {
-            case -1:
-                btnBorrow.setText("确认借贷");
-                btnBorrow.setEnabled(true);
-                break;
-            case Consts.STATUS_BORROW_FIRST:
-                btnBorrow.setText("确认借贷");
-                btnBorrow.setEnabled(true);
-                break;
-            case STATUS_BORROW_AGAIN:
-                btnBorrow.setText("确认借贷");
-                btnBorrow.setEnabled(true);
-                break;
-            case STATUS_PSOT_INFO:
-                btnBorrow.setText("提交个人资料");
-                btnBorrow.setEnabled(true);
-                break;
-            case Consts.STATUS_CHECKING_INFO:
-                btnBorrow.setText("个人资料审核中...");
-                btnBorrow.setEnabled(false);
-                break;
-            case STATUS_POST_BANK_CARD:
-                btnBorrow.setText("绑定银行卡");
-                btnBorrow.setEnabled(true);
-                break;
-            case STATUS_POAT_ID_CARD:
-                btnBorrow.setText("绑定证件照");
-                btnBorrow.setEnabled(true);
-                break;
-            case Consts.STATUS_CHECKING_ID_CARD:
-                btnBorrow.setText("证件照审核中...");
-                btnBorrow.setEnabled(false);
-                break;
-            case STATUS_PAY_SUCCESS:
-                break;
-            case Consts.STATUS_PAY_ERROR:
-                btnBorrow.setText("放款失败");
-                btnBorrow.setEnabled(false);
-                break;
-            case Consts.STATUS_REPOST_ID_CARD:
-                btnBorrow.setText("重新绑定证件照");
-                btnBorrow.setEnabled(true);
-                break;
-            case Consts.STATUS_WAIT_PAY_13:
-                btnBorrow.setText("等待放款");
-                btnBorrow.setEnabled(false);
-                break;
-            case Consts.STATUS_WAIT_PAY_14:
-                btnBorrow.setText("等待放款");
-                btnBorrow.setEnabled(false);
-                break;
         }
     }
 

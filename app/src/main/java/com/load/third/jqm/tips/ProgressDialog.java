@@ -19,8 +19,10 @@ public class ProgressDialog {
 
     private ProgressDialog() {
     }
-
-    public static void showProgressBar(Context context, String tips) {
+    public static void showProgressBar( String tips) {
+        showProgressBar(null,tips);
+    }
+        public static void showProgressBar(Context context, String tips) {
         Context mContext=MyApp.getContext();
         if (progressBar!=null&&progressBar.isShowing( )) {
             if (StringUtils.isNotBlank(tips)) {

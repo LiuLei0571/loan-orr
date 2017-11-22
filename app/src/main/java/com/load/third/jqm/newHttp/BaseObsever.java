@@ -1,8 +1,5 @@
 package com.load.third.jqm.newHttp;
 
-
-import com.load.third.jqm.tips.ProgressDialog;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
@@ -13,15 +10,16 @@ import io.reactivex.disposables.Disposable;
  */
 
 
-public abstract   class LoanObserver<T> implements Observer<BaseResponse<T>> {
-
+public class BaseObsever<T> implements Observer<T> {
     @Override
     public void onSubscribe(Disposable d) {
-        //绑定观察对象，注意在界面的ondestory或者onpouse方法中调用presenter.unsubcription();
-        ProgressDialog.showProgressBar("");
+
     }
 
+    @Override
+    public void onNext(T t) {
 
+    }
 
     @Override
     public void onError(Throwable e) {
