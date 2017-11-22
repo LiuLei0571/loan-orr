@@ -1,5 +1,7 @@
 package com.load.third.jqm.newHttp;
 
+import android.content.Context;
+
 /**
  * 用途：
  * 作者：Created by liulei on 2017/11/22.
@@ -8,7 +10,7 @@ package com.load.third.jqm.newHttp;
 
 
 public interface ILoading {
-    void showLoading();
-    void showLoading(String content);
+    void showLoading(Context context);
+    void showLoading(Context context,String content);
     void dissLoading();
 }

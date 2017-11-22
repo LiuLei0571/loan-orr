@@ -2,7 +2,6 @@ package com.load.third.jqm.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -19,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.igexin.sdk.PushManager;
 import com.load.third.jqm.R;
 import com.load.third.jqm.activity.home.GetuiDialogActivity;
 import com.load.third.jqm.bean.UserDao;
@@ -33,7 +33,6 @@ import com.load.third.jqm.service.GetuiPushService;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
-import com.igexin.sdk.PushManager;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
@@ -43,7 +42,7 @@ import butterknife.ButterKnife;
 
 import static com.load.third.jqm.service.GetuiIntentService.payloadData;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
     private static final int REQUEST_PERMISSION = 1001;
     private static final int REQUEST_PERMISSION_LOCATION = 1002;
 
@@ -116,7 +115,7 @@ public class MainActivity extends Activity {
     private void initView() {
         homeFragment = new HomeFragment( );
         mineFragment = new MineFragment( );
-        getFragmentManager( ).beginTransaction( ).replace(R.id.ll_fragment_home, homeFragment).commit( );
+          getFragmentManager().beginTransaction().replace(R.id.ll_fragment_home, homeFragment).commit();
         getFragmentManager( ).beginTransaction( ).replace(R.id.ll_fragment_mine, mineFragment).commit( );
         setDrawerLayout( );
         setGeTui( );

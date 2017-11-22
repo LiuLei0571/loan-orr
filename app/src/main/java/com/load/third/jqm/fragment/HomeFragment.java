@@ -1,7 +1,9 @@
 package com.load.third.jqm.fragment;
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +36,7 @@ import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.tips.ProgressDialog;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
@@ -47,7 +50,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -251,20 +253,22 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void setStatus() {
         if (status == STATUS_PAY_SUCCESS) {
             HomeGetUtils.getRepayment(context, handler);
         } else {
             //                HomeGetUtils.getHomeExpenseData(context, handler);
+            ProgressDialog.showProgressBar(getContext());
             ApiManager.apiManager.getHomeExpenseData()
                     .retrofitHomeExpenseData(Apis.home.getUrl())
                     .subscribeOn(Schedulers.io())
-                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
-                        @Override
-                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
-                            return homeExpenseDataBeanBaseResponse;
-                        }
-                    })
+//                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
+//                        @Override
+//                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
+//                            return homeExpenseDataBeanBaseResponse;
+//                        }
+//                    })
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new CommonObserver<HomeExpenseDataBean>() {
                         @Override
@@ -272,15 +276,15 @@ public class HomeFragment extends Fragment {
                             if (result.getData() != null) {
                                 expenseDataBean = result.getData().getList();
                                 setHomeExpenseData();
-
                             } else {
                                 tvRequest.setVisibility(View.GONE);
                             }
+                            ProgressDialog.cancelProgressBar();
                         }
+
                     });
 
             switch (status)
-
             {
                 case -1:
                     btnBorrow.setText("确认借贷");
