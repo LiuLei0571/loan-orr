@@ -1,6 +1,12 @@
 package com.load.third.jqm.newHttp;
 
-import okhttp3.OkHttpClient;
+import com.load.third.jqm.bean.HomeExpenseDataBean;
+import com.load.third.jqm.tips.ProgressDialog;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -15,20 +21,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManager {
     public ApiRetrofit apiRetrofit;
     public static ApiManager apiManager = getInstance();
-    public static OkHttpClient okHttpClient;
 
     private static ApiManager getInstance() {
-        if (apiManager == null && okHttpClient == null) {
+        if (apiManager == null) {
             synchronized (ApiManager.class) {
                 apiManager = new ApiManager();
-                okHttpClient = new OkHttpClient.Builder().build();
 
             }
         }
         return apiManager;
     }
 
-    public ApiRetrofit getHomeExpenseData() {
+    public ApiRetrofit initRetrofit() {
         if (apiRetrofit == null) {
             apiRetrofit = getBaseRetrofit().create(ApiRetrofit.class);
         }
@@ -39,9 +43,30 @@ public class ApiManager {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlUtils.host)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(LoanOkHttpClient.getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiRetrofit = retrofit.create(ApiRetrofit.class);
         return retrofit;
+    }
+    public static void test(Observer observer){
+        ApiManager.apiManager.initRetrofit()
+                .retrofitHomeExpenseData(Apis.home.getUrl())
+                .subscribeOn(Schedulers.io())
+                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
+                        @Override
+                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
+                            return homeExpenseDataBeanBaseResponse;
+                        }
+                    })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CommonObserver<HomeExpenseDataBean>() {
+                    @Override
+                    public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+
+                        ProgressDialog.cancelProgressBar();
+                    }
+
+                });
     }
 }

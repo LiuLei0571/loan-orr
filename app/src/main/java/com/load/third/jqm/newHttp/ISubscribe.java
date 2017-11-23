@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable;
 public interface ISubscribe<T > {
     void doSubscribe(@NonNull Disposable d);
 
-    void doSuccess(@NonNull BaseResponse<T> t);
+    void doSuccess(@NonNull BaseResponse<T> result);
 
     void doFail(String msg);
 

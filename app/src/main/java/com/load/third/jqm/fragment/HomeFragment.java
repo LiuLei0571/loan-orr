@@ -1,7 +1,6 @@
 package com.load.third.jqm.fragment;
 
 import android.annotation.TargetApi;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.httpUtil.TokenLoginUtil;
-import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
@@ -49,8 +47,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
@@ -60,7 +56,7 @@ import static com.load.third.jqm.utils.Consts.STATUS_POAT_ID_CARD;
 import static com.load.third.jqm.utils.Consts.STATUS_POST_BANK_CARD;
 import static com.load.third.jqm.utils.Consts.STATUS_PSOT_INFO;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
     public static final int MSG_GET_STATUS_ERROR = 1000;
     public static final int MSG_GET_STATUS = 1001;
     public static final int MSG_GET_EXPENSE_DATA = 1002;
@@ -260,29 +256,42 @@ public class HomeFragment extends Fragment {
         } else {
             //                HomeGetUtils.getHomeExpenseData(context, handler);
             ProgressDialog.showProgressBar(getContext());
-            ApiManager.apiManager.getHomeExpenseData()
-                    .retrofitHomeExpenseData(Apis.home.getUrl())
-                    .subscribeOn(Schedulers.io())
+
+            submitTask(Apis.home, new CommonObserver<HomeExpenseDataBean>() {
+
+                @Override
+                public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+                    if (result.getData() != null) {
+                        expenseDataBean = result.getData().getList();
+                        setHomeExpenseData();
+                    } else {
+                        tvRequest.setVisibility(View.GONE);
+                    }
+                }
+            });
+//            ApiManager.apiManager.getHomeExpenseData()
+//                    .retrofitHomeExpenseData(Apis.home.getUrl())
+//                    .subscribeOn(Schedulers.io())
 //                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
 //                        @Override
 //                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
 //                            return homeExpenseDataBeanBaseResponse;
 //                        }
 //                    })
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
-                        @Override
-                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
-                            if (result.getData() != null) {
-                                expenseDataBean = result.getData().getList();
-                                setHomeExpenseData();
-                            } else {
-                                tvRequest.setVisibility(View.GONE);
-                            }
-                            ProgressDialog.cancelProgressBar();
-                        }
-
-                    });
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
+//                        @Override
+//                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+//                            if (result.getData() != null) {
+//                                expenseDataBean = result.getData().getList();
+//                                setHomeExpenseData();
+//                            } else {
+//                                tvRequest.setVisibility(View.GONE);
+//                            }
+//                            ProgressDialog.cancelProgressBar();
+//                        }
+//
+//                    });
 
             switch (status)
             {
@@ -335,6 +344,8 @@ public class HomeFragment extends Fragment {
                 case Consts.STATUS_WAIT_PAY_14:
                     btnBorrow.setText("等待放款");
                     btnBorrow.setEnabled(false);
+                    break;
+                default:
                     break;
             }
         }

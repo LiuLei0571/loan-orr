@@ -1,8 +1,10 @@
 package com.load.third.jqm.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 
+import com.load.third.jqm.newHttp.ApiRequest;
+import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.newHttp.ILoading;
 import com.load.third.jqm.tips.ProgressDialog;
 
@@ -34,5 +36,9 @@ public class BaseFragment extends Fragment implements ILoading {
 
     public ILoading getLoading() {
         return this;
+    }
+
+    public void submitTask(ApiRequest api, CommonObserver commonObserver) {
+
     }
 }
