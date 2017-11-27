@@ -1,5 +1,6 @@
 package com.load.third.jqm.newHttp;
 
+import com.load.third.jqm.tips.ProgressDialog;
 import com.load.third.jqm.tips.ToastUtils;
 
 import io.reactivex.Observer;
@@ -12,7 +13,7 @@ import io.reactivex.disposables.Disposable;
  */
 
 
-public abstract class CommonObserver<T > implements Observer<BaseResponse<T>>,ISubscribe<T> {
+public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, ISubscribe<T> {
     @Override
     public void onSubscribe(Disposable d) {
         doSubscribe(d);
@@ -22,6 +23,7 @@ public abstract class CommonObserver<T > implements Observer<BaseResponse<T>>,IS
     public void onNext(BaseResponse<T> result) {
         if ("true".equals(result.getSuccess())) {
             doSuccess(result);
+            doFinish();
         } else {
             doFail(result.getMessage());
         }
@@ -42,9 +44,14 @@ public abstract class CommonObserver<T > implements Observer<BaseResponse<T>>,IS
 
     }
 
-
     @Override
     public void doFail(String msg) {
         ToastUtils.showToast(msg);
+        doFinish();
+    }
+
+    @Override
+    public void doFinish() {
+        ProgressDialog.cancelProgressBar();
     }
 }

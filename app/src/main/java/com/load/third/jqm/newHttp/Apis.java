@@ -8,5 +8,5 @@ package com.load.third.jqm.newHttp;
 
 
 public interface Apis {
-    ApiRequest home=ApiRequest.get("loan/CfgList");
+    ApiRequest home=ApiRequest.get("loan/CfgList").setHasToken(false);
 }

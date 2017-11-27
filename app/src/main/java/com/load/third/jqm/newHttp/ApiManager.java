@@ -1,12 +1,5 @@
 package com.load.third.jqm.newHttp;
 
-import com.load.third.jqm.bean.HomeExpenseDataBean;
-import com.load.third.jqm.tips.ProgressDialog;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -48,25 +41,5 @@ public class ApiManager {
                 .build();
         apiRetrofit = retrofit.create(ApiRetrofit.class);
         return retrofit;
-    }
-    public static void test(Observer observer){
-        ApiManager.apiManager.initRetrofit()
-                .retrofitHomeExpenseData(Apis.home.getUrl())
-                .subscribeOn(Schedulers.io())
-                    .map(new Function<BaseResponse<HomeExpenseDataBean>, BaseResponse<HomeExpenseDataBean>>() {
-                        @Override
-                        public BaseResponse<HomeExpenseDataBean> apply(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
-                            return homeExpenseDataBeanBaseResponse;
-                        }
-                    })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommonObserver<HomeExpenseDataBean>() {
-                    @Override
-                    public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
-
-                        ProgressDialog.cancelProgressBar();
-                    }
-
-                });
     }
 }

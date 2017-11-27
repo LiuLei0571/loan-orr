@@ -21,5 +21,6 @@ public interface ApiRetrofit {
      */
     @GET("{homeUrl}")
     Observable<BaseResponse<HomeExpenseDataBean>> retrofitHomeExpenseData(@Path(value = "homeUrl",encoded = true)String homeUrl);
+
 }
 

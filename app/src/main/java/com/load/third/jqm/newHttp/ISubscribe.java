@@ -16,5 +16,5 @@ public interface ISubscribe<T > {
     void doSuccess(@NonNull BaseResponse<T> result);
 
     void doFail(String msg);
-
+    void doFinish();
 }

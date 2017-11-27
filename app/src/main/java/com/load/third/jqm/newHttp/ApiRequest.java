@@ -10,12 +10,21 @@ package com.load.third.jqm.newHttp;
 public class ApiRequest {
     private String url;
     private RequestMethod requestMethod;
-
+    private boolean hasToken;
     public String getUrl() {
         if (url.startsWith("http")) {
             return url;
         }
         return UrlUtils.host + url;
+    }
+
+    public boolean isHasToken() {
+        return hasToken;
+    }
+
+    public ApiRequest setHasToken(boolean hasToken) {
+        this.hasToken = hasToken;
+        return this;
     }
 
     public void setUrl(String url) {

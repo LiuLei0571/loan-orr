@@ -29,92 +29,92 @@ import com.squareup.okhttp.Request;
 public class HomeGetUtils {
 
     public static void getStatus(final Context context, final Handler handler) {
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).getStatus(token, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().getStatus(token, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
                 ToastUtils.showToast(context, "用户状态信息获取失败");
                 Log.e("http_msg", "用户状态信息获取，网络请求失败");
-                Message message = handler.obtainMessage( );
+                Message message = handler.obtainMessage();
                 message.what = HomeFragment.MSG_GET_STATUS_ERROR;
                 handler.sendMessage(message);
             }
 
             @Override
             public void onResponse(DataJsonResult<JSONObject> response) {
-                if (response.getSuccess( ) == "true") {
-                    Message message = handler.obtainMessage( );
+                if (response.getSuccess() == "true") {
+                    Message message = handler.obtainMessage();
                     message.what = HomeFragment.MSG_GET_STATUS;
-                    message.obj = response.getData( ).getIntValue("lend_status");
+                    message.obj = response.getData().getIntValue("lend_status");
                     handler.sendMessage(message);
-                    Log.d("http_msg", "用户状态-----" + response.getData( ).getIntValue("lend_status"));
+                    Log.d("http_msg", "用户状态-----" + response.getData().getIntValue("lend_status"));
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
-                    Log.e("http_msg", "用户状态信息获取" + response.getMessage( ));
-                    Message message = handler.obtainMessage( );
+                    ToastUtils.showToast(context, response.getMessage());
+                    Log.e("http_msg", "用户状态信息获取" + response.getMessage());
+                    Message message = handler.obtainMessage();
                     message.what = HomeFragment.MSG_GET_STATUS_ERROR;
                     handler.sendMessage(message);
                 }
             }
         });
     }
-
+    @Deprecated
     public static void getHomeExpenseData(final Context context, final Handler handler) {
         ProgressDialog.showProgressBar(context, "请稍后...");
-        ApiClient.getInstance( ).getHomeExpenseData(new OkHttpClientManager.ResultCallback<DataJsonResult<HomeExpenseDataBean>>( ) {
+        ApiClient.getInstance().getHomeExpenseData(new OkHttpClientManager.ResultCallback<DataJsonResult<HomeExpenseDataBean>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
+                ProgressDialog.cancelProgressBar();
                 ToastUtils.showToast(context, "息费信息获取失败");
                 Log.e("http_msg", "息费信息获取，网络请求失败");
-                Message message = handler.obtainMessage( );
+                Message message = handler.obtainMessage();
                 message.what = HomeFragment.MSG_GET_STATUS_ERROR;
                 handler.sendMessage(message);
             }
 
             @Override
             public void onResponse(DataJsonResult<HomeExpenseDataBean> response) {
-                ProgressDialog.cancelProgressBar( );
-                if (response.getSuccess( ) == "true") {
-                    Message message = handler.obtainMessage( );
+                ProgressDialog.cancelProgressBar();
+                if (response.getSuccess() == "true") {
+                    Message message = handler.obtainMessage();
                     message.what = HomeFragment.MSG_GET_EXPENSE_DATA;
-                    message.obj = response.getData( ).getList( );
+                    message.obj = response.getData().getList();
                     handler.sendMessage(message);
                     Log.d("http_msg", "息费信息获取成功");
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
-                    Log.e("http_msg", "息费信息获取" + response.getMessage( ));
+                    ToastUtils.showToast(context, response.getMessage());
+                    Log.e("http_msg", "息费信息获取" + response.getMessage());
                 }
             }
         });
     }
 
     public static void getRepayment(final Context context, final Handler handler) {
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).getRepaymentData(token, new OkHttpClientManager.ResultCallback<DataJsonResult<RepaymentDataBean>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().getRepaymentData(token, new OkHttpClientManager.ResultCallback<DataJsonResult<RepaymentDataBean>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
                 ToastUtils.showToast(context, "还款信息获取失败");
                 Log.e("http_msg", "还款信息获取，网络请求失败");
-                Message message = handler.obtainMessage( );
+                Message message = handler.obtainMessage();
                 message.what = HomeFragment.MSG_GET_STATUS_ERROR;
                 handler.sendMessage(message);
             }
 
             @Override
             public void onResponse(DataJsonResult<RepaymentDataBean> response) {
-                if (response.getSuccess( ) == "true") {
-                    Message message = handler.obtainMessage( );
+                if (response.getSuccess() == "true") {
+                    Message message = handler.obtainMessage();
                     message.what = HomeFragment.MSG_GET_REPAYMENT_DATA;
-                    message.obj = response.getData( );
+                    message.obj = response.getData();
                     handler.sendMessage(message);
                     Log.d("http_msg", "还款信息获取成功");
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
-                    Log.e("http_msg", "还款信息获取" + response.getMessage( ));
+                    ToastUtils.showToast(context, response.getMessage());
+                    Log.e("http_msg", "还款信息获取" + response.getMessage());
                 }
             }
         });
@@ -122,29 +122,29 @@ public class HomeGetUtils {
 
     public static void postBorrowInfo(final Context context, final int status, String day, String money) {
         ProgressDialog.showProgressBar(context, "请稍后...");
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).postBorrowInfo(token, day, money, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().postBorrowInfo(token, day, money, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
+                ProgressDialog.cancelProgressBar();
                 ToastUtils.showToast(context, "网络请求失败");
             }
 
             @Override
             public void onResponse(DataJsonResult<JSONObject> response) {
-                ProgressDialog.cancelProgressBar( );
-                if (response.getSuccess( ) == "true") {
+                ProgressDialog.cancelProgressBar();
+                if (response.getSuccess() == "true") {
                     if (status == Consts.STATUS_BORROW_FIRST)
                         IntentUtils.toActivity(context, MyInfoFirstActivity.class);
                     else if (status == Consts.STATUS_BORROW_AGAIN)
                         checkPhone(context);
                 } else {
-                    String frozen_time = response.getData( ).getString("frozen_time");
+                    String frozen_time = response.getData().getString("frozen_time");
                     if (StringUtils.isBlank(frozen_time))
-                        ToastUtils.showToast(context, response.getMessage( ));
+                        ToastUtils.showToast(context, response.getMessage());
                     else
-                        DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage( ) + "\n账号还需" + frozen_time + "天解冻");
+                        DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + frozen_time + "天解冻");
                 }
             }
         });
@@ -152,22 +152,22 @@ public class HomeGetUtils {
 
     public static void checkPhone(final Context context) {
         ProgressDialog.showProgressBar(context, "请稍后...");
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).checkPhone(token, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().checkPhone(token, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
+                ProgressDialog.cancelProgressBar();
                 ToastUtils.showToast(context, "网络请求失败");
             }
 
             @Override
             public void onResponse(DataJsonResult<JSONObject> response) {
-                ProgressDialog.cancelProgressBar( );
-                if (response.getSuccess( ) == "true") {
-                    IntentUtils.toWebViewActivity(context, "手机验证", response.getData( ).getString("redirectUrl"));
+                ProgressDialog.cancelProgressBar();
+                if (response.getSuccess() == "true") {
+                    IntentUtils.toWebViewActivity(context, "手机验证", response.getData().getString("redirectUrl"));
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
+                    ToastUtils.showToast(context, response.getMessage());
                 }
             }
         });

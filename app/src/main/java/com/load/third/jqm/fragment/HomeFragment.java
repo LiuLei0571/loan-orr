@@ -31,11 +31,10 @@ import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.httpUtil.TokenLoginUtil;
-import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
-import com.load.third.jqm.tips.ProgressDialog;
+import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
@@ -48,10 +47,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
@@ -261,97 +256,95 @@ public class HomeFragment extends BaseFragment {
         } else {
             //                HomeGetUtils.getHomeExpenseData(context, handler);
 
-//            submitTask(Apis.home, new CommonObserver<HomeExpenseDataBean>() {
+            submitTask(apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl()), new CommonObserver<HomeExpenseDataBean>() {
+                @Override
+                public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+                    if (result.getData() != null) {
+                        expenseDataBean = result.getData().getList();
+                        setHomeExpenseData();
+                        tvRequest.setVisibility(View.GONE);
+                    } else {
+                        ToastUtils.showToast(context, result.getMessage());
+                    }
+                }
+
+                @Override
+                public void doFail(String msg) {
+                    ToastUtils.showToast(context, "息费信息获取失败");
+                }
+            });
+//            ApiManager.apiManager.initRetrofit()
+//                    .retrofitHomeExpenseData(Apis.home.getUrl())
+//                    .subscribeOn(Schedulers.io())
+//                    .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
+//                    .subscribeOn(AndroidSchedulers.mainThread())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
+//                        @Override
+//                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+//                            if (result.getData() != null) {
+//                                expenseDataBean = result.getData().getList();
+//                                setHomeExpenseData();
+//                                tvRequest.setVisibility(View.GONE);
+//                            } else {
+//                                ToastUtils.showToast(context, result.getMessage());
+//                            }
+//                        }
 //
-//                @Override
-//                public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
-//                    if (result.getData() != null) {
-//                        expenseDataBean = result.getData().getList();
-//                        setHomeExpenseData();
-//                    } else {
-//                        tvRequest.setVisibility(View.GONE);
-//                    }
-//                }
-//            });
-            ApiManager.apiManager.initRetrofit()
-                    .retrofitHomeExpenseData(Apis.home.getUrl())
-                    .subscribeOn(Schedulers.io())
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            ProgressDialog.showProgressBar(getContext());
-                        }
-                    })
-                    .subscribeOn(AndroidSchedulers.mainThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
-                        @Override
-                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
-                            if (result.getData() != null) {
-                                expenseDataBean = result.getData().getList();
-                                setHomeExpenseData();
-                            } else {
-                                tvRequest.setVisibility(View.GONE);
-                            }
-                            ProgressDialog.cancelProgressBar();
-                        }
-                    });
+//                        @Override
+//                        public void doFail(String msg) {
+//                            ToastUtils.showToast(context, "息费信息获取失败");
+//                        }
+//                    });
 
             switch (status) {
                 case -1:
-                    btnBorrow.setText("确认借贷");
-                    btnBorrow.setEnabled(true);
+                    setUiState("确认借贷", true);
                     break;
                 case Consts.STATUS_BORROW_FIRST:
-                    btnBorrow.setText("确认借贷");
-                    btnBorrow.setEnabled(true);
+                    setUiState("确认借贷", true);
                     break;
                 case STATUS_BORROW_AGAIN:
-                    btnBorrow.setText("确认借贷");
-                    btnBorrow.setEnabled(true);
+                    setUiState("确认借贷", true);
                     break;
                 case STATUS_PSOT_INFO:
-                    btnBorrow.setText("提交个人资料");
-                    btnBorrow.setEnabled(true);
+                    setUiState("提交个人资料", true);
                     break;
                 case Consts.STATUS_CHECKING_INFO:
-                    btnBorrow.setText("个人资料审核中...");
-                    btnBorrow.setEnabled(false);
+                    setUiState("个人资料审核中...", true);
                     break;
                 case STATUS_POST_BANK_CARD:
-                    btnBorrow.setText("绑定银行卡");
-                    btnBorrow.setEnabled(true);
+                    setUiState("绑定银行卡", true);
                     break;
                 case STATUS_POAT_ID_CARD:
-                    btnBorrow.setText("绑定证件照");
-                    btnBorrow.setEnabled(true);
+                    setUiState("绑定证件照", true);
                     break;
                 case Consts.STATUS_CHECKING_ID_CARD:
-                    btnBorrow.setText("证件照审核中...");
-                    btnBorrow.setEnabled(false);
+                    setUiState("证件照审核中...", false);
                     break;
                 case STATUS_PAY_SUCCESS:
                     break;
                 case Consts.STATUS_PAY_ERROR:
-                    btnBorrow.setText("放款失败");
-                    btnBorrow.setEnabled(false);
+                    setUiState("放款失败", false);
                     break;
                 case Consts.STATUS_REPOST_ID_CARD:
-                    btnBorrow.setText("重新绑定证件照");
-                    btnBorrow.setEnabled(true);
+                    setUiState("重新绑定证件照", true);
                     break;
                 case Consts.STATUS_WAIT_PAY_13:
-                    btnBorrow.setText("等待放款");
-                    btnBorrow.setEnabled(false);
+                    setUiState("等待放款", false);
                     break;
                 case Consts.STATUS_WAIT_PAY_14:
-                    btnBorrow.setText("等待放款");
-                    btnBorrow.setEnabled(false);
+                    setUiState("等待放款", false);
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    public void setUiState(String content, boolean isClick) {
+        btnBorrow.setText(content);
+        btnBorrow.setEnabled(isClick);
     }
 
     private void btnBorrowClick() {
