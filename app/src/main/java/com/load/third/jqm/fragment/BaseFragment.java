@@ -7,10 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.ApiRetrofit;
-import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.newHttp.CustomConsumer;
 import com.load.third.jqm.newHttp.ILoading;
@@ -58,12 +56,11 @@ public class BaseFragment extends Fragment implements ILoading {
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public void submitTask(Observable<BaseResponse<HomeExpenseDataBean>> baseResponseObservable, CommonObserver commonObserver) {
+    public void submitTask(Observable baseResponseObservable, CommonObserver commonObserver) {
         baseResponseObservable.subscribeOn(Schedulers.io())
                 .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commonObserver);
-
     }
 }

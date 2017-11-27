@@ -1,5 +1,7 @@
 package com.load.third.jqm.newHttp;
 
+import com.load.third.jqm.help.UserHelper;
+
 /**
  * 用途：
  * 作者：Created by liulei on 2017/11/21.
@@ -11,9 +13,13 @@ public class ApiRequest {
     private String url;
     private RequestMethod requestMethod;
     private boolean hasToken;
+
     public String getUrl() {
         if (url.startsWith("http")) {
             return url;
+        }
+        if (hasToken) {
+            url = url + "?token" + UserHelper.getUserToken();
         }
         return UrlUtils.host + url;
     }

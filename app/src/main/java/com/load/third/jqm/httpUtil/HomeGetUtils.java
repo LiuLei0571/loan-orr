@@ -27,7 +27,7 @@ import com.squareup.okhttp.Request;
  */
 
 public class HomeGetUtils {
-
+    @Deprecated
     public static void getStatus(final Context context, final Handler handler) {
         String token = UserDao.getInstance(context).getToken();
         ApiClient.getInstance().getStatus(token, new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
@@ -90,7 +90,7 @@ public class HomeGetUtils {
             }
         });
     }
-
+    @Deprecated
     public static void getRepayment(final Context context, final Handler handler) {
         String token = UserDao.getInstance(context).getToken();
         ApiClient.getInstance().getRepaymentData(token, new OkHttpClientManager.ResultCallback<DataJsonResult<RepaymentDataBean>>() {

@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
     private String qiniuUrl;
     private String txtPath;
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler( ) {
+    private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 //上传文件共以下步骤,123在QiNiuGetUtils中实现
@@ -100,27 +100,27 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     @Override
     protected void onResume() {
-        super.onResume( );
+        super.onResume();
         if (StringUtils.isNotBlank(payloadData)) {
             IntentUtils.toActivity(context, GetuiDialogActivity.class);
         }
-        int[] a=new int[]{123,232};
+        int[] a = new int[]{123, 232};
     }
 
     private void initView() {
-        homeFragment = new HomeFragment( );
-        mineFragment = new MineFragment( );
-          getFragmentManager().beginTransaction().replace(R.id.ll_fragment_home, homeFragment).commit();
-        getFragmentManager( ).beginTransaction( ).replace(R.id.ll_fragment_mine, mineFragment).commit( );
-        setDrawerLayout( );
-        setGeTui( );
-        requestPermissionLocation( );
-        postContactsTxt( );
+        homeFragment = new HomeFragment();
+        mineFragment = new MineFragment();
+        getFragmentManager().beginTransaction().replace(R.id.ll_fragment_home, homeFragment).commit();
+        getFragmentManager().beginTransaction().replace(R.id.ll_fragment_mine, mineFragment).commit();
+        setDrawerLayout();
+        setGeTui();
+        requestPermissionLocation();
+        postContactsTxt();
     }
 
     public void openMineDrawer() {
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setDrawerLayout() {
-        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener( ) {
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
             }
@@ -136,14 +136,14 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 if (drawerView == llFragmentMine) {
-                    mineFragment.onResume( );
+                    mineFragment.onResume();
                 }
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 if (drawerView == llFragmentMine) {
-                    homeFragment.onResume( );
+                    homeFragment.onResume();
                 }
             }
 
@@ -155,17 +155,17 @@ public class MainActivity extends BaseActivity {
 
     //设置个推
     private void setGeTui() {
-        PackageManager pkgManager = getPackageManager( );
+        PackageManager pkgManager = getPackageManager();
         boolean sdCardWritePermission = pkgManager.checkPermission(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName( )) == PackageManager.PERMISSION_GRANTED;
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, getPackageName()) == PackageManager.PERMISSION_GRANTED;
         boolean phoneSatePermission = pkgManager.checkPermission(
-                Manifest.permission.READ_PHONE_STATE, getPackageName( )) == PackageManager.PERMISSION_GRANTED;
+                Manifest.permission.READ_PHONE_STATE, getPackageName()) == PackageManager.PERMISSION_GRANTED;
         if (Build.VERSION.SDK_INT >= 23 && !sdCardWritePermission || !phoneSatePermission) {
-            requestPermission( );
+            requestPermission();
         } else {
-            PushManager.getInstance( ).initialize(this.getApplicationContext( ), GetuiPushService.class);
+            PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
         }
-        PushManager.getInstance( ).registerPushIntentService(this.getApplicationContext( ), GetuiIntentService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GetuiIntentService.class);
     }
 
     //请求个推需要的权限 读取文件权限
@@ -181,11 +181,12 @@ public class MainActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_PERMISSION_LOCATION);
         } else {
-            getLocation( );
+            getLocation();
         }
     }
 
     private String locationProvider;
+
     private void getLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         //获取所有可用的位置提供器
@@ -203,17 +204,17 @@ public class MainActivity extends BaseActivity {
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location location = locationManager.getLastKnownLocation(locationProvider);
             if (location != null) {
-                postPosition(location.getLatitude( ) + "", location.getLongitude( ) + "");
-                Log.i("msg", "维度：" + location.getLatitude( ) + "经度：" + location.getLongitude( ));
+                postPosition(location.getLatitude() + "", location.getLongitude() + "");
+                Log.i("msg", "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
             }
         }
     }
 
     //上传经纬度
     private void postPosition(String latitude, String longitude) {
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).postPosition(token, latitude, longitude,
-                new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().postPosition(token, latitude, longitude,
+                new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
 
                     @Override
                     public void onError(Request request, Exception e, String error) {
@@ -222,7 +223,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onResponse(DataJsonResult<String> response) {
-                        if (response.getSuccess( ) == "true") {
+                        if (response.getSuccess() == "true") {
                             Log.i("http_msg", "上传经纬度成功");
                         } else {
                             Log.e("http_msg", "上传经纬度失败");
@@ -233,8 +234,8 @@ public class MainActivity extends BaseActivity {
 
     //判断是否需要上传通讯录，并上传
     private void postContactsTxt() {
-        if (StringUtils.isNotBlank(UserDao.getInstance(context).getToken( ))
-                && UserDao.getInstance(context).getAddress_list( ) == false) {
+        if (StringUtils.isNotBlank(UserDao.getInstance(context).getToken())
+                && UserDao.getInstance(context).getAddress_list() == false) {
             Log.d("http_msg", "需要上传通讯录");
             SharedPreferences sp = getSharedPreferences("contactsTxt", Context.MODE_PRIVATE);
             txtPath = sp.getString("txtPath", "");
@@ -247,8 +248,8 @@ public class MainActivity extends BaseActivity {
 
     //上传七牛云成功后，返回的链接上传至后台
     private void postContacts(String url) {
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).postContacts(token, url, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
+        String token = UserDao.getInstance(context).getToken();
+        ApiClient.getInstance().postContacts(token, url, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
@@ -257,7 +258,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onResponse(DataJsonResult<String> response) {
-                if (response.getSuccess( ) == "true") {
+                if (response.getSuccess() == "true") {
                     Log.d("http_msg", "通讯录上传成功");
                 } else {
                     Log.e("http_msg", "通讯录上传失败");
@@ -271,12 +272,12 @@ public class MainActivity extends BaseActivity {
         if (requestCode == REQUEST_PERMISSION) {
             if ((grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-                PushManager.getInstance( ).initialize(this.getApplicationContext( ), GetuiPushService.class);
+                PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
             } else {
-                PushManager.getInstance( ).initialize(this.getApplicationContext( ), GetuiPushService.class);
+                PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
             }
         } else if (requestCode == REQUEST_PERMISSION_LOCATION) {
-            getLocation( );
+            getLocation();
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -284,12 +285,12 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy( );
+        super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
-        long currentTime = System.currentTimeMillis( );
+        long currentTime = System.currentTimeMillis();
         if ((currentTime - touchTime) >= waitTime) {
             ToastUtils.showToast(this, "再按一次退出");
             touchTime = currentTime;

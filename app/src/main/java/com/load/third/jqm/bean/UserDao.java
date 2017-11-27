@@ -2,21 +2,26 @@ package com.load.third.jqm.bean;
 
 import android.content.Context;
 
+import com.load.third.jqm.MyApp;
 import com.load.third.jqm.utils.MySharedPreference;
 
 public class UserDao {
 	private static UserDao dao;
 	Context mContext;
 
-	private UserDao() {
+	public UserDao() {
 	}
 
 	public static UserDao getInstance(Context context) {
 		if (dao == null) {
 			dao = new UserDao();
-			dao.mContext = context;
+			dao.mContext = MyApp.getContext();
 		}
 		return dao;
+	}
+	static {
+		dao = new UserDao();
+		dao.mContext = MyApp.getContext();
 	}
 
 	public void setToken(String token) {

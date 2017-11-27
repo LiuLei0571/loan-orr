@@ -1,7 +1,6 @@
 package com.load.third.jqm.newHttp;
 
 import com.load.third.jqm.tips.ProgressDialog;
-import com.load.third.jqm.tips.ToastUtils;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -46,8 +45,7 @@ public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, IS
 
     @Override
     public void doFail(String msg) {
-        ToastUtils.showToast(msg);
-        doFinish();
+         doFinish();
     }
 
     @Override

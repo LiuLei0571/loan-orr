@@ -28,12 +28,13 @@ import com.load.third.jqm.activity.mine.LoginActivity;
 import com.load.third.jqm.activity.mine.TicketActivity;
 import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
+import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
-import com.load.third.jqm.httpUtil.TokenLoginUtil;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
@@ -47,6 +48,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
@@ -145,9 +149,6 @@ public class HomeFragment extends BaseFragment {
         }
     };
 
-    public HomeFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -169,17 +170,32 @@ public class HomeFragment extends BaseFragment {
         OverScrollDecoratorHelper.setUpOverScroll(llHomeBottomBorrow);
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void requestData() {
         if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
             status = -1;
             setStatus();
         } else {
             if (!MyApp.isNeedUpdate) {
-                TokenLoginUtil.loginWithToken(context, handler);
+//                TokenLoginUtil.loginWithToken(context, handler);
+                apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CommonObserver<UserBean>() {
+                            @Override
+                            public void doSuccess(BaseResponse<UserBean> result) {
+
+                            }
+                        });
             }
         }
     }
 
+    /**
+     * 错误提示
+     */
     private void requestError() {
         tvRequest.setVisibility(View.VISIBLE);
         llHomeTitleBorrow.setVisibility(View.GONE);//选择借款金额和时间的布局
@@ -189,6 +205,9 @@ public class HomeFragment extends BaseFragment {
         btnRepeyment.setVisibility(View.GONE);//还款按钮
     }
 
+    /**
+     * 还款信息
+     */
     private void setHomeRepayment() {
         String due_time = repaymentDataBean.getDue_time();
         repay_amount = repaymentDataBean.getRepay_amount();
@@ -241,10 +260,13 @@ public class HomeFragment extends BaseFragment {
     private void setExpenseInfo() {
         for (int i = 0; i < expenseDataBean.size(); i++) {
             if (expenseDataBean.get(i).getAmount().equals(money) && expenseDataBean.get(i).getPeriod().equals(day)) {
-                tvShenxunfei.setText(expenseDataBean.get(i).getServiceFee() + "元");
-                tvZonglixi.setText(expenseDataBean.get(i).getInterestFee() + "元");
-                tvGuanlifei.setText(expenseDataBean.get(i).getAccountManageFee() + "元");
-                tvShijidaozhang.setText(expenseDataBean.get(i).getRepay() + "元");
+                if (expenseDataBean != null) {
+                    tvShenxunfei.setText(expenseDataBean.get(i).getServiceFee() + "元");
+                    tvZonglixi.setText(expenseDataBean.get(i).getInterestFee() + "元");
+                    tvGuanlifei.setText(expenseDataBean.get(i).getAccountManageFee() + "元");
+                    tvShijidaozhang.setText(expenseDataBean.get(i).getRepay() + "元");
+                }
+
             }
         }
     }
@@ -252,10 +274,26 @@ public class HomeFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.M)
     private void setStatus() {
         if (status == STATUS_PAY_SUCCESS) {
-            HomeGetUtils.getRepayment(context, handler);
+//            HomeGetUtils.getRepayment(context, handler);
+            submitTask(apiRetrofit.getRepaymentData(Apis.getRepaymentData.getUrl()), new CommonObserver<RepaymentDataBean>() {
+                @Override
+                public void doSuccess(BaseResponse<RepaymentDataBean> result) {
+                    if (result.getData() != null) {
+                        repaymentDataBean = result.getData();
+                        tvRequest.setVisibility(View.GONE);
+                        setHomeRepayment();
+                    }
+                }
+
+                @Override
+                public void doFail(String msg) {
+                    super.doFail(msg);
+                    ToastUtils.showToast(context, "还款信息获取失败");
+                    requestError();
+                }
+            });
         } else {
             //                HomeGetUtils.getHomeExpenseData(context, handler);
-
             submitTask(apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl()), new CommonObserver<HomeExpenseDataBean>() {
                 @Override
                 public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
@@ -273,29 +311,6 @@ public class HomeFragment extends BaseFragment {
                     ToastUtils.showToast(context, "息费信息获取失败");
                 }
             });
-//            ApiManager.apiManager.initRetrofit()
-//                    .retrofitHomeExpenseData(Apis.home.getUrl())
-//                    .subscribeOn(Schedulers.io())
-//                    .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
-//                    .subscribeOn(AndroidSchedulers.mainThread())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(new CommonObserver<HomeExpenseDataBean>() {
-//                        @Override
-//                        public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
-//                            if (result.getData() != null) {
-//                                expenseDataBean = result.getData().getList();
-//                                setHomeExpenseData();
-//                                tvRequest.setVisibility(View.GONE);
-//                            } else {
-//                                ToastUtils.showToast(context, result.getMessage());
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void doFail(String msg) {
-//                            ToastUtils.showToast(context, "息费信息获取失败");
-//                        }
-//                    });
 
             switch (status) {
                 case -1:
