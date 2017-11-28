@@ -41,6 +41,7 @@ public class TokenLoginUtil {
                     handler.sendMessage(message);
                     MyApp.isNeedUpdate = false;
                 }
+
                 @Override
                 public void onResponse(DataJsonResult<JSONObject> response) {
                     if (response.getSuccess() == "true") {

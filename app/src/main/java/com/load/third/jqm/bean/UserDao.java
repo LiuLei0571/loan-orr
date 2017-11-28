@@ -15,7 +15,6 @@ public class UserDao {
 	public static UserDao getInstance(Context context) {
 		if (dao == null) {
 			dao = new UserDao();
-			dao.mContext = MyApp.getContext();
 		}
 		return dao;
 	}

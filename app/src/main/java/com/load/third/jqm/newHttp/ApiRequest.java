@@ -15,13 +15,18 @@ public class ApiRequest {
     private boolean hasToken;
 
     public String getUrl() {
+        StringBuffer stringBuffer = new StringBuffer();
         if (url.startsWith("http")) {
             return url;
         }
         if (hasToken) {
-            url = url + "?token" + UserHelper.getUserToken();
+            stringBuffer.append(UrlUtils.host);
+            stringBuffer.append(url);
+            stringBuffer.append("?token=");
+            stringBuffer.append(UserHelper.getUserToken());
+            url = url + "?token=" + UserHelper.getUserToken();
         }
-        return UrlUtils.host + url;
+        return stringBuffer.toString();
     }
 
     public boolean isHasToken() {

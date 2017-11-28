@@ -6,12 +6,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.load.third.jqm.MyApp;
+
 public class MySharedPreference {
 	private Context context;
 	private SharedPreferences mPerferences;
 
 	public MySharedPreference(Context context) {
-		this.context = context;
+		this.context = MyApp.getContext();
 		if (context != null) {
 			mPerferences = PreferenceManager
 					.getDefaultSharedPreferences(context);

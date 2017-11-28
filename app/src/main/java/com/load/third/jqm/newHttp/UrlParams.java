@@ -2,7 +2,6 @@ package com.load.third.jqm.newHttp;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * 用途：
@@ -20,7 +19,6 @@ public class UrlParams {
         } else {
             stringBuffer.append(Chars.AND);
         }
-        Set<Map.Entry<String, Object>> entrySet = params.entrySet();
         Iterator<Map.Entry<String, Object>> it = params.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry<String, Object> pair = it.next();

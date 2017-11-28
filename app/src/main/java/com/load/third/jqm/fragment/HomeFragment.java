@@ -30,6 +30,7 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.help.UserHelper;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
@@ -48,8 +49,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -172,23 +176,75 @@ public class HomeFragment extends BaseFragment {
 
     @TargetApi(Build.VERSION_CODES.M)
     private void requestData() {
-        if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
+        if (StringUtils.isBlank(UserHelper.getUserToken())) {
             status = -1;
             setStatus();
         } else {
             if (!MyApp.isNeedUpdate) {
 //                TokenLoginUtil.loginWithToken(context, handler);
                 apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                        .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
+                            @Override
+                            public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> response) throws Exception {
+//                                if (response.getSuccess().equals("true")) {
+//                                    UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
+//                                    MyApp.isNeedUpdate = false;
+//                                    return apiRetrofit.getStatus(Apis.getStatus.getUrl());
+//                                } else {
+//                                    Log.e("http_msg", "token登陆 " + response.getMessage());
+//                                    if (response.getCode() == 1025) {//token过期
+//                                        MyApp.isNeedUpdate = false;
+//                                        ToastUtils.showToast(context, "登录已过期，请重新登录");
+//                                        UserDao.getInstance(context).setToken("");
+//                                    } else if (response.getCode() == 1022) {
+//                                        MyApp.isNeedUpdate = true;
+////                                        final String android_url = response.getData().getString("android_url");
+////                                        if (StringUtils.isNotBlank(android_url)) {
+////                                            UpdateApkDialog.getInstance(context).showDialog(android_url);
+////                                        }
+//                                    } else {
+//                                        MyApp.isNeedUpdate = false;
+//                                    }
+                                    return apiRetrofit.getStatus(Apis.getStatus.getUrl());
+//                                }
+                            }
+                        })
+                        .flatMap(new Function<BaseResponse<String>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
+
+                            @Override
+                            public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<String> stringBaseResponse) throws Exception {
+                                return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
+                            }
+                        })
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new CommonObserver<UserBean>() {
+                        .subscribe(new Observer<BaseResponse<HomeExpenseDataBean>>() {
                             @Override
-                            public void doSuccess(BaseResponse<UserBean> result) {
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse<HomeExpenseDataBean> result) {
+                                expenseDataBean = result.getData().getList();
+                                setHomeExpenseData();
+                                tvRequest.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
 
                             }
                         });
+
+
             }
         }
     }
