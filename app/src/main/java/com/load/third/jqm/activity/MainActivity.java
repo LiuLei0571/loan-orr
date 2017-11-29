@@ -220,7 +220,6 @@ public class MainActivity extends BaseActivity {
                     public void onError(Request request, Exception e, String error) {
                         Log.e("http_msg", "上传经纬度，网络请求失败");
                     }
-
                     @Override
                     public void onResponse(DataJsonResult<String> response) {
                         if (response.getSuccess() == "true") {

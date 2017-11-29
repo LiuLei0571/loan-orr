@@ -25,7 +25,7 @@ import com.squareup.okhttp.Request;
 
 public class TokenLoginUtil {
     public static final int MSG_TOKEN_LOGIN_SUCCESS = 101;
-
+    @Deprecated
     public static void loginWithToken(final Context context, final Handler handler) {
         String token = UserDao.getInstance(context).getToken();
         Log.e("http_msg", "login token:" + token);

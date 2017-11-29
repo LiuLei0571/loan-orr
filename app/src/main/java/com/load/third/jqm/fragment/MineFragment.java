@@ -1,6 +1,5 @@
 package com.load.third.jqm.fragment;
 
-import android.app.Fragment;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment {
 
     @BindView(R.id.iv_head)
     ImageView ivHead;
@@ -56,20 +55,20 @@ public class MineFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mine, container, false);
         ButterKnife.bind(this, rootView);
-        context = getActivity( );
-        initView( );
+        context = getActivity();
+        initView();
         return rootView;
     }
 
     @Override
     public void onResume() {
-        super.onResume( );
-        initView( );
+        super.onResume();
+        initView();
     }
 
     private void initView() {
-        tvNickname.setText(StringUtils.isBlank(UserDao.getInstance(context).getToken( )) ?
-                "登录/注册" : UserDao.getInstance(context).getMobile( ));
+        tvNickname.setText(StringUtils.isBlank(UserDao.getInstance(context).getToken()) ?
+                "登录/注册" : UserDao.getInstance(context).getMobile());
     }
 
     private void copyWechatName() {
@@ -80,10 +79,10 @@ public class MineFragment extends Fragment {
 
     @OnClick({R.id.tv_nickname, R.id.btn_mine_ticket, R.id.btn_mine_verify, R.id.btn_mine_service, R.id.btn_mine_setting, R.id.btn_mine_help, R.id.btn_mine_about_us, R.id.btn_mine_wechat})
     public void onViewClicked(View view) {
-        if (StringUtils.isBlank(UserDao.getInstance(context).getToken( ))) {
+        if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
             IntentUtils.toActivity(context, LoginActivity.class);
         } else {
-            switch (view.getId( )) {
+            switch (view.getId()) {
                 case R.id.tv_nickname:
                     break;
                 case R.id.btn_mine_ticket:
@@ -106,7 +105,7 @@ public class MineFragment extends Fragment {
                     IntentUtils.toWebViewActivity(context, "关于我们", Urls.url_aboutUs);
                     break;
                 case R.id.btn_mine_wechat:
-                    copyWechatName( );
+                    copyWechatName();
                     break;
             }
         }

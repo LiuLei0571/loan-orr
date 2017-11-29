@@ -354,7 +354,6 @@ public class HomeFragment extends BaseFragment {
                     ToastUtils.showToast(context, "息费信息获取失败");
                 }
             });
-
         }
         setButtonStatus();
 

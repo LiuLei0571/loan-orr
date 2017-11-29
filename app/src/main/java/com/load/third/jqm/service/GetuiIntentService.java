@@ -31,7 +31,7 @@ public class GetuiIntentService extends GTIntentService {
 
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
-        byte[] payload = msg.getPayload( );
+        byte[] payload = msg.getPayload();
         if (payload != null) {
             payloadData = new String(payload);
             Log.d(TAG, "onReceiveMessageData payloadData->" + payloadData);
