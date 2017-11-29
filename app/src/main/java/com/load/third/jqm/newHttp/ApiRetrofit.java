@@ -4,6 +4,7 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.RepaymentUserBean;
 import com.load.third.jqm.bean.UserBean;
+import com.load.third.jqm.bean.newBean.UserStatus;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -37,7 +38,7 @@ public interface ApiRetrofit {
     Observable<BaseResponse<UserBean>> getLoginWithToken(@Url String url);
 
     @GET
-    Observable<BaseResponse<String>> getStatus(@Url String url);
+    Observable<BaseResponse<UserStatus>> getStatus(@Url String url);
 
     @GET
     Observable<BaseResponse<RepaymentDataBean>> getRepaymentData(@Url String url);

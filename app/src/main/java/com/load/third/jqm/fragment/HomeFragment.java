@@ -30,8 +30,10 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.bean.newBean.UserStatus;
 import com.load.third.jqm.help.UserHelper;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
+import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
@@ -50,10 +52,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -182,88 +182,51 @@ public class HomeFragment extends BaseFragment {
             setStatus();
         } else {
             if (!MyApp.isNeedUpdate) {
-//                TokenLoginUtil.loginWithToken(context, handler);
                 apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
-                        .doOnNext(new Consumer<BaseResponse<UserBean>>() {
-                            @Override
-                            public void accept(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
-
+                        .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<UserStatus>>>() {
+                            public Observable<BaseResponse<UserStatus>> apply(BaseResponse<UserBean> response) throws Exception {
+                                if (response.getSuccess().equals("true")) {
+                                    UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
+                                    MyApp.isNeedUpdate = false;
+                                    return apiRetrofit.getStatus(Apis.getStatus.getUrl());
+                                } else {
+                                    return Observable.error(new ApiException(response.getMessage()));
+                                }
                             }
                         })
-                        .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
-                            @Override
-                            public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> response) throws Exception {
-//                                if (response.getSuccess().equals("true")) {
-//                                    UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
-//                                    MyApp.isNeedUpdate = false;
-//                                    return apiRetrofit.getStatus(Apis.getStatus.getUrl());
-//                                } else {
-//                                    Log.e("http_msg", "token登陆 " + response.getMessage());
-//                                    if (response.getCode() == 1025) {//token过期
-//                                        MyApp.isNeedUpdate = false;
-//                                        ToastUtils.showToast(context, "登录已过期，请重新登录");
-//                                        UserDao.getInstance(context).setToken("");
-//                                    } else if (response.getCode() == 1022) {
-//                                        MyApp.isNeedUpdate = true;
-////                                        final String android_url = response.getData().getString("android_url");
-////                                        if (StringUtils.isNotBlank(android_url)) {
-////                                            UpdateApkDialog.getInstance(context).showDialog(android_url);
-////                                        }
-//                                    } else {
-//                                        MyApp.isNeedUpdate = false;
-//                                    }
-                                return apiRetrofit.getStatus(Apis.getStatus.getUrl());
-//                                }
-                            }
-                        })
-                        .doOnNext(new Consumer<BaseResponse<String>>() {
-                            @Override
-                            public void accept(BaseResponse<String> stringBaseResponse) throws Exception {
+                        .flatMap(new Function<BaseResponse<UserStatus>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
+                            public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<UserStatus> response) throws Exception {
+                                if (response.getSuccess().equals("true")) {
+                                    return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
+                                } else {
+                                    return Observable.error(new ApiException(response.getMessage()));
 
-                            }
-                        })
-                        .flatMap(new Function<BaseResponse<String>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
-
-                            @Override
-                            public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<String> stringBaseResponse) throws Exception {
-                                return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
-                            }
-                        })
-                        .doOnNext(new Consumer<BaseResponse<HomeExpenseDataBean>>() {
-                            @Override
-                            public void accept(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
-
+                                }
                             }
                         })
                         .subscribeOn(Schedulers.io())
                         .doOnSubscribe(new CustomConsumer<Disposable>(getContext()))
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new Observer<BaseResponse<HomeExpenseDataBean>>() {
+                        .subscribe(new CommonObserver<HomeExpenseDataBean>() {
                             @Override
-                            public void onSubscribe(Disposable d) {
-
+                            public void doSuccess(BaseResponse<HomeExpenseDataBean> result) {
+                                if (result.getData() != null) {
+                                    expenseDataBean = result.getData().getList();
+                                    setHomeExpenseData();
+                                    tvRequest.setVisibility(View.GONE);
+                                } else {
+                                    ToastUtils.showToast(context, result.getMessage());
+                                }
                             }
 
                             @Override
-                            public void onNext(BaseResponse<HomeExpenseDataBean> result) {
-                                expenseDataBean = result.getData().getList();
-                                setHomeExpenseData();
-                                tvRequest.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                            public void doFail(String msg) {
+                                super.doFail(msg);
+                                requestError();
                             }
                         });
-
-
+                setButtonStatus();
             }
         }
     }
@@ -387,49 +350,9 @@ public class HomeFragment extends BaseFragment {
                 }
             });
 
-            switch (status) {
-                case -1:
-                    setUiState("确认借贷", true);
-                    break;
-                case Consts.STATUS_BORROW_FIRST:
-                    setUiState("确认借贷", true);
-                    break;
-                case STATUS_BORROW_AGAIN:
-                    setUiState("确认借贷", true);
-                    break;
-                case STATUS_PSOT_INFO:
-                    setUiState("提交个人资料", true);
-                    break;
-                case Consts.STATUS_CHECKING_INFO:
-                    setUiState("个人资料审核中...", true);
-                    break;
-                case STATUS_POST_BANK_CARD:
-                    setUiState("绑定银行卡", true);
-                    break;
-                case STATUS_POAT_ID_CARD:
-                    setUiState("绑定证件照", true);
-                    break;
-                case Consts.STATUS_CHECKING_ID_CARD:
-                    setUiState("证件照审核中...", false);
-                    break;
-                case STATUS_PAY_SUCCESS:
-                    break;
-                case Consts.STATUS_PAY_ERROR:
-                    setUiState("放款失败", false);
-                    break;
-                case Consts.STATUS_REPOST_ID_CARD:
-                    setUiState("重新绑定证件照", true);
-                    break;
-                case Consts.STATUS_WAIT_PAY_13:
-                    setUiState("等待放款", false);
-                    break;
-                case Consts.STATUS_WAIT_PAY_14:
-                    setUiState("等待放款", false);
-                    break;
-                default:
-                    break;
-            }
         }
+        setButtonStatus();
+
     }
 
     public void setUiState(String content, boolean isClick) {
@@ -514,6 +437,51 @@ public class HomeFragment extends BaseFragment {
                 IntentUtils.toWebViewActivity(context, "用户协议", Urls.url_agreement);
                 break;
 
+        }
+    }
+
+    public void setButtonStatus() {
+        switch (status) {
+            case -1:
+                setUiState("确认借贷", true);
+                break;
+            case Consts.STATUS_BORROW_FIRST:
+                setUiState("确认借贷", true);
+                break;
+            case STATUS_BORROW_AGAIN:
+                setUiState("确认借贷", true);
+                break;
+            case STATUS_PSOT_INFO:
+                setUiState("提交个人资料", true);
+                break;
+            case Consts.STATUS_CHECKING_INFO:
+                setUiState("个人资料审核中...", true);
+                break;
+            case STATUS_POST_BANK_CARD:
+                setUiState("绑定银行卡", true);
+                break;
+            case STATUS_POAT_ID_CARD:
+                setUiState("绑定证件照", true);
+                break;
+            case Consts.STATUS_CHECKING_ID_CARD:
+                setUiState("证件照审核中...", false);
+                break;
+            case STATUS_PAY_SUCCESS:
+                break;
+            case Consts.STATUS_PAY_ERROR:
+                setUiState("放款失败", false);
+                break;
+            case Consts.STATUS_REPOST_ID_CARD:
+                setUiState("重新绑定证件照", true);
+                break;
+            case Consts.STATUS_WAIT_PAY_13:
+                setUiState("等待放款", false);
+                break;
+            case Consts.STATUS_WAIT_PAY_14:
+                setUiState("等待放款", false);
+                break;
+            default:
+                break;
         }
     }
 }
