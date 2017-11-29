@@ -4,6 +4,7 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.RepaymentUserBean;
 import com.load.third.jqm.bean.UserBean;
+import com.load.third.jqm.bean.newBean.BrrowInfo;
 import com.load.third.jqm.bean.newBean.UserStatus;
 
 import io.reactivex.Observable;
@@ -50,7 +51,7 @@ public interface ApiRetrofit {
     Observable<BaseResponse<String>> getCheckPhone(@Url String url);
 
     @GET
-    Observable<BaseResponse<String>> getBorrowInfo(@Url String url);
+    Observable<BaseResponse<BrrowInfo>> getBorrowInfo(@Url String url);
 
     @GET
     Observable<BaseResponse<String>> getMyInfoFirst(@Url String url);

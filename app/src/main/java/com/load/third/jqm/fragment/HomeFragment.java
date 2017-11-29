@@ -30,6 +30,7 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.bean.newBean.BrrowInfo;
 import com.load.third.jqm.bean.newBean.UserStatus;
 import com.load.third.jqm.help.UserHelper;
 import com.load.third.jqm.httpUtil.HomeGetUtils;
@@ -38,6 +39,8 @@ import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.newHttp.CustomConsumer;
+import com.load.third.jqm.newHttp.UrlParams;
+import com.load.third.jqm.tips.DialogUtils;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.Consts;
 import com.load.third.jqm.utils.IntentUtils;
@@ -46,7 +49,9 @@ import com.load.third.jqm.utils.Urls;
 import com.load.third.jqm.view.CycleWheelView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -355,42 +360,30 @@ public class HomeFragment extends BaseFragment {
 
     }
 
-    public void setUiState(String content, boolean isClick) {
-        btnBorrow.setText(content);
-        btnBorrow.setEnabled(isClick);
-    }
-
     private void btnBorrowClick() {
         switch (status) {
             case Consts.STATUS_BORROW_FIRST:
-                HomeGetUtils.postBorrowInfo(context, status, day, money);
-                break;
             case STATUS_BORROW_AGAIN:
-                HomeGetUtils.postBorrowInfo(context, status, day, money);
+                setBrrowInfo(day, money);
                 break;
             case STATUS_PSOT_INFO:
                 IntentUtils.toActivity(context, MyInfoFirstActivity.class);
-                break;
-            case Consts.STATUS_CHECKING_INFO:
                 break;
             case STATUS_POST_BANK_CARD:
                 IntentUtils.toActivity(context, BindBankCardActivity.class);
                 break;
             case STATUS_POAT_ID_CARD:
-                IntentUtils.toActivity(context, BindIdCardActivity.class);
-                break;
-            case Consts.STATUS_CHECKING_ID_CARD:
-                break;
-            case STATUS_PAY_SUCCESS:
-                break;
-            case Consts.STATUS_PAY_ERROR:
-                break;
             case Consts.STATUS_REPOST_ID_CARD:
                 IntentUtils.toActivity(context, BindIdCardActivity.class);
                 break;
+            case Consts.STATUS_CHECKING_INFO:
+            case Consts.STATUS_CHECKING_ID_CARD:
+            case STATUS_PAY_SUCCESS:
+            case Consts.STATUS_PAY_ERROR:
             case Consts.STATUS_WAIT_PAY_13:
-                break;
             case Consts.STATUS_WAIT_PAY_14:
+                break;
+            default:
                 break;
         }
     }
@@ -440,6 +433,10 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    public void setUiState(String content, boolean isClick) {
+        btnBorrow.setText(content);
+        btnBorrow.setEnabled(isClick);
+    }
     public void setButtonStatus() {
         switch (status) {
             case -1:
@@ -483,5 +480,31 @@ public class HomeFragment extends BaseFragment {
             default:
                 break;
         }
+    }
+
+    public void setBrrowInfo(String day, String money) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("borrowPeriod", day);
+        params.put("borrowMoney", money);
+        String url = UrlParams.getUrl(Apis.postBorrowInfo.getUrl(), params);
+        submitTask(apiRetrofit.getBorrowInfo(url), new CommonObserver<BrrowInfo>() {
+
+            @Override
+            public void doSuccess(BaseResponse<BrrowInfo> response) {
+                if (response.getSuccess().equals("true")) {
+                    if (status == Consts.STATUS_BORROW_FIRST) {
+                        IntentUtils.toActivity(context, MyInfoFirstActivity.class);
+                    } else if (status == Consts.STATUS_BORROW_AGAIN) {
+                        HomeGetUtils.checkPhone(context);
+                    }
+                    return;
+                }
+                if (StringUtils.isBlank(response.getData().getFrozen_time())) {
+                    ToastUtils.showToast(context, response.getMessage());
+                    return;
+                }
+                DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
+            }
+        });
     }
 }

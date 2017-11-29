@@ -59,6 +59,7 @@ public class HomeGetUtils {
             }
         });
     }
+
     @Deprecated
     public static void getHomeExpenseData(final Context context, final Handler handler) {
         ProgressDialog.showProgressBar(context, "请稍后...");
@@ -90,6 +91,7 @@ public class HomeGetUtils {
             }
         });
     }
+
     @Deprecated
     public static void getRepayment(final Context context, final Handler handler) {
         String token = UserDao.getInstance(context).getToken();
@@ -120,6 +122,7 @@ public class HomeGetUtils {
         });
     }
 
+    @Deprecated
     public static void postBorrowInfo(final Context context, final int status, String day, String money) {
         ProgressDialog.showProgressBar(context, "请稍后...");
         String token = UserDao.getInstance(context).getToken();
