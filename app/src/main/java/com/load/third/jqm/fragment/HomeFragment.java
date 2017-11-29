@@ -53,6 +53,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
@@ -183,6 +184,12 @@ public class HomeFragment extends BaseFragment {
             if (!MyApp.isNeedUpdate) {
 //                TokenLoginUtil.loginWithToken(context, handler);
                 apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                        .doOnNext(new Consumer<BaseResponse<UserBean>>() {
+                            @Override
+                            public void accept(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
+
+                            }
+                        })
                         .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
                             @Override
                             public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> response) throws Exception {
@@ -205,8 +212,14 @@ public class HomeFragment extends BaseFragment {
 //                                    } else {
 //                                        MyApp.isNeedUpdate = false;
 //                                    }
-                                    return apiRetrofit.getStatus(Apis.getStatus.getUrl());
+                                return apiRetrofit.getStatus(Apis.getStatus.getUrl());
 //                                }
+                            }
+                        })
+                        .doOnNext(new Consumer<BaseResponse<String>>() {
+                            @Override
+                            public void accept(BaseResponse<String> stringBaseResponse) throws Exception {
+
                             }
                         })
                         .flatMap(new Function<BaseResponse<String>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
@@ -214,6 +227,12 @@ public class HomeFragment extends BaseFragment {
                             @Override
                             public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<String> stringBaseResponse) throws Exception {
                                 return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
+                            }
+                        })
+                        .doOnNext(new Consumer<BaseResponse<HomeExpenseDataBean>>() {
+                            @Override
+                            public void accept(BaseResponse<HomeExpenseDataBean> homeExpenseDataBeanBaseResponse) throws Exception {
+
                             }
                         })
                         .subscribeOn(Schedulers.io())

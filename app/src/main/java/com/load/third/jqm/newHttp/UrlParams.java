@@ -13,6 +13,7 @@ import java.util.Map;
 public class UrlParams {
     public static String getUrl(String url, Map<String, Object> params) {
         StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(UrlUtils.host);
         stringBuffer.append(url);
         if (url.lastIndexOf(Strings.QMARK) == -1) {
             stringBuffer.append(Strings.QMARK);

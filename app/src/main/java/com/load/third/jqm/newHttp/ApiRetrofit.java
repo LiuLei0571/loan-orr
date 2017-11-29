@@ -6,8 +6,10 @@ import com.load.third.jqm.bean.RepaymentUserBean;
 import com.load.third.jqm.bean.UserBean;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 /**
  * 用途：
@@ -31,65 +33,65 @@ public interface ApiRetrofit {
     @GET("{url}")
     Observable<BaseResponse<UserBean>> getLogin(@Path(value = "url", encoded = true) String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<UserBean>> getLoginWithToken(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<UserBean>> getLoginWithToken(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getStatus(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getStatus(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<RepaymentDataBean>> getRepaymentData(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<RepaymentDataBean>> getRepaymentData(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<RepaymentUserBean>> getRepaymentUser(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<RepaymentUserBean>> getRepaymentUser(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getCheckPhone(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getCheckPhone(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getBorrowInfo(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getBorrowInfo(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getMyInfoFirst(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getMyInfoFirst(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getMyInfoSecond(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getMyInfoSecond(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getMyInfoThird(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getMyInfoThird(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getBankName(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getBankName(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getBindBankCard(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observer<BaseResponse<String>> getBindBankCard(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getQiNiuName(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getQiNiuName(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getQiNiuToken(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getQiNiuToken(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getBindIdCard(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getBindIdCard(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getContacts(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getContacts(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getBindGetuiCid(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getBindGetuiCid(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getIsStudentAuth(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getIsStudentAuth(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getStudyAuth(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getStudyAuth(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getPosition(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getPosition(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getIsChecking(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getIsChecking(@Url String url);
 
 
 }
