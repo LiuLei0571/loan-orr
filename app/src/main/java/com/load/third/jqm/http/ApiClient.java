@@ -145,6 +145,7 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void postContacts(String token, String addressList,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "logged/getAddressList" + "?token=" + token + "&addressList=" + addressList;
@@ -166,6 +167,7 @@ public class ApiClient {
                 + "&password=" + password + "&captcha=" + captcha, callback);
     }
 
+    @Deprecated
     public void postPosition(String token, String latitude, String longitude, OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         okHttpClientManager.getAsyn(BASE_URL + "loan/logged/updatePosition"
                 + "?token=" + token + "&latitude=" + latitude + "&longitude=" + longitude, callback);

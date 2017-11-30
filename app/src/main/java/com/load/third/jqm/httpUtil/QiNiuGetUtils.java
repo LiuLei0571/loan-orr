@@ -29,6 +29,7 @@ public class QiNiuGetUtils {
     public static final int MSG_GET_QINIU_NAME = 1001;
     public static final int MSG_GET_QINIU_UPLOAD = 1002;
 
+    @Deprecated
     public static void getQiNiuToken(final Context context, final Handler handler) {
         ApiClient.getInstance().getQiNiuToken(new OkHttpClientManager.ResultCallback<JSONObject>() {
 
@@ -83,7 +84,7 @@ public class QiNiuGetUtils {
             @Override
             public void complete(String key, ResponseInfo info, org.json.JSONObject res) {
                 if (info.isOK()) {
-                    String qiniuUrl = BASE_URL+key;
+                    String qiniuUrl = BASE_URL + key;
                     Log.i("qiniu", "Upload Success" + key);
                     Log.i("qiniu", "Upload Success" + qiniuUrl);
                     Message message = handler.obtainMessage();

@@ -24,18 +24,20 @@ import com.load.third.jqm.activity.home.GetuiDialogActivity;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.fragment.HomeFragment;
 import com.load.third.jqm.fragment.MineFragment;
-import com.load.third.jqm.http.ApiClient;
-import com.load.third.jqm.http.OkHttpClientManager;
-import com.load.third.jqm.http.result.DataJsonResult;
 import com.load.third.jqm.httpUtil.QiNiuGetUtils;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.service.GetuiIntentService;
 import com.load.third.jqm.service.GetuiPushService;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
-import com.squareup.okhttp.Request;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -212,23 +214,14 @@ public class MainActivity extends BaseActivity {
 
     //上传经纬度
     private void postPosition(String latitude, String longitude) {
-        String token = UserDao.getInstance(context).getToken();
-        ApiClient.getInstance().postPosition(token, latitude, longitude,
-                new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
-
-                    @Override
-                    public void onError(Request request, Exception e, String error) {
-                        Log.e("http_msg", "上传经纬度，网络请求失败");
-                    }
-                    @Override
-                    public void onResponse(DataJsonResult<String> response) {
-                        if (response.getSuccess() == "true") {
-                            Log.i("http_msg", "上传经纬度成功");
-                        } else {
-                            Log.e("http_msg", "上传经纬度失败");
-                        }
-                    }
-                });
+        Map<String, Object> params = new HashMap<>();
+        params.put("latitude", latitude);
+        params.put("longitude", longitude);
+        submitTask(apiRetrofit.getPosition(UrlParams.getUrl(Apis.postPosition.getUrl(), params)), new CommonObserver() {
+            @Override
+            public void doSuccess(BaseResponse result) {
+            }
+        });
     }
 
     //判断是否需要上传通讯录，并上传
@@ -241,27 +234,27 @@ public class MainActivity extends BaseActivity {
             Log.d("http_msg", "本地通讯录文件地址：" + txtPath);
             if (StringUtils.isNotBlank(txtPath)) {
                 QiNiuGetUtils.getQiNiuToken(context, handler);
+                submitTask(apiRetrofit.getQiNiuToken(Apis.getQiNiuToken.getUrl()), new CommonObserver<String>() {
+                    @Override
+                    public void doSuccess(BaseResponse<String> result) {
+                        qiniuToken = result.getData();
+                        if (StringUtils.isNotBlank(qiniuToken)) {
+                            QiNiuGetUtils.getQiNiuName(context, handler, ".txt");
+                        }
+                    }
+                });
             }
         }
     }
 
     //上传七牛云成功后，返回的链接上传至后台
     private void postContacts(String url) {
-        String token = UserDao.getInstance(context).getToken();
-        ApiClient.getInstance().postContacts(token, url, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
-
+        Map<String, Object> params = new HashMap<>();
+        params.put("addressList", url);
+        submitTask(apiRetrofit.getContacts(UrlParams.getUrl(Apis.postContacts.getUrl(), params)), new CommonObserver<String>() {
             @Override
-            public void onError(Request request, Exception e, String error) {
-                Log.e("http_msg", "通讯录上传失败");
-            }
-
-            @Override
-            public void onResponse(DataJsonResult<String> response) {
-                if (response.getSuccess() == "true") {
-                    Log.d("http_msg", "通讯录上传成功");
-                } else {
-                    Log.e("http_msg", "通讯录上传失败");
-                }
+            public void doSuccess(BaseResponse<String> result) {
+                Log.d("http_msg", "通讯录上传成功");
             }
         });
     }
