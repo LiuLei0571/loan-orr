@@ -36,8 +36,8 @@ public class ApiManager {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlUtils.host)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .client(LoanOkHttpClient.getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(LoanOkHttpClient.getOkHttpClient())
                 .build();
         apiRetrofit = retrofit.create(ApiRetrofit.class);
         return retrofit;
