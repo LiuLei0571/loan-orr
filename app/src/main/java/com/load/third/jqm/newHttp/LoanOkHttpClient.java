@@ -13,8 +13,10 @@ import okhttp3.OkHttpClient;
 
 public class LoanOkHttpClient {
     public static OkHttpClient okHttpClient;
+
     static {
     }
+
     private static OkHttpClient getInstance() {
         if (okHttpClient == null) {
             synchronized (ApiManager.class) {
@@ -22,14 +24,15 @@ public class LoanOkHttpClient {
                         .connectTimeout(60, TimeUnit.SECONDS)
                         .readTimeout(300, TimeUnit.SECONDS)
                         .writeTimeout(300, TimeUnit.SECONDS)
-                        .addInterceptor(new LoanHtttpCache())
+                        .addInterceptor(new LoanHttpIntercept())
                         .build();
 
             }
         }
         return okHttpClient;
     }
-    public static OkHttpClient getOkHttpClient(){
-      return   getInstance();
+
+    public static OkHttpClient getOkHttpClient() {
+        return getInstance();
     }
 }
