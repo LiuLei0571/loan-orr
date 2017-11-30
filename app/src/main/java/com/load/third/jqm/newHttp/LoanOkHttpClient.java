@@ -1,5 +1,7 @@
 package com.load.third.jqm.newHttp;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 
 /**
@@ -11,11 +13,17 @@ import okhttp3.OkHttpClient;
 
 public class LoanOkHttpClient {
     public static OkHttpClient okHttpClient;
-
+    static {
+    }
     private static OkHttpClient getInstance() {
         if (okHttpClient == null) {
             synchronized (ApiManager.class) {
-                okHttpClient = new OkHttpClient.Builder().build();
+                okHttpClient = new OkHttpClient.Builder()
+                        .connectTimeout(60, TimeUnit.SECONDS)
+                        .readTimeout(300, TimeUnit.SECONDS)
+                        .writeTimeout(300, TimeUnit.SECONDS)
+                        .addInterceptor(new LoanHtttpCache())
+                        .build();
 
             }
         }
