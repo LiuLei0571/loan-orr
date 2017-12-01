@@ -51,6 +51,7 @@ public class QiNiuGetUtils {
         });
     }
 
+    @Deprecated
     public static void getQiNiuName(final Context context, final Handler handler, final String fileFormat) {
         ApiClient.getInstance().getQiNiuName(new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
 

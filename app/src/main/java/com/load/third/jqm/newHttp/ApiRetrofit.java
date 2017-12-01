@@ -5,6 +5,8 @@ import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.RepaymentUserBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.newBean.BrrowInfo;
+import com.load.third.jqm.bean.newBean.QiniuName;
+import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.bean.newBean.UserStatus;
 
 import io.reactivex.Observable;
@@ -69,10 +71,10 @@ public interface ApiRetrofit {
     Observer<BaseResponse<String>> getBindBankCard(@Url String url);
 
     @GET
-    Observable<BaseResponse<String>> getQiNiuName(@Url String url);
+    Observable<BaseResponse<QiniuName>> getQiNiuName(@Url String url);
 
     @GET
-    Observable<BaseResponse<String>> getQiNiuToken(@Url String url);
+    Observable<BaseResponse<QiniuToken>> getQiNiuToken(@Url String url);
 
     @GET
     Observable<BaseResponse<String>> getBindIdCard(@Url String url);

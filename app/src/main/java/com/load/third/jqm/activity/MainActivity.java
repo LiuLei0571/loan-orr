@@ -22,12 +22,16 @@ import com.igexin.sdk.PushManager;
 import com.load.third.jqm.R;
 import com.load.third.jqm.activity.home.GetuiDialogActivity;
 import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.bean.newBean.QiniuName;
+import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.fragment.HomeFragment;
 import com.load.third.jqm.fragment.MineFragment;
 import com.load.third.jqm.httpUtil.QiNiuGetUtils;
+import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
 import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.service.GetuiIntentService;
 import com.load.third.jqm.service.GetuiPushService;
@@ -41,6 +45,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.load.third.jqm.service.GetuiIntentService.payloadData;
 
@@ -221,6 +230,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void doSuccess(BaseResponse result) {
             }
+
+            @Override
+            public void doFail(String msg) {
+                doFinish();
+            }
         });
     }
 
@@ -233,16 +247,36 @@ public class MainActivity extends BaseActivity {
             txtPath = sp.getString("txtPath", "");
             Log.d("http_msg", "本地通讯录文件地址：" + txtPath);
             if (StringUtils.isNotBlank(txtPath)) {
-                QiNiuGetUtils.getQiNiuToken(context, handler);
-                submitTask(apiRetrofit.getQiNiuToken(Apis.getQiNiuToken.getUrl()), new CommonObserver<String>() {
-                    @Override
-                    public void doSuccess(BaseResponse<String> result) {
-                        qiniuToken = result.getData();
-                        if (StringUtils.isNotBlank(qiniuToken)) {
-                            QiNiuGetUtils.getQiNiuName(context, handler, ".txt");
-                        }
-                    }
-                });
+//                QiNiuGetUtils.getQiNiuToken(context, handler);
+                apiRetrofit.getQiNiuToken(Apis.getQiNiuToken.getUrl())
+                        .flatMap(new Function<BaseResponse<QiniuToken>, Observable<BaseResponse<QiniuName>>>() {
+
+                            @Override
+                            public Observable<BaseResponse<QiniuName>> apply(BaseResponse<QiniuToken> response) throws Exception {
+                                qiniuToken = response.getData().getUptoken();
+                                if (StringUtils.isNotBlank(qiniuToken)) {
+                                    return apiRetrofit.getQiNiuName(Apis.getQiNiuName.getUrl());
+                                } else {
+                                    return Observable.error(new ApiException(response.getMessage()));
+                                }
+                            }
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .doOnSubscribe(new CustomConsumer<Disposable>(this))
+                        .subscribeOn(AndroidSchedulers.mainThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CommonObserver<QiniuName>() {
+                            @Override
+                            public void doSuccess(BaseResponse<QiniuName> result) {
+                                if (result != null) {
+                                    qiniuName = result.getData().getFileName() + ".text";
+                                    if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(txtPath)) {
+                                        QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, txtPath);
+                                    }
+                                }
+
+                            }
+                        });
             }
         }
     }

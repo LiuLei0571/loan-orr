@@ -81,7 +81,6 @@ public class UserDao {
     }
 
     public void setAllData(UserBean userBean) {
-        setToken(userBean.getToken());
         setAllDataWithoutToken(userBean);
     }
 
@@ -91,6 +90,7 @@ public class UserDao {
         setCid(userBean.getCid());
         setAddress_list(userBean.getAddress_list());
         setTaobao(userBean.getTaobao());
+        setToken(userBean.getToken());
     }
 
     public void clearAll() {
