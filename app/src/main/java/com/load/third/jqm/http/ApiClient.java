@@ -151,7 +151,7 @@ public class ApiClient {
         String postText = url + "logged/getAddressList" + "?token=" + token + "&addressList=" + addressList;
         okHttpClientManager.getAsyn(postText, callback);
     }
-
+    @Deprecated
     public void bindGetuiCid(String token, String clientid,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "logged/updateCid" + "?token=" + token + "&cid=" + clientid;

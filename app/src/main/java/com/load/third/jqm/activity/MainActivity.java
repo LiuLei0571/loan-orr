@@ -31,7 +31,6 @@ import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
-import com.load.third.jqm.newHttp.CustomConsumer;
 import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.service.GetuiIntentService;
 import com.load.third.jqm.service.GetuiPushService;
@@ -46,8 +45,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -83,18 +80,18 @@ public class MainActivity extends BaseActivity {
                 //2、获取七牛文件名
                 //3、上传文件到七牛云
                 //4、上传七牛云成功后，返回的链接上传至后台
-                case QiNiuGetUtils.MSG_GET_QINIU_TOKEN:
-                    qiniuToken = (String) msg.obj;
-                    if (StringUtils.isNotBlank(qiniuToken)) {
-                        QiNiuGetUtils.getQiNiuName(context, handler, ".txt");
-                    }
-                    break;
-                case QiNiuGetUtils.MSG_GET_QINIU_NAME:
-                    qiniuName = (String) msg.obj;
-                    if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(txtPath)) {
-                        QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, txtPath);
-                    }
-                    break;
+//                case QiNiuGetUtils.MSG_GET_QINIU_TOKEN:
+//                    qiniuToken = (String) msg.obj;
+//                    if (StringUtils.isNotBlank(qiniuToken)) {
+//                        QiNiuGetUtils.getQiNiuName(context, handler, ".txt");
+//                    }
+//                    break;
+//                case QiNiuGetUtils.MSG_GET_QINIU_NAME:
+//                    qiniuName = (String) msg.obj;
+//                    if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(txtPath)) {
+//                        QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, txtPath);
+//                    }
+//                    break;
                 case QiNiuGetUtils.MSG_GET_QINIU_UPLOAD:
                     qiniuUrl = (String) msg.obj;
                     if (StringUtils.isNotBlank(qiniuUrl)) {
@@ -247,7 +244,6 @@ public class MainActivity extends BaseActivity {
             txtPath = sp.getString("txtPath", "");
             Log.d("http_msg", "本地通讯录文件地址：" + txtPath);
             if (StringUtils.isNotBlank(txtPath)) {
-//                QiNiuGetUtils.getQiNiuToken(context, handler);
                 apiRetrofit.getQiNiuToken(Apis.getQiNiuToken.getUrl())
                         .flatMap(new Function<BaseResponse<QiniuToken>, Observable<BaseResponse<QiniuName>>>() {
 
@@ -262,9 +258,6 @@ public class MainActivity extends BaseActivity {
                             }
                         })
                         .subscribeOn(Schedulers.io())
-                        .doOnSubscribe(new CustomConsumer<Disposable>(this))
-                        .subscribeOn(AndroidSchedulers.mainThread())
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new CommonObserver<QiniuName>() {
                             @Override
                             public void doSuccess(BaseResponse<QiniuName> result) {

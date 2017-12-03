@@ -4,11 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.load.third.jqm.MyApp;
-import com.load.third.jqm.httpUtil.GetuiGetUtils;
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
+import com.load.third.jqm.MyApp;
+import com.load.third.jqm.newHttp.ApiManager;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 /**
  * 继承 GTIntentService 接收来自个推的消息, 所有消息在线程中回调, 如果注册了该服务, 则务必要在 AndroidManifest中声明, 否则无法接受消息<br>
@@ -45,7 +52,17 @@ public class GetuiIntentService extends GTIntentService {
         Log.e(TAG, "onReceiveClientId -> " + "clientid = " + clientid);
         if (!MyApp.isNeedUpdate) {
             //收到个推clientid，向后台发送绑定
-            GetuiGetUtils.bindGetuiCid(context, clientid);
+//            GetuiGetUtils.bindGetuiCid(context, clientid);
+            ApiManager.apiManager.initRetrofit().getBindGetuiCid(Apis.bindGetuiCid.getUrl())
+                    .doOnSubscribe(new CustomConsumer<Disposable>(this))
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<String>() {
+                        @Override
+                        public void doSuccess(BaseResponse<String> result) {
+
+                        }
+                    });
         }
     }
 

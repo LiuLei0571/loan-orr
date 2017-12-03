@@ -16,7 +16,7 @@ import com.squareup.okhttp.Request;
  */
 
 public class GetuiGetUtils {
-
+    @Deprecated
     public static void bindGetuiCid(final Context context, String clientid) {
         String token = UserDao.getInstance(context).getToken( );
         if (StringUtils.isNotBlank(token)) {

@@ -4,8 +4,6 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +61,6 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
 import static com.load.third.jqm.utils.Consts.STATUS_BORROW_AGAIN;
 import static com.load.third.jqm.utils.Consts.STATUS_PAY_SUCCESS;
 import static com.load.third.jqm.utils.Consts.STATUS_POAT_ID_CARD;
@@ -131,33 +128,33 @@ public class HomeFragment extends BaseFragment {
     private String money, day;
     private RepaymentDataBean repaymentDataBean;
     private int repay_amount;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    HomeGetUtils.getStatus(context, handler);
-                    break;
-                case MSG_GET_STATUS_ERROR:
-                    requestError();
-                    break;
-                case MSG_GET_STATUS:
-                    status = (int) msg.obj;
-                    tvRequest.setVisibility(View.GONE);
-                    setStatus();
-                    break;
-                case MSG_GET_EXPENSE_DATA:
-                    expenseDataBean = (List<HomeExpenseDataBean.ListBean>) msg.obj;
-                    tvRequest.setVisibility(View.GONE);
-                    setHomeExpenseData();
-                    break;
-                case MSG_GET_REPAYMENT_DATA:
-                    repaymentDataBean = (RepaymentDataBean) msg.obj;
-                    tvRequest.setVisibility(View.GONE);
-                    setHomeRepayment();
-                    break;
-            }
-        }
-    };
+//    private Handler handler = new Handler() {
+//        public void handleMessage(Message msg) {
+//            switch (msg.what) {
+//                case MSG_TOKEN_LOGIN_SUCCESS:
+//                    HomeGetUtils.getStatus(context, handler);
+//                    break;
+//                case MSG_GET_STATUS_ERROR:
+//                    requestError();
+//                    break;
+//                case MSG_GET_STATUS:
+//                    status = (int) msg.obj;
+//                    tvRequest.setVisibility(View.GONE);
+//                    setStatus();
+//                    break;
+//                case MSG_GET_EXPENSE_DATA:
+//                    expenseDataBean = (List<HomeExpenseDataBean.ListBean>) msg.obj;
+//                    tvRequest.setVisibility(View.GONE);
+//                    setHomeExpenseData();
+//                    break;
+//                case MSG_GET_REPAYMENT_DATA:
+//                    repaymentDataBean = (RepaymentDataBean) msg.obj;
+//                    tvRequest.setVisibility(View.GONE);
+//                    setHomeRepayment();
+//                    break;
+//            }
+//        }
+//    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -363,7 +360,7 @@ public class HomeFragment extends BaseFragment {
         switch (status) {
             case Consts.STATUS_BORROW_FIRST:
             case STATUS_BORROW_AGAIN:
-                setBrrowInfo(day, money);
+                setBorrowInfo(day, money);
                 break;
             case STATUS_PSOT_INFO:
                 IntentUtils.toActivity(context, MyInfoFirstActivity.class);
@@ -436,6 +433,7 @@ public class HomeFragment extends BaseFragment {
         btnBorrow.setText(content);
         btnBorrow.setEnabled(isClick);
     }
+
     public void setButtonStatus() {
         switch (status) {
             case -1:
@@ -481,7 +479,7 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    public void setBrrowInfo(String day, String money) {
+    public void setBorrowInfo(String day, String money) {
         Map<String, Object> params = new HashMap<>();
         params.put("borrowPeriod", day);
         params.put("borrowMoney", money);
