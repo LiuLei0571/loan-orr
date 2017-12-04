@@ -28,10 +28,9 @@ import com.load.third.jqm.bean.HomeExpenseDataBean;
 import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
-import com.load.third.jqm.bean.newBean.BrrowInfo;
+import com.load.third.jqm.bean.newBean.BorrowInfo;
 import com.load.third.jqm.bean.newBean.UserStatus;
 import com.load.third.jqm.help.UserHelper;
-import com.load.third.jqm.httpUtil.HomeGetUtils;
 import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
@@ -55,6 +54,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
@@ -484,24 +484,45 @@ public class HomeFragment extends BaseFragment {
         params.put("borrowPeriod", day);
         params.put("borrowMoney", money);
         String url = UrlParams.getUrl(Apis.postBorrowInfo.getUrl(), params);
-        submitTask(apiRetrofit.getBorrowInfo(url), new CommonObserver<BrrowInfo>() {
+        apiRetrofit.getBorrowInfo(url)
+                .flatMap(new Function<BaseResponse<BorrowInfo>, ObservableSource<BaseResponse<String>>>() {
+                    @Override
+                    public ObservableSource<BaseResponse<String>> apply(BaseResponse<BorrowInfo> response) throws Exception {
 
-            @Override
-            public void doSuccess(BaseResponse<BrrowInfo> response) {
-                if (response.getSuccess().equals("true")) {
-                    if (status == Consts.STATUS_BORROW_FIRST) {
-                        IntentUtils.toActivity(context, MyInfoFirstActivity.class);
-                    } else if (status == Consts.STATUS_BORROW_AGAIN) {
-                        HomeGetUtils.checkPhone(context);
+                        if (response.getSuccess().equals("true")) {
+                            if (status == Consts.STATUS_BORROW_FIRST) {
+                                IntentUtils.toActivity(context, MyInfoFirstActivity.class);
+                            } else if (status == Consts.STATUS_BORROW_AGAIN) {
+                                return apiRetrofit.getCheckPhone(Apis.checkPhone.getUrl());
+                            }
+                        } else {
+                            DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
+
+                        }
+                        return Observable.error(new ApiException(response.getMessage()));
+
                     }
-                    return;
-                }
-                if (StringUtils.isBlank(response.getData().getFrozen_time())) {
-                    ToastUtils.showToast(context, response.getMessage());
-                    return;
-                }
-                DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
-            }
-        });
+                });
+
+
+//        submitTask(apiRetrofit.getBorrowInfo(url), new CommonObserver<BorrowInfo>() {
+//
+//            @Override
+//            public void doSuccess(BaseResponse<BorrowInfo> response) {
+//                if (response.getSuccess().equals("true")) {
+//                    if (status == Consts.STATUS_BORROW_FIRST) {
+//                        IntentUtils.toActivity(context, MyInfoFirstActivity.class);
+//                    } else if (status == Consts.STATUS_BORROW_AGAIN) {
+//                        HomeGetUtils.checkPhone(context);
+//                    }
+//                    return;
+//                }
+//                if (StringUtils.isBlank(response.getData().getFrozen_time())) {
+//                    ToastUtils.showToast(context, response.getMessage());
+//                    return;
+//                }
+//                DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
+//            }
+//        });
     }
 }

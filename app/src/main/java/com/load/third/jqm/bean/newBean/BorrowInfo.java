@@ -7,7 +7,7 @@ package com.load.third.jqm.bean.newBean;
  */
 
 
-public class BrrowInfo {
+public class BorrowInfo {
     private String frozen_time;
 
     public String getFrozen_time() {

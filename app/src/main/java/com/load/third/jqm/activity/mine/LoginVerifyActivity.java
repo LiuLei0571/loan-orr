@@ -1,6 +1,5 @@
 package com.load.third.jqm.activity.mine;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.load.third.jqm.R;
+import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.http.ApiClient;
@@ -34,7 +34,7 @@ import butterknife.OnClick;
 
 import static com.load.third.jqm.activity.mine.LoginActivity.mobile;
 
-public class LoginVerifyActivity extends Activity {
+public class LoginVerifyActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -52,17 +52,17 @@ public class LoginVerifyActivity extends Activity {
     private Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_verify);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
         tvTitle.setText("登录/注册");
-        addTextListener( );
+        addTextListener();
     }
 
     private void addTextListener() {
@@ -71,24 +71,24 @@ public class LoginVerifyActivity extends Activity {
         TextWatcherUtil.setListener(viewArr, watcherListener);
     }
 
-    private void getSMScode() {
+    private void getSmsCode() {
         ProgressDialog.showProgressBar(context, "请稍后...");
-        ApiClient.getInstance( ).getSMScode(mobile, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
+        ApiClient.getInstance().getSMScode(mobile, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
+                ProgressDialog.cancelProgressBar();
                 ToastUtils.showToast(context, "网络请求失败");
             }
 
             @Override
             public void onResponse(DataJsonResult<String> response) {
-                ProgressDialog.cancelProgressBar( );
-                if (response.getSuccess( ) == "true") {
+                ProgressDialog.cancelProgressBar();
+                if (response.getSuccess() == "true") {
                     ToastUtils.showToast(context, "发送验证码成功");
-                    new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start( );
+                    new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
+                    ToastUtils.showToast(context, response.getMessage());
                 }
             }
         });
@@ -99,29 +99,29 @@ public class LoginVerifyActivity extends Activity {
         ProgressDialog.showProgressBar(context, "登录中...");
         String version = VersionUtils.getVersionName(context);
         Log.e("http_msg", "version code:" + VersionUtils.getVersionName(context));
-        ApiClient.getInstance( ).login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>( ) {
+        ApiClient.getInstance().login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>() {
 
             @Override
             public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
+                ProgressDialog.cancelProgressBar();
                 ToastUtils.showToast(context, "网络请求失败");
                 Log.e("http_msg", "登录失败");
             }
 
             @Override
             public void onResponse(DataJsonResult<UserBean> response) {
-                ProgressDialog.cancelProgressBar( );
-                if (response.getSuccess( ) == "true") {
+                ProgressDialog.cancelProgressBar();
+                if (response.getSuccess() == "true") {
                     Log.d("http_msg", "登录成功");
 //                    用户信息实体类
-                    UserBean userBean = response.getData( );
-                    Log.d("http_msg", "response token:" + userBean.getToken( ));
-                    String token = userBean.getToken( );
+                    UserBean userBean = response.getData();
+                    Log.d("http_msg", "response token:" + userBean.getToken());
+                    String token = userBean.getToken();
                     //网络请求的token需要转码，将获得的token先转码
                     try {
-                        token = URLEncoder.encode(userBean.getToken( ), "UTF-8");
+                        token = URLEncoder.encode(userBean.getToken(), "UTF-8");
                     } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace( );
+                        e.printStackTrace();
                     }
                     userBean.setToken(token);
                     //利用UserDao类使用MySharedPreference储存用户信息
@@ -129,10 +129,10 @@ public class LoginVerifyActivity extends Activity {
                     UserDao.getInstance(context).setMobile(mobile);
                     IntentUtils.toMainActivity(context);
                     ToastUtils.showToast(context, "登录成功");
-                    Log.d("http_msg", "userBean token:" + UserDao.getInstance(context).getToken( ));
+                    Log.d("http_msg", "userBean token:" + UserDao.getInstance(context).getToken());
                 } else {
-                    ToastUtils.showToast(context, response.getMessage( ));
-                    Log.e("http_msg", "登录失败" + response.getMessage( ));
+                    ToastUtils.showToast(context, response.getMessage());
+                    Log.e("http_msg", "登录失败" + response.getMessage());
                 }
             }
         });
@@ -140,15 +140,15 @@ public class LoginVerifyActivity extends Activity {
 
     @OnClick({R.id.iv_back, R.id.tv_verify_code, R.id.btn_next})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_back:
-                finish( );
+                finish();
                 break;
             case R.id.tv_verify_code:
-                getSMScode( );
+                getSmsCode();
                 break;
             case R.id.btn_next:
-                login( );
+                login();
                 break;
         }
     }

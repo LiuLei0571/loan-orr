@@ -61,16 +61,19 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void getStatus(String token, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + "logged/CurrentProgress" + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void getHomeExpenseData(OkHttpClientManager.ResultCallback<DataJsonResult<HomeExpenseDataBean>> callback) {
         String postText = url + "CfgList";
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void getRepaymentData(String token, OkHttpClientManager.ResultCallback<DataJsonResult<RepaymentDataBean>> callback) {
         String postText = url + "logged/selectRepay" + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
@@ -80,12 +83,13 @@ public class ApiClient {
         String postText = url + "logged/selectUserName" + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
     }
-
+@Deprecated
     public void checkPhone(String token, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + Urls.url_checkPhone + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void postBorrowInfo(String token, String borrowPeriod, String borrowMoney, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + "logged/borrowInInsert" + "?token=" + token + "&borrowPeriod=" + borrowPeriod + "&borrowMoney=" + borrowMoney;
         okHttpClientManager.getAsyn(postText, callback);
@@ -151,6 +155,7 @@ public class ApiClient {
         String postText = url + "logged/getAddressList" + "?token=" + token + "&addressList=" + addressList;
         okHttpClientManager.getAsyn(postText, callback);
     }
+
     @Deprecated
     public void bindGetuiCid(String token, String clientid,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {

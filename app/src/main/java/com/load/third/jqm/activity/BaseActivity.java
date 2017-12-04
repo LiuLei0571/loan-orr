@@ -1,5 +1,7 @@
 package com.load.third.jqm.activity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -25,7 +27,7 @@ public class BaseActivity extends FragmentActivity {
     public ApiRetrofit apiRetrofit;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiRetrofit = ApiManager.apiManager.initRetrofit();
     }
@@ -36,5 +38,11 @@ public class BaseActivity extends FragmentActivity {
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commonObserver);
+    }
+    public Context getBaseContext(){
+        return  this;
+    }
+    public Activity getBaseActivity(){
+        return this;
     }
 }

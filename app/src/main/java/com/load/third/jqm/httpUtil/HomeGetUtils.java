@@ -153,6 +153,7 @@ public class HomeGetUtils {
         });
     }
 
+    @Deprecated
     public static void checkPhone(final Context context) {
         ProgressDialog.showProgressBar(context, "请稍后...");
         String token = UserDao.getInstance(context).getToken();
