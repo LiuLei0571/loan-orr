@@ -37,12 +37,12 @@ public class ApiClient {
         }
         return mInstance;
     }
-
+    @Deprecated
     public void getSMScode(String mobile, OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "smsSend" + "?mobile=" + mobile;
         okHttpClientManager.getAsyn(postText, callback);
     }
-
+    @Deprecated
     public void login(String mobile, String code, String mobile_type, String version, OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>> callback) {
         String versionkey = version;
         try {
