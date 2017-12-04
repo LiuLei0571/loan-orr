@@ -68,7 +68,7 @@ public interface ApiRetrofit {
     Observable<BaseResponse<String>> getBankName(@Url String url);
 
     @GET
-    Observer<BaseResponse<String>> getBindBankCard(@Url String url);
+    Observable<BaseResponse<String>> getBindBankCard(@Url String url);
 
     @GET
     Observable<BaseResponse<QiniuName>> getQiNiuName(@Url String url);

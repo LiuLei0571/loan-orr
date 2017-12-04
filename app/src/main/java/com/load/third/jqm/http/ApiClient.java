@@ -37,11 +37,13 @@ public class ApiClient {
         }
         return mInstance;
     }
+
     @Deprecated
     public void getSMScode(String mobile, OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "smsSend" + "?mobile=" + mobile;
         okHttpClientManager.getAsyn(postText, callback);
     }
+
     @Deprecated
     public void login(String mobile, String code, String mobile_type, String version, OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>> callback) {
         String versionkey = version;
@@ -83,7 +85,8 @@ public class ApiClient {
         String postText = url + "logged/selectUserName" + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
     }
-@Deprecated
+
+    @Deprecated
     public void checkPhone(String token, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + Urls.url_checkPhone + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
@@ -126,7 +129,7 @@ public class ApiClient {
         String postText = url + "logged/selectBankName" + "?bankcard=" + bankcard;
         okHttpClientManager.getAsyn(postText, callback);
     }
-
+    @Deprecated
     public void bindBankCard(String token, String bankcard, String bankname, String bankAccount,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "logged/saveBank" + "?token=" + token + "&bankcard=" + bankcard
@@ -163,10 +166,11 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void isStudentAuth(String token, OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         okHttpClientManager.getAsyn(url + "logged/selectStudentAuth" + "?token=" + token, callback);
     }
-
+    @Deprecated
     public void studyAuth(String token, String username, String password, String captcha, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         okHttpClientManager.getAsyn(Urls.url_xuexin_verify + "?token=" + token + "&username=" + username
                 + "&password=" + password + "&captcha=" + captcha, callback);
@@ -179,6 +183,7 @@ public class ApiClient {
     }
 
     //是否上线审核中
+    @Deprecated
     public void isChecking(OkHttpClientManager.ResultCallback<String> callback) {
         String postText = BASE_URL + "app/downloadApp/version.json";
         okHttpClientManager.getAsyn(postText, callback);

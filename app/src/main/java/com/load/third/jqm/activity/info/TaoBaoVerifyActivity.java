@@ -18,6 +18,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.load.third.jqm.R;
 import com.load.third.jqm.activity.info.taobao.CrawlerMetaModel;
 import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.help.UrlHelp;
 import com.load.third.jqm.tips.DialogUtils;
 import com.load.third.jqm.view.progress.WaveProgress;
 import com.load.third.okhttp.OkHttpUtils;
@@ -25,9 +26,7 @@ import com.load.third.okhttp.callback.Callback;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 
 import butterknife.BindView;
@@ -65,25 +64,21 @@ public class TaoBaoVerifyActivity extends Activity {
         setContentView(R.layout.activity_tao_bao_verify);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
         tvTitle.setText("淘宝认证");
-        userId = UserDao.getInstance(context).getToken( );
-        try {
-            userId = URLDecoder.decode(userId, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace( );
-        }
-        initWebView( );
-        waveProgressBar.setValue(BigDecimal.ZERO.floatValue( ));
+        userId = UrlHelp.getDecode(UserDao.getInstance(context).getToken());
+
+        initWebView();
+        waveProgressBar.setValue(BigDecimal.ZERO.floatValue());
         toggleIndicator(false);
         startAuth(wbvWebView);
     }
 
     private void initWebView() {
-        WebSettings webSettings = wbvWebView.getSettings( );
+        WebSettings webSettings = wbvWebView.getSettings();
         //设置WebView属性，能够执行Javascript脚本
         webSettings.setJavaScriptEnabled(true);
         //设置可以访问文件
@@ -91,16 +86,16 @@ public class TaoBaoVerifyActivity extends Activity {
         //设置支持缩放
         webSettings.setBuiltInZoomControls(false);
         //设置Web视图
-        wbvWebView.setWebViewClient(new CustomWebViewClient( ));
+        wbvWebView.setWebViewClient(new CustomWebViewClient());
     }
 
     public class CustomWebViewClient extends WebViewClient {
         public void onPageFinished(WebView view, String url) {
             System.out.println("加载完成:" + url);
             if (crawlerMetaModel != null) {
-                String state = crawlerMetaModel.getState( );
+                String state = crawlerMetaModel.getState();
                 if (StringUtils.equals(state, CrawlerMetaModel.Login)) {
-                    if (url.startsWith(crawlerMetaModel.getLoginSuccessUrl( ))) {
+                    if (url.startsWith(crawlerMetaModel.getLoginSuccessUrl())) {
                         state = CrawlerMetaModel.Crawler;
                         crawlerMetaModel.setState(state);
                         toggleIndicator(true);
@@ -125,13 +120,13 @@ public class TaoBaoVerifyActivity extends Activity {
     }
 
     public void startAuth(final WebView webView) {
-        OkHttpUtils.get( ).url("http://crawler.jietiaozhan.com/crawler/auth/get")
+        OkHttpUtils.get().url("http://crawler.jietiaozhan.com/crawler/auth/get")
                 .addParams("userId", userId)
                 .addParams("key", "taobao")
-                .build( ).execute(new Callback( ) {
+                .build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int id) throws Exception {
-                String json = response.body( ).string( );
+                String json = response.body().string();
                 if (StringUtils.isNotBlank(json)) {
                     JSONObject jsonObject = JSON.parseObject(json);
                     Boolean result = jsonObject.getBoolean("result");
@@ -141,11 +136,11 @@ public class TaoBaoVerifyActivity extends Activity {
                         CrawlerMetaModel model = jsonObject.getObject("object", CrawlerMetaModel.class);
                         if (model != null) {
                             crawlerMetaModel = model;
-                            final String url = model.getLoginUrl( );
+                            final String url = model.getLoginUrl();
                             crawlerMetaModel.setState(CrawlerMetaModel.Login);
-                            crawlerMetaModel.setNextCrawlerUrl(model.getLoginSuccessUrl( ));
+                            crawlerMetaModel.setNextCrawlerUrl(model.getLoginSuccessUrl());
                             crawlerMetaModel.setMessage(message);
-                            webView.post(new Runnable( ) {
+                            webView.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     webView.loadUrl(url);
@@ -154,10 +149,10 @@ public class TaoBaoVerifyActivity extends Activity {
                         }
                     } else if (code.equals("200")) {
                         crawlerMetaModel.setPercent(BigDecimal.ONE);
-                        webView.post(new Runnable( ) {
+                        webView.post(new Runnable() {
                             @Override
                             public void run() {
-                                triggerFinished( );
+                                triggerFinished();
                             }
                         });
                     }
@@ -167,7 +162,7 @@ public class TaoBaoVerifyActivity extends Activity {
 
             @Override
             public void onError(final Call call, final Exception e, final int id) {
-                webView.post(new Runnable( ) {
+                webView.post(new Runnable() {
                     @Override
                     public void run() {
                         triggerError(call, e, id);
@@ -183,22 +178,22 @@ public class TaoBaoVerifyActivity extends Activity {
     }
 
     public void startCrawler(final String currentUrl) {
-        wbvWebView.evaluateJavascript("document.getElementsByTagName('html')[0].outerHTML", new ValueCallback<String>( ) {
+        wbvWebView.evaluateJavascript("document.getElementsByTagName('html')[0].outerHTML", new ValueCallback<String>() {
             @Override
             public void onReceiveValue(String value) {
-                String initUrl = crawlerMetaModel.getNextCrawlerUrl( );
+                String initUrl = crawlerMetaModel.getNextCrawlerUrl();
                 String url = currentUrl;
                 String html = value.replace("\\u003C", "<");
 
-                OkHttpUtils.post( ).url("http://crawler.jietiaozhan.com/crawler/parser")
+                OkHttpUtils.post().url("http://crawler.jietiaozhan.com/crawler/parser")
                         .addParams("userId", userId)
                         .addParams("initUrl", Base64.encodeToString(initUrl.getBytes(Charset.forName("utf8")), Base64.DEFAULT))
                         .addParams("url", Base64.encodeToString(url.getBytes(Charset.forName("utf8")), Base64.DEFAULT))
                         .addParams("html", Base64.encodeToString(html.getBytes(Charset.forName("utf8")), Base64.DEFAULT))
-                        .build( ).execute(new Callback( ) {
+                        .build().execute(new Callback() {
                     @Override
                     public Object parseNetworkResponse(Response response, int id) throws Exception {
-                        String json = response.body( ).string( );
+                        String json = response.body().string();
                         if (StringUtils.isNotBlank(json)) {
                             JSONObject jsonObject = JSON.parseObject(json);
                             Boolean result = jsonObject.getBoolean("result");
@@ -207,25 +202,25 @@ public class TaoBaoVerifyActivity extends Activity {
                             if (result == true) {
                                 final CrawlerMetaModel model = jsonObject.getObject("object", CrawlerMetaModel.class);
                                 if (model != null) {
-                                    final String nextCrawlerUrl = model.getNextCrawlerUrl( );
+                                    final String nextCrawlerUrl = model.getNextCrawlerUrl();
                                     crawlerMetaModel.setNextCrawlerUrl(nextCrawlerUrl);
-                                    crawlerMetaModel.setPercent(model.getPercent( ));
+                                    crawlerMetaModel.setPercent(model.getPercent());
                                     crawlerMetaModel.setMessage(message);
-                                    wbvWebView.post(new Runnable( ) {
+                                    wbvWebView.post(new Runnable() {
                                         @Override
                                         public void run() {
                                             wbvWebView.loadUrl(nextCrawlerUrl);
-                                            updatePercent( );
+                                            updatePercent();
                                         }
                                     });
                                 }
                             } else if (code.equals("200")) {
-                                wbvWebView.post(new Runnable( ) {
+                                wbvWebView.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         crawlerMetaModel.setPercent(BigDecimal.ONE);
                                         crawlerMetaModel.setMessage(message);
-                                        triggerFinished( );
+                                        triggerFinished();
                                     }
                                 });
                             }
@@ -235,7 +230,7 @@ public class TaoBaoVerifyActivity extends Activity {
 
                     @Override
                     public void onError(final Call call, final Exception e, final int id) {
-                        wbvWebView.post(new Runnable( ) {
+                        wbvWebView.post(new Runnable() {
                             @Override
                             public void run() {
                                 triggerError(call, e, id);
@@ -253,40 +248,40 @@ public class TaoBaoVerifyActivity extends Activity {
     }
 
     public void updatePercent() {
-        BigDecimal p = crawlerMetaModel.getPercent( );
+        BigDecimal p = crawlerMetaModel.getPercent();
         if (p == null) {
             p = BigDecimal.ZERO;
         }
-        waveProgressBar.setValue(p.floatValue( ) * waveProgressBar.getMaxValue( ));
-        System.out.println("设置mProgressTips:" + crawlerMetaModel.getMessage( ));
-        tvProgressTips.setText(crawlerMetaModel.getMessage( ));
+        waveProgressBar.setValue(p.floatValue() * waveProgressBar.getMaxValue());
+        System.out.println("设置mProgressTips:" + crawlerMetaModel.getMessage());
+        tvProgressTips.setText(crawlerMetaModel.getMessage());
     }
 
     public void triggerFinished() {
-        updatePercent( );
+        updatePercent();
     }
 
     public void triggerError(final Call call, final Exception e, final int id) {
-        tvProgressTips.setText("网络加载错误:" + e.getLocalizedMessage( ));
+        tvProgressTips.setText("网络加载错误:" + e.getLocalizedMessage());
     }
 
     private void back() {
-        DialogUtils.getInstance(context).showTipsDialog("是否退出淘宝认证？", new View.OnClickListener( ) {
+        DialogUtils.getInstance(context).showTipsDialog("是否退出淘宝认证？", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.getInstance(context).dismiss( );
-                finish( );
+                DialogUtils.getInstance(context).dismiss();
+                finish();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        back( );
+        back();
     }
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
-        back( );
+        back();
     }
 }

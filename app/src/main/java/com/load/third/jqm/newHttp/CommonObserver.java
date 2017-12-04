@@ -33,10 +33,10 @@ public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, IS
     public void onNext(BaseResponse<T> result) {
         if ("true".equals(result.getSuccess())) {
             doSuccess(result);
-            doFinish();
         } else {
             doFail(result.getMessage());
         }
+        doFinish();
     }
 
     @Override

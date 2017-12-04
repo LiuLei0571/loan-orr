@@ -1,6 +1,5 @@
 package com.load.third.jqm.activity.mine;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.load.third.jqm.R;
+import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.adapter.TicketListAdapter;
 import com.load.third.jqm.tips.DialogUtils;
 
@@ -27,7 +27,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  * 优惠券界面，1.0.1版本是隐藏的
  */
 
-public class TicketActivity extends Activity {
+public class TicketActivity extends BaseActivity {
     public static final String TYPE_TICKET = "type_ticket";
     public static final int TYPE_TICKET_LIST = 0;//从个人中心点击进入，查看优惠券列表
     public static final int TYPE_TICKET_CHOSE = 1;//从首页点击进入，选取优惠券
@@ -47,21 +47,21 @@ public class TicketActivity extends Activity {
     private Context context;
     private int type;
     private TicketListAdapter adapter;
-    private List<String> list = new ArrayList<>( );
+    private List<String> list = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ticket);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
         tvTitle.setText("借贷券");
         OverScrollDecoratorHelper.setUpOverScroll(lvTicket);
-        type=getIntent().getIntExtra(TYPE_TICKET,TYPE_TICKET_LIST);
+        type = getIntent().getIntExtra(TYPE_TICKET, TYPE_TICKET_LIST);
         switch (type) {
             case TYPE_TICKET_LIST:
                 tvRight.setText("规则说明");
@@ -77,7 +77,7 @@ public class TicketActivity extends Activity {
 //        llTicketNull.setVisibility(View.GONE);
         adapter = new TicketListAdapter(context, list, type);
         lvTicket.setAdapter(adapter);
-        lvTicket.setOnItemClickListener(new AdapterView.OnItemClickListener( ) {
+        lvTicket.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int itemPosition, long id) {
                 if (type == TYPE_TICKET_CHOSE) {
@@ -90,9 +90,9 @@ public class TicketActivity extends Activity {
 
     @OnClick({R.id.iv_back, R.id.tv_right, R.id.btn_invite})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_back:
-                finish( );
+                finish();
                 break;
             case R.id.tv_right:
                 switch (type) {

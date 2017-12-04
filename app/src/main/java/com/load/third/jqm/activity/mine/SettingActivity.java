@@ -1,6 +1,5 @@
 package com.load.third.jqm.activity.mine;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.load.third.jqm.R;
+import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.tips.DialogUtils;
 import com.load.third.jqm.tips.ToastUtils;
@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SettingActivity extends Activity {
+public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -38,7 +38,7 @@ public class SettingActivity extends Activity {
     private Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);

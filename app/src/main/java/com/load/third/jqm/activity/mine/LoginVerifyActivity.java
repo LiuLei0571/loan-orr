@@ -123,7 +123,7 @@ public class LoginVerifyActivity extends BaseActivity {
             public void doSuccess(BaseResponse<UserBean> response) {
                 if (response.getData() != null) {
                     UserBean userBean = response.getData();
-                    userBean.setToken(UrlHelp.getDecode(userBean.getToken()));
+                    userBean.setToken(UrlHelp.getEncode(userBean.getToken()));
                     UserDao.getInstance(context).setAllData(userBean);
                     IntentUtils.toMainActivity(context);
                     ToastUtils.showToast(context, "登录成功");
