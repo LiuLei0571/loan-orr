@@ -8,8 +8,8 @@ public class Urls {
     public static final String url_checkPhone = "logged/GetMessage";
     public static final String url_getQiNiuToken = "QiniuToken";
     public static final String url_getQiNiuName = "QiniuReName";
-    //    public static final String BASE_URL="http://jqm.daodaok.com/";
-    public static final String BASE_URL = "http://jqm.****.com/";
+        public static final String BASE_URL="http://jqm.daodaok.com/";
+//    public static final String BASE_URL = "http://jqm.****.com/";
 
     public static final String url_repayment = BASE_URL + "loan/logged/PayAction";
     public static final String url_help = BASE_URL + "app/loanHelper.html";

@@ -186,6 +186,7 @@ public class HomeFragment extends BaseFragment {
             if (!MyApp.isNeedUpdate) {
                 apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
                         .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<UserStatus>>>() {
+                            @Override
                             public Observable<BaseResponse<UserStatus>> apply(BaseResponse<UserBean> response) throws Exception {
                                 if (response.getSuccess().equals("true")) {
                                     UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
@@ -197,6 +198,7 @@ public class HomeFragment extends BaseFragment {
                             }
                         })
                         .flatMap(new Function<BaseResponse<UserStatus>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
+                            @Override
                             public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<UserStatus> response) throws Exception {
                                 if (response.getSuccess().equals("true")) {
                                     return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
@@ -268,10 +270,11 @@ public class HomeFragment extends BaseFragment {
         llHomeBottom.setVisibility(View.VISIBLE);
         llHomeTitleRepayment.setVisibility(View.GONE);
         btnRepeyment.setVisibility(View.GONE);
-        for (int i = 0; i < expenseDataBean.size(); i++) {
-            if (!moneyList.contains(expenseDataBean.get(i).getAmount()))
-                moneyList.add(expenseDataBean.get(i).getAmount());
-            dayList.add(expenseDataBean.get(i).getPeriod());
+        for (HomeExpenseDataBean.ListBean bean : expenseDataBean) {
+            if (!moneyList.contains(bean.getAmount())) {
+                moneyList.add(bean.getAmount());
+            }
+            dayList.add(bean.getPeriod());
         }
         setWheelView();
     }

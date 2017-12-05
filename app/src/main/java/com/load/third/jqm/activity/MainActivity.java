@@ -26,6 +26,7 @@ import com.load.third.jqm.bean.newBean.QiniuName;
 import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.fragment.HomeFragment;
 import com.load.third.jqm.fragment.MineFragment;
+import com.load.third.jqm.help.UserHelper;
 import com.load.third.jqm.httpUtil.QiNiuGetUtils;
 import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
@@ -61,8 +62,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    private static Context context;
-    private static HomeFragment homeFragment;
+    private Context context;
+    private HomeFragment homeFragment;
     private MineFragment mineFragment;
     private long waitTime = 2000;
     private long touchTime = 0;
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity {
     private String txtPath;
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 //上传文件共以下步骤,123在QiNiuGetUtils中实现
@@ -103,7 +105,7 @@ public class MainActivity extends BaseActivity {
     };
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -211,9 +213,8 @@ public class MainActivity extends BaseActivity {
         if (ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location location = locationManager.getLastKnownLocation(locationProvider);
-            if (location != null) {
+            if (location != null && StringUtils.isNotBlank(UserHelper.getUserToken())) {
                 postPosition(location.getLatitude() + "", location.getLongitude() + "");
-                Log.i("msg", "维度：" + location.getLatitude() + "经度：" + location.getLongitude());
             }
         }
     }
@@ -228,10 +229,6 @@ public class MainActivity extends BaseActivity {
             public void doSuccess(BaseResponse result) {
             }
 
-            @Override
-            public void doFail(String msg) {
-                doFinish();
-            }
         });
     }
 

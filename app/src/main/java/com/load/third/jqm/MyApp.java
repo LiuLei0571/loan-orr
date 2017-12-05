@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 
 /**
@@ -25,6 +26,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        initStrict();
         //监听应用内Activity的生命周期
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
@@ -62,5 +64,20 @@ public class MyApp extends Application {
             public void onActivityDestroyed(Activity activity) {
             }
         });
+    }
+
+    private void initStrict() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .detectDiskReads()
+                .detectDiskWrites()
+                .detectNetwork()
+                .detectAll()
+                .penaltyLog()
+                .build());
+        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+                .detectLeakedSqlLiteObjects()
+                .detectAll()
+                .penaltyLog()
+                .build());
     }
 }

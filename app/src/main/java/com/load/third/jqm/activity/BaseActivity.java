@@ -1,10 +1,9 @@
 package com.load.third.jqm.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.ApiRetrofit;
@@ -23,13 +22,19 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends AppCompatActivity {
     public ApiRetrofit apiRetrofit;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiRetrofit = ApiManager.apiManager.initRetrofit();
+    }
+
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
     }
 
     public void submitTask(Observable baseResponseObservable, CommonObserver commonObserver) {
@@ -39,9 +44,7 @@ public class BaseActivity extends FragmentActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(commonObserver);
     }
-    public Context getBaseContext(){
-        return  this;
-    }
+
     public Activity getBaseActivity(){
         return this;
     }
