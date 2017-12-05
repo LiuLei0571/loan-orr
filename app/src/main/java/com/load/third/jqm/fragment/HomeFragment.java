@@ -188,7 +188,7 @@ public class HomeFragment extends BaseFragment {
                         .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<UserStatus>>>() {
                             @Override
                             public Observable<BaseResponse<UserStatus>> apply(BaseResponse<UserBean> response) throws Exception {
-                                if (response.getSuccess().equals("true")) {
+                                if (response.getSuccess()) {
                                     UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
                                     MyApp.isNeedUpdate = false;
                                     return apiRetrofit.getStatus(Apis.getStatus.getUrl());
@@ -200,7 +200,7 @@ public class HomeFragment extends BaseFragment {
                         .flatMap(new Function<BaseResponse<UserStatus>, Observable<BaseResponse<HomeExpenseDataBean>>>() {
                             @Override
                             public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<UserStatus> response) throws Exception {
-                                if (response.getSuccess().equals("true")) {
+                                if (response.getSuccess()) {
                                     return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
                                 } else {
                                     return Observable.error(new ApiException(response.getMessage()));
@@ -492,7 +492,7 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public ObservableSource<BaseResponse<String>> apply(BaseResponse<BorrowInfo> response) throws Exception {
 
-                        if (response.getSuccess().equals("true")) {
+                        if (response.getSuccess()) {
                             if (status == Consts.STATUS_BORROW_FIRST) {
                                 IntentUtils.toActivity(context, MyInfoFirstActivity.class);
                             } else if (status == Consts.STATUS_BORROW_AGAIN) {

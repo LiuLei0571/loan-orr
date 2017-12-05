@@ -9,31 +9,30 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58e168cf-7962-42aa-80ca-7787be6b6eca" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/load/third/jqm/ExampleInstrumentedTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/test/java/com/load/third/jqm/ExampleUnitTest.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/MyApp.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/MyApp.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/BindBankCardActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/BindBankCardActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/XueXinVerifyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/XueXinVerifyActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/MoreVerifyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/MoreVerifyActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/utils/Urls.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/utils/Urls.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ToastUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ToastUtils.java" />
     </list>
     <list id="4e9a0fd2-487c-4cd1-a40d-2d1310d74741" name="newDefault" comment="newDefault" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -58,22 +57,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="215" column="84" lean-forward="false" selection-start-line="215" selection-start-column="84" selection-end-line="215" selection-end-column="84" />
+            <state relative-caret-position="437">
+              <caret line="225" column="30" lean-forward="false" selection-start-line="225" selection-start-column="30" selection-end-line="225" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/ApiClient.java">
+      <file leaf-file-name="LoginVerifyActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="180" column="74" lean-forward="false" selection-start-line="180" selection-start-column="60" selection-end-line="180" selection-end-column="74" />
-              <folding />
+            <state relative-caret-position="78">
+              <caret line="93" column="38" lean-forward="true" selection-start-line="93" selection-start-column="38" selection-end-line="93" selection-end-column="38" />
+              <folding>
+                <element signature="e#4493#5035#0" expanded="true" />
+                <element signature="e#5034#5035#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -81,9 +83,42 @@
       <file leaf-file-name="Apis.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/Apis.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="492">
-              <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+            <state relative-caret-position="456">
+              <caret line="28" column="20" lean-forward="false" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GetuiIntentService.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="538">
+              <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/SettingActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BaseResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+              <folding>
+                <element signature="e#841#842#0" expanded="true" />
+                <element signature="e#871#872#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,10 +149,15 @@
       <find>fei'xin'x</find>
       <find>fei'xin'xi</find>
       <find>非信息</find>
-      <find>信息</find>
       <find>for</find>
-      <find>updatePo</find>
       <find>updatePosition</find>
+      <find>updatePo</find>
+      <find>信息</find>
+      <find>qing</find>
+      <find>qin</find>
+      <find>请求</find>
+      <find>请求chao's</find>
+      <find>请求超时</find>
       <find>qiniuToken</find>
     </findStrings>
   </component>
@@ -1867,9 +1907,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseObsever.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ToastUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseRespose.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/newBean/HomeExpenseResult.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/HomeExpenseDataBean.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ILoading.java" />
@@ -1891,15 +1929,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiException.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/newBean/UserStatus.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/newBean/BrrowInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/httpUtil/HomeGetUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/MineFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpLogInterceptor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/DeviceHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHtttpCache.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpIntercept.java" />
@@ -1908,8 +1943,17 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/utils/Urls.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ToastUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/BindBankCardActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/MoreVerifyActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/XueXinVerifyActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java" />
       </list>
     </option>
   </component>
@@ -2174,6 +2218,56 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="load" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="third" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jqm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoanORR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LoanORR" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2186,11 +2280,15 @@
     <property name="android.sdk.path" value="D:/sdk/android-sdk-windows" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="Api&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/http/ApiClient.java&#10;Home&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;Url&#9;PSI&#9;JAVA://com.load.third.jqm.newHttp.UrlUtils&#10;Login&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;cONT&#9;FILE&#9;jar:///Users/liulei/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class&#10;BaseActivity&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java&#10;BaseA&#9;PSI&#9;JAVA://com.load.third.jqm.activity.BaseActivity&#10;ApiR&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java&#10;Toke&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;To&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;Ur&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;Apis&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/Apis.java&#10;ApiRe&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRequest.java&#10;UrlP&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;H&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;HomeF&#9;PSI&#9;JAVA://com.load.third.jqm.fragment.HomeFragment" />
+    <property name="SearchEverywhereHistoryKey" value="Apis&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/Apis.java&#10;Toas&#9;PSI&#9;JAVA://com.load.third.jqm.tips.ToastUtils&#10;Log&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;Api&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/http/ApiClient.java&#10;Home&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;Url&#9;PSI&#9;JAVA://com.load.third.jqm.newHttp.UrlUtils&#10;Login&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;cONT&#9;FILE&#9;jar:///Users/liulei/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class&#10;BaseActivity&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java&#10;BaseA&#9;PSI&#9;JAVA://com.load.third.jqm.activity.BaseActivity&#10;ApiR&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java&#10;Toke&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;To&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;Ur&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;ApiRe&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRequest.java&#10;UrlP&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;H&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;HomeF&#9;PSI&#9;JAVA://com.load.third.jqm.fragment.HomeFragment" />
     <property name="device.picker.selection" value="0309f07108e5a251" />
     <property name="android.profiler.active" value="true" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
+    <property name="DEBUGGABLE_DEVICE" value="lge-nexus_5-0309f07108e5a251" />
+    <property name="DEBUGGABLE_PROCESS" value="com.load.third.jqm" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="DEBUGGER_ID" value="Auto" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -2280,7 +2378,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512471495455" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512475359083" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2328,7 +2426,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512471495455" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512475359083" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2511,7 +2609,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512471495457" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512475359086" />
       </method>
     </configuration>
     <list size="1">
@@ -2641,7 +2739,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512027891511</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="优化代码">
+      <created>1512471499028</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1512471499029</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2663,7 +2768,7 @@
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6394737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6223684" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6210526" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -2713,117 +2818,23 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java</url>
-          <line>30</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java</url>
+          <line>33</line>
           <properties />
-          <option name="timeStamp" value="13" />
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java</url>
-          <line>40</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java</url>
+          <line>43</line>
           <properties />
-          <option name="timeStamp" value="14" />
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="24" />
+      <option name="time" value="26" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/76f3c69879d3e01c082f49d8661c5590838148e1/retrofit-2.3.0-sources.jar!/retrofit2/http/Url.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="39" column="18" lean-forward="false" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/76f3c69879d3e01c082f49d8661c5590838148e1/retrofit-2.3.0-sources.jar!/retrofit2/RequestBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="29" column="12" lean-forward="false" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/76f3c69879d3e01c082f49d8661c5590838148e1/retrofit-2.3.0-sources.jar!/retrofit2/Retrofit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1025">
-          <caret line="97" column="46" lean-forward="true" selection-start-line="97" selection-start-column="46" selection-end-line="97" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.3.0/76f3c69879d3e01c082f49d8661c5590838148e1/retrofit-2.3.0-sources.jar!/retrofit2/http/Path.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="22" column="75" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="75" />
-          <folding>
-            <element signature="e#582#583#0" expanded="false" />
-            <element signature="e#613#614#0" expanded="false" />
-            <element signature="e#767#768#0" expanded="false" />
-            <element signature="e#797#798#0" expanded="false" />
-            <element signature="e#844#845#0" expanded="false" />
-            <element signature="e#880#881#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/UserDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1252">
-          <caret line="82" column="47" lean-forward="true" selection-start-line="82" selection-start-column="47" selection-end-line="82" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-23/android.jar!/java/lang/RuntimeException.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="12" column="11" lean-forward="false" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CustomConsumer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="18" column="11" lean-forward="false" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/newBean/BrrowInfo.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/newBean/UserStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/utils/Consts.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="17" column="11" lean-forward="false" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/MineFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -2835,13 +2846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-384">
           <caret line="52" column="23" lean-forward="false" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -2858,7 +2862,7 @@
         <state relative-caret-position="440">
           <caret line="58" column="69" lean-forward="true" selection-start-line="58" selection-start-column="69" selection-end-line="58" selection-end-column="69" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2982,14 +2986,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/BindBankCardActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="101" column="35" lean-forward="false" selection-start-line="101" selection-start-column="35" selection-end-line="101" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/load/third/jqm/ExampleInstrumentedTest.java" />
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -3014,14 +3010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/httpUtil/GetuiGetUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/UrlUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
@@ -3038,36 +3026,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="40" column="48" lean-forward="false" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="54" column="43" lean-forward="false" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="666">
           <caret line="50" column="48" lean-forward="false" selection-start-line="50" selection-start-column="46" selection-end-line="50" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="70" column="16" lean-forward="false" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -3088,39 +3050,194 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="13" column="25" lean-forward="false" selection-start-line="13" selection-start-column="25" selection-end-line="13" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ToastUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="17" column="70" lean-forward="false" selection-start-line="17" selection-start-column="70" selection-end-line="17" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="798">
+          <caret line="54" column="43" lean-forward="false" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/BindBankCardActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="93" column="61" lean-forward="false" selection-start-line="93" selection-start-column="61" selection-end-line="93" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="272" column="6" lean-forward="false" selection-start-line="272" selection-start-column="6" selection-end-line="272" selection-end-column="6" />
+        <state relative-caret-position="236">
+          <caret line="494" column="49" lean-forward="false" selection-start-line="494" selection-start-column="49" selection-end-line="494" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/MoreVerifyActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="76" column="65" lean-forward="false" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/info/XueXinVerifyActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="121" column="62" lean-forward="false" selection-start-line="121" selection-start-column="62" selection-end-line="121" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
-            <element signature="e#6961#7780#0" expanded="true" />
-            <element signature="e#7779#7780#0" expanded="true" />
-            <element signature="e#7815#8493#0" expanded="true" />
-            <element signature="e#8492#8493#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/ApiClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="180" column="74" lean-forward="false" selection-start-line="180" selection-start-column="60" selection-end-line="180" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/Apis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="215" column="84" lean-forward="false" selection-start-line="215" selection-start-column="84" selection-end-line="215" selection-end-column="84" />
+        <state relative-caret-position="437">
+          <caret line="225" column="30" lean-forward="false" selection-start-line="225" selection-start-column="30" selection-end-line="225" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/BaseResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="19" column="18" lean-forward="false" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+          <folding>
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#871#872#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="33" column="37" lean-forward="false" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.reactivex.rxjava2/rxjava/2.1.3/29d73207f0725011a59e0dc02022ac4e4f8445ab/rxjava-2.1.3-sources.jar!/io/reactivex/Observer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/SettingActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/result/JsonResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/result/DataJsonResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="43" lean-forward="true" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/help/UrlHelp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="93" column="38" lean-forward="true" selection-start-line="93" selection-start-column="38" selection-end-line="93" selection-end-column="38" />
+          <folding>
+            <element signature="e#4493#5035#0" expanded="true" />
+            <element signature="e#5034#5035#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/Apis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="28" column="20" lean-forward="false" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/ApiClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="164" column="78" lean-forward="false" selection-start-line="164" selection-start-column="75" selection-end-line="164" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/httpUtil/GetuiGetUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="47" column="24" lean-forward="false" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/java/net/URLEncoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="55" column="25" lean-forward="false" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/service/GetuiIntentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
           <folding />
         </state>
       </provider>

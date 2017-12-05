@@ -10,7 +10,6 @@ import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.bean.newBean.UserStatus;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
@@ -31,11 +30,11 @@ public interface ApiRetrofit {
     @GET("{homeUrl}")
     Observable<BaseResponse<HomeExpenseDataBean>> retrofitHomeExpenseData(@Path(value = "homeUrl", encoded = true) String homeUrl);
 
-    @GET("{url}")
-    Observable<BaseResponse<String>> getSmsCode(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<String>> getSmsCode(@Url String url);
 
-    @GET("{url}")
-    Observable<BaseResponse<UserBean>> getLogin(@Path(value = "url", encoded = true) String url);
+    @GET
+    Observable<BaseResponse<UserBean>> getLogin(@Url String url);
 
     @GET
     Observable<BaseResponse<UserBean>> getLoginWithToken(@Url String url);

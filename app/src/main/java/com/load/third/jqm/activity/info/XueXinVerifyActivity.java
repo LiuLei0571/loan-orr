@@ -119,7 +119,7 @@ public class XueXinVerifyActivity extends BaseActivity {
                 .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
                     @Override
                     public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
-                        if (userBeanBaseResponse.getSuccess().equals("true")) {
+                        if (userBeanBaseResponse.getSuccess()) {
                             String username = StringUtils.getTextValue(editName);
                             String password = StringUtils.getTextValue(editPsw);
                             Map<String, Object> params = new HashMap<>();

@@ -91,7 +91,7 @@ public class BindBankCardActivity extends BaseActivity {
                 .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
                     @Override
                     public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
-                        if (userBeanBaseResponse.getSuccess().equals("true")) {
+                        if (userBeanBaseResponse.getSuccess()) {
                             String bankcard = StringUtils.getTextValue(editBankCard);
                             String bankname = StringUtils.getTextValue(tvBankName);
                             String bankAccount = StringUtils.getTextValue(editBankDetailName);

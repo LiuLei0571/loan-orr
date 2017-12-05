@@ -13,6 +13,10 @@ import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.newHttp.CustomConsumer;
+import com.load.third.jqm.newHttp.UrlParams;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -53,7 +57,9 @@ public class GetuiIntentService extends GTIntentService {
         if (!MyApp.isNeedUpdate) {
             //收到个推clientid，向后台发送绑定
 //            GetuiGetUtils.bindGetuiCid(context, clientid);
-            ApiManager.apiManager.initRetrofit().getBindGetuiCid(Apis.bindGetuiCid.getUrl())
+            Map<String, Object> params = new HashMap<>();
+            params.put("cid", clientid);
+            ApiManager.apiManager.initRetrofit().getBindGetuiCid(UrlParams.getUrl(Apis.bindGetuiCid.getUrl(), params))
                     .doOnSubscribe(new CustomConsumer<Disposable>(this))
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())

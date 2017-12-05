@@ -74,7 +74,7 @@ public class MoreVerifyActivity extends BaseActivity {
                     .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
                         @Override
                         public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
-                            if (userBeanBaseResponse.getSuccess().equals("true")) {
+                            if (userBeanBaseResponse.getSuccess()) {
                                 return apiRetrofit.getIsStudentAuth(Apis.isStudentAuth.getUrl());
 
                             } else {

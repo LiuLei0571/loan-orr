@@ -31,7 +31,7 @@ public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, IS
 
     @Override
     public void onNext(BaseResponse<T> result) {
-        if ("true".equals(result.getSuccess())) {
+        if (result.getSuccess()) {
             doSuccess(result);
         } else {
             doFail(result.getMessage());
@@ -41,22 +41,22 @@ public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, IS
 
     @Override
     public void onError(Throwable e) {
-        doFail(e.toString());
         if (e instanceof HttpException) {     //   HTTP错误
-            doFail("请求异常");
+            doFail("http错误");
         } else if (e instanceof ConnectException
                 || e instanceof UnknownHostException) {   //   连接错误
-            doFail("请求超时");
+            doFail("网络异常");
         } else if (e instanceof InterruptedIOException) {   //  连接超时
-            doFail("请求超时");
+            doFail("网络连接超时");
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
                 || e instanceof ParseException) {   //  解析错误
-            doFail("请求超时");
+            doFail("json解析错误");
         } else {
             doFail("请求超时");
         }
     }
+
     @Override
     public void onComplete() {
 
@@ -69,7 +69,7 @@ public abstract class CommonObserver<T> implements Observer<BaseResponse<T>>, IS
 
     @Override
     public void doFail(String msg) {
-        ToastUtils.showToast(MyApp.getContext(), "网络请求失败");
+        ToastUtils.showToast(MyApp.getContext(), msg);
         doFinish();
     }
 

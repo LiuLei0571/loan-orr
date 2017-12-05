@@ -15,9 +15,9 @@ public class BaseResponse<T> {
     @SerializedName("code")
     public int code;
     @SerializedName("success")
-    public String success;
+    public Boolean success;
     @SerializedName("data")
-    T data;
+    public T data;
 
     public T getData() {
         return data;
@@ -43,11 +43,11 @@ public class BaseResponse<T> {
         this.code = code;
     }
 
-    public String getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(String success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 }
