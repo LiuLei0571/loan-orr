@@ -49,7 +49,6 @@ public class OkHttpClientManager {
 
         }
     }
-
     public static OkHttpClientManager getInstance() {
         if (mInstance == null) {
             synchronized (OkHttpClientManager.class) {
@@ -263,11 +262,15 @@ public class OkHttpClientManager {
                     sendFailedStringCallback("", response.request(), e, callback);
                 } finally {
                     try {
-                        if (is != null) is.close();
+                        if (is != null) {
+                            is.close();
+                        }
                     } catch (IOException e) {
                     }
                     try {
-                        if (fos != null) fos.close();
+                        if (fos != null) {
+                            fos.close();
+                        }
                     } catch (IOException e) {
                     }
                 }
@@ -387,13 +390,17 @@ public class OkHttpClientManager {
 
 
     private Param[] validateParam(Param[] params) {
-        if (params == null)
+        if (params == null) {
             return new Param[0];
-        else return params;
+        } else {
+            return params;
+        }
     }
 
     private Param[] map2Params(Map<String, String> params) {
-        if (params == null) return new Param[0];
+        if (params == null) {
+            return new Param[0];
+        }
         int size = params.size();
         Param[] res = new Param[size];
         Set<Map.Entry<String, String>> entries = params.entrySet();
@@ -443,8 +450,9 @@ public class OkHttpClientManager {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                if (callback != null)
+                if (callback != null) {
                     callback.onError(request, e, "error" + error);
+                }
             }
         });
     }

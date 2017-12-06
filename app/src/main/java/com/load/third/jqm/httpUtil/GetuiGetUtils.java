@@ -14,7 +14,7 @@ import com.squareup.okhttp.Request;
 /**
  * Created by Administrator on 2017/4/20.
  */
-
+@Deprecated
 public class GetuiGetUtils {
     @Deprecated
     public static void bindGetuiCid(final Context context, String clientid) {

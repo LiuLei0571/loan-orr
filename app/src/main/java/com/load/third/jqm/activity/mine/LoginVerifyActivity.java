@@ -33,6 +33,7 @@ import com.squareup.okhttp.Request;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -80,36 +81,35 @@ public class LoginVerifyActivity extends BaseActivity {
 
     private void getSmsCode() {
         ProgressDialog.showProgressBar(context, "请稍后...");
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("mobile", mobile);
-//        submitTask(apiRetrofit.getSmsCode(UrlParams.getUrl(Apis.smsCode.getUrl(), params)), new CommonObserver<String>() {
-//            @Override
-//            public void doSuccess(BaseResponse<String> response) {
-//                ToastUtils.showToast(context, "发送验证码成功");
-//                new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
-//
-//            }
-//        });
-
-        ApiClient.getInstance().getSMScode(mobile, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
-
+        Map<String, Object> params = new HashMap<>();
+        params.put("mobile", mobile);
+        submitTask(apiRetrofit.getSmsCode(UrlParams.getUrl(Apis.smsCode.getUrl(), params)), new CommonObserver() {
             @Override
-            public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar();
-                ToastUtils.showToast(context, "网络请求失败");
-            }
-
-            @Override
-            public void onResponse(DataJsonResult<String> response) {
-                ProgressDialog.cancelProgressBar();
-                if (response.getSuccess() == "true") {
-                    ToastUtils.showToast(context, "发送验证码成功");
-                    new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
-                } else {
-                    ToastUtils.showToast(context, response.getMessage());
-                }
+            public void doSuccess(BaseResponse result) {
+                ToastUtils.showToast(context, "发送验证码成功");
+                new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
             }
         });
+
+//        ApiClient.getInstance().getSMScode(mobile, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
+//
+//            @Override
+//            public void onError(Request request, Exception e, String error) {
+//                ProgressDialog.cancelProgressBar();
+//                ToastUtils.showToast(context, "网络请求失败");
+//            }
+//
+//            @Override
+//            public void onResponse(DataJsonResult<String> response) {
+//                ProgressDialog.cancelProgressBar();
+//                if (response.getSuccess() == "true") {
+//                    ToastUtils.showToast(context, "发送验证码成功");
+//                    new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
+//                } else {
+//                    ToastUtils.showToast(context, response.getMessage());
+//                }
+//            }
+//        });
     }
 
     private void login() {
@@ -117,25 +117,24 @@ public class LoginVerifyActivity extends BaseActivity {
         ProgressDialog.showProgressBar(context, "登录中...");
         String version = VersionUtils.getVersionName(context);
         Log.e("http_msg", "version code:" + VersionUtils.getVersionName(context));
-        Map<String, Object> params = new HashMap<>();
+        Map<String, Object> params = new LinkedHashMap<>();
         params.put("mobile", mobile);
         params.put("code", code);
         params.put("mobile_type", "android");
-
-        params.put("version",   UrlHelp.getEncode(version+""));
-        submitTask(apiRetrofit.getLogin(UrlParams.getUrl(Apis.login.getUrl(), params)), new CommonObserver<UserBean>() {
-            @Override
-            public void doSuccess(BaseResponse<UserBean> response) {
-                if (response.getData() != null) {
-                    UserBean userBean = response.getData();
-                    userBean.setToken(UrlHelp.getEncode(userBean.getToken()));
-                    UserDao.getInstance(context).setAllData(userBean);
-                    IntentUtils.toMainActivity(context);
-                    ToastUtils.showToast(context, "登录成功");
-                }
-
-            }
-        });
+        params.put("version", UrlHelp.getEncode(version + ""));
+//        submitTask(apiRetrofit.getLogin(UrlParams.getUrl(Apis.login.getUrl(), params)), new CommonObserver<UserBean>() {
+//            @Override
+//            public void doSuccess(BaseResponse<UserBean> response) {
+//                if (response.getData() != null) {
+//                    UserBean userBean = response.getData();
+//                    userBean.setToken(UrlHelp.getEncode(userBean.getToken()));
+//                    UserDao.getInstance(context).setAllData(userBean);
+//                    IntentUtils.toMainActivity(context);
+//                    ToastUtils.showToast(context, "登录成功");
+//                }
+//
+//            }
+//        });
 
         ApiClient.getInstance().login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>() {
 

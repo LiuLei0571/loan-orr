@@ -138,16 +138,18 @@ public class HomeGetUtils {
             public void onResponse(DataJsonResult<JSONObject> response) {
                 ProgressDialog.cancelProgressBar();
                 if (response.getSuccess() == "true") {
-                    if (status == Consts.STATUS_BORROW_FIRST)
+                    if (status == Consts.STATUS_BORROW_FIRST) {
                         IntentUtils.toActivity(context, MyInfoFirstActivity.class);
-                    else if (status == Consts.STATUS_BORROW_AGAIN)
+                    } else if (status == Consts.STATUS_BORROW_AGAIN) {
                         checkPhone(context);
+                    }
                 } else {
                     String frozen_time = response.getData().getString("frozen_time");
-                    if (StringUtils.isBlank(frozen_time))
+                    if (StringUtils.isBlank(frozen_time)) {
                         ToastUtils.showToast(context, response.getMessage());
-                    else
+                    } else {
                         DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + frozen_time + "天解冻");
+                    }
                 }
             }
         });
