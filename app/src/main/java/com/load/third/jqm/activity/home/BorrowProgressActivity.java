@@ -2,8 +2,6 @@ package com.load.third.jqm.activity.home;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -13,7 +11,15 @@ import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
 import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.adapter.ProgressListAdapter;
-import com.load.third.jqm.httpUtil.HomeGetUtils;
+import com.load.third.jqm.bean.UserBean;
+import com.load.third.jqm.bean.UserDao;
+import com.load.third.jqm.bean.newBean.UserStatus;
+import com.load.third.jqm.newHttp.ApiException;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
+import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.Consts;
 
 import java.util.ArrayList;
@@ -23,10 +29,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.fragment.HomeFragment.MSG_GET_STATUS;
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
 import static com.load.third.jqm.utils.Consts.STATUS_BORROW_AGAIN;
 import static com.load.third.jqm.utils.Consts.STATUS_PAY_SUCCESS;
 import static com.load.third.jqm.utils.Consts.STATUS_POAT_ID_CARD;
@@ -51,20 +60,8 @@ public class BorrowProgressActivity extends BaseActivity {
     private Context context;
     private int status;
     private ProgressListAdapter adapter;
-    private List<String> list = new ArrayList<>();
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    HomeGetUtils.getStatus(context, handler);
-                    break;
-                case MSG_GET_STATUS:
-                    status = (int) msg.obj;
-                    setLvBorrowProgress();
-                    break;
-            }
-        }
-    };
+    private List<String> list = new ArrayList<>( );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +69,53 @@ public class BorrowProgressActivity extends BaseActivity {
         setContentView(R.layout.activity_borrow_progress);
         ButterKnife.bind(this);
         context = this;
-        initView();
+        initView( );
     }
 
     @Override
     protected void onResume() {
-        super.onResume();
+        super.onResume( );
         if (!MyApp.isNeedUpdate) {
+//            TokenLoginUtil.loginWithToken(context, handler);
             initData();
         }
     }
 
     public void initData() {
+        apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<UserStatus>>>() {
+                    @Override
+                    public Observable<BaseResponse<UserStatus>> apply(BaseResponse<UserBean> response) throws Exception {
+                        if (response.getSuccess()) {
+                            UserDao.getInstance(context).setAllDataWithoutToken(response.getData());
+                            MyApp.isNeedUpdate = false;
+                            return apiRetrofit.getStatus(Apis.getStatus.getUrl());
+                        } else {
+                            return Observable.error(new ApiException(response.getMessage()));
+                        }
+                    }
+                })
+
+                .subscribeOn(Schedulers.io())
+                .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CommonObserver<UserStatus>() {
+                    @Override
+                    public void doSuccess(BaseResponse<UserStatus> result) {
+                        if (result.getData() != null) {
+                            status=result.getData().getLend_status();
+                            setLvBorrowProgress();
+                        } else {
+                            ToastUtils.showToast(context, result.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void doFail(String msg) {
+                        super.doFail(msg);
+                    }
+                });
 
     }
 
@@ -138,8 +170,8 @@ public class BorrowProgressActivity extends BaseActivity {
             case Consts.STATUS_WAIT_PAY_14:
                 stringList = Arrays.asList(new String[]{"已提交", "已提交", "已审核", "已绑定", "已提交", "已审核", "放款中"});
                 break;
-            default:
-                break;
+                default:
+                    break;
         }
         adapter = new ProgressListAdapter(context, list, stringList);
         lvBorrowProgress.setAdapter(adapter);
@@ -147,6 +179,6 @@ public class BorrowProgressActivity extends BaseActivity {
 
     @OnClick(R.id.iv_back)
     public void onViewClicked() {
-        finish();
+        finish( );
     }
 }
