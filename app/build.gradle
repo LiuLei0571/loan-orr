@@ -72,4 +72,6 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxjava:2.0.9'
     compile 'com.trello.rxlifecycle2:rxlifecycle:2.2.1'
 
+    compile 'com.google.code.gson:gson:2.3.1'
+
 }

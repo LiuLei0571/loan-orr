@@ -17,9 +17,9 @@ import okhttp3.OkHttpClient;
 
 public class LoanOkHttpClient {
     public static OkHttpClient okHttpClient;
-   static   File cacheFile = new File(MyApp.getContext().getCacheDir(), "caheData");
+    public static File cacheFile = new File(MyApp.getContext().getCacheDir(), "caheData");
     //设置缓存大小
-    static   Cache cache = new Cache(cacheFile, 50*1024*1024);//google建议放到这里
+    public static Cache cache = new Cache(cacheFile, 50 * 1024 * 1024);//google建议放到这里
 
 
     private static OkHttpClient getInstance() {
@@ -30,21 +30,6 @@ public class LoanOkHttpClient {
                         .readTimeout(300, TimeUnit.SECONDS)
                         .writeTimeout(300, TimeUnit.SECONDS)
                         .addNetworkInterceptor(new LoanHttpIntercept())
-//                        .cache(cache)
-//                        .cookieJar(new CookieJar() {
-//                            private final HashMap<HttpUrl, List<Cookie>> cookieStore = new HashMap<>();
-//
-//                            @Override
-//                            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-//                                cookieStore.put(url,cookies);
-//                            }
-//
-//                            @Override
-//                            public List<Cookie> loadForRequest(HttpUrl url) {
-//                                List<Cookie> cookies = cookieStore.get(url);
-//                                return cookies != null ? cookies : new ArrayList<Cookie>();
-//                            }
-//                        })
                         .build();
 
             }
@@ -55,4 +40,5 @@ public class LoanOkHttpClient {
     public static OkHttpClient getOkHttpClient() {
         return getInstance();
     }
+
 }

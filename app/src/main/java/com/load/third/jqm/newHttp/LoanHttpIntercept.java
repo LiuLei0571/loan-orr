@@ -32,7 +32,6 @@ public class LoanHttpIntercept implements Interceptor {
                 .addHeader("Accept-Encoding", "gzip, deflate")
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Accept", "*/*")
-                .addHeader("key1", "value1")
                 .build();
 
 
