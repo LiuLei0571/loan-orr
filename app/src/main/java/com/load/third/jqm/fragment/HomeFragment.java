@@ -30,6 +30,7 @@ import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.bean.newBean.BorrowInfo;
+import com.load.third.jqm.bean.newBean.CheckPhone;
 import com.load.third.jqm.bean.newBean.UserStatus;
 import com.load.third.jqm.help.UserHelper;
 import com.load.third.jqm.newHttp.ApiException;
@@ -55,10 +56,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
@@ -175,7 +176,7 @@ public class HomeFragment extends BaseFragment {
                             @Override
                             public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<UserStatus> response) throws Exception {
                                 if (response.getSuccess()) {
-                                   status= response.data.getLend_status();
+                                    status = response.data.getLend_status();
                                     return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
                                 } else {
                                     return Observable.error(new ApiException(response.getMessage()));
@@ -468,21 +469,45 @@ public class HomeFragment extends BaseFragment {
         params.put("borrowMoney", money);
         String url = UrlParams.getUrl(Apis.postBorrowInfo.getUrl(), params);
         apiRetrofit.getBorrowInfo(url)
-                .flatMap(new Function<BaseResponse<BorrowInfo>, ObservableSource<BaseResponse<String>>>() {
+                .subscribeOn(Schedulers.io())
+                .filter(new Predicate<BaseResponse<BorrowInfo>>() {
                     @Override
-                    public ObservableSource<BaseResponse<String>> apply(BaseResponse<BorrowInfo> response) throws Exception {
-
-                        if (response.getSuccess()) {
+                    public boolean test(BaseResponse<BorrowInfo> response) throws Exception {
+                        if (response.success) {
                             if (status == Consts.STATUS_BORROW_FIRST) {
                                 IntentUtils.toActivity(context, MyInfoFirstActivity.class);
-                            } else if (status == Consts.STATUS_BORROW_AGAIN) {
-                                return apiRetrofit.getCheckPhone(Apis.checkPhone.getUrl());
+                                return false;
                             }
+                            return true;
+
                         } else {
                             DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
+                            return false;
+                        }
+                    }
+                })
+                .flatMap(new Function<BaseResponse<BorrowInfo>, Observable<BaseResponse<CheckPhone>>>() {
+                    @Override
+                    public Observable<BaseResponse<CheckPhone>> apply(BaseResponse<BorrowInfo> response) throws Exception {
 
+                        if (response.getSuccess()) {
+                            if (status == Consts.STATUS_BORROW_AGAIN) {
+                                return apiRetrofit.getCheckPhone(Apis.checkPhone.getUrl());
+                            }
                         }
                         return Observable.error(new ApiException(response.getMessage()));
+
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CommonObserver<CheckPhone>() {
+                    @Override
+                    public void doSuccess(BaseResponse<CheckPhone> result) {
+                        if (result.getData() != null) {
+                            IntentUtils.toWebViewActivity(context, "手机验证", result.getData().getRedirectUrl());
+
+                        }
 
                     }
                 });

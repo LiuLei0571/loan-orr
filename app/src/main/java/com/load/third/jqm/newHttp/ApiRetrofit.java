@@ -5,6 +5,7 @@ import com.load.third.jqm.bean.RepaymentDataBean;
 import com.load.third.jqm.bean.RepaymentUserBean;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.newBean.BorrowInfo;
+import com.load.third.jqm.bean.newBean.CheckPhone;
 import com.load.third.jqm.bean.newBean.QiniuName;
 import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.bean.newBean.UserStatus;
@@ -49,7 +50,7 @@ public interface ApiRetrofit {
     Observable<BaseResponse<RepaymentUserBean>> getRepaymentUser(@Url String url);
 
     @GET
-    Observable<BaseResponse<String>> getCheckPhone(@Url String url);
+    Observable<BaseResponse<CheckPhone>> getCheckPhone(@Url String url);
 
     @GET
     Observable<BaseResponse<BorrowInfo>> getBorrowInfo(@Url String url);
