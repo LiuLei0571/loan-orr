@@ -8,13 +8,13 @@ package com.load.third.jqm.bean.newBean;
 
 
 public class UserStatus {
-    private String lend_status;
+    private int lend_status;
 
-    public String getLend_status() {
+    public int getLend_status() {
         return lend_status;
     }
 
-    public void setLend_status(String lend_status) {
+    public void setLend_status(int lend_status) {
         this.lend_status = lend_status;
     }
 }

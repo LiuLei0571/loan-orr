@@ -173,9 +173,9 @@ public class MainActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= 23 && !sdCardWritePermission || !phoneSatePermission) {
             requestPermission();
         } else {
-            PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
+            PushManager.getInstance().initialize(getBaseActivity(), GetuiPushService.class);
         }
-        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GetuiIntentService.class);
+        PushManager.getInstance().registerPushIntentService(getBaseActivity(), GetuiIntentService.class);
     }
 
     //请求个推需要的权限 读取文件权限

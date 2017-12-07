@@ -1,5 +1,6 @@
 package com.load.third.jqm.fragment;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
@@ -128,33 +129,6 @@ public class HomeFragment extends BaseFragment {
     private String money, day;
     private RepaymentDataBean repaymentDataBean;
     private int repay_amount;
-//    private Handler handler = new Handler() {
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case MSG_TOKEN_LOGIN_SUCCESS:
-//                    HomeGetUtils.getStatus(context, handler);
-//                    break;
-//                case MSG_GET_STATUS_ERROR:
-//                    requestError();
-//                    break;
-//                case MSG_GET_STATUS:
-//                    status = (int) msg.obj;
-//                    tvRequest.setVisibility(View.GONE);
-//                    setStatus();
-//                    break;
-//                case MSG_GET_EXPENSE_DATA:
-//                    expenseDataBean = (List<HomeExpenseDataBean.ListBean>) msg.obj;
-//                    tvRequest.setVisibility(View.GONE);
-//                    setHomeExpenseData();
-//                    break;
-//                case MSG_GET_REPAYMENT_DATA:
-//                    repaymentDataBean = (RepaymentDataBean) msg.obj;
-//                    tvRequest.setVisibility(View.GONE);
-//                    setHomeRepayment();
-//                    break;
-//            }
-//        }
-//    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -201,6 +175,7 @@ public class HomeFragment extends BaseFragment {
                             @Override
                             public Observable<BaseResponse<HomeExpenseDataBean>> apply(BaseResponse<UserStatus> response) throws Exception {
                                 if (response.getSuccess()) {
+                                   status= response.data.getLend_status();
                                     return apiRetrofit.retrofitHomeExpenseData(Apis.home.getUrl());
                                 } else {
                                     return Observable.error(new ApiException(response.getMessage()));
@@ -300,10 +275,11 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
+    @SuppressLint("SetTextI18n")
     private void setExpenseInfo() {
         for (int i = 0; i < expenseDataBean.size(); i++) {
             if (expenseDataBean.get(i).getAmount().equals(money) && expenseDataBean.get(i).getPeriod().equals(day)) {
-                if (expenseDataBean != null) {
+                if (expenseDataBean.get(i) != null) {
                     tvShenxunfei.setText(expenseDataBean.get(i).getServiceFee() + "元");
                     tvZonglixi.setText(expenseDataBean.get(i).getInterestFee() + "元");
                     tvGuanlifei.setText(expenseDataBean.get(i).getAccountManageFee() + "元");
@@ -317,7 +293,6 @@ public class HomeFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.M)
     private void setStatus() {
         if (status == STATUS_PAY_SUCCESS) {
-//            HomeGetUtils.getRepayment(context, handler);
             submitTask(apiRetrofit.getRepaymentData(Apis.getRepaymentData.getUrl()), new CommonObserver<RepaymentDataBean>() {
                 @Override
                 public void doSuccess(BaseResponse<RepaymentDataBean> result) {
@@ -393,29 +368,32 @@ public class HomeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.ll_ticket:
                 //选择优惠券,布局已隐藏
-                if (StringUtils.isBlank(UserDao.getInstance(context).getToken()))
+                if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
                     IntentUtils.toActivity(context, LoginActivity.class);
-                else
+                } else {
                     IntentUtils.toTicketActivity(context, TicketActivity.TYPE_TICKET_CHOSE);
+                }
                 break;
             case R.id.btn_borrow:
-                if (StringUtils.isBlank(UserDao.getInstance(context).getToken()))
+                if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
                     IntentUtils.toActivity(context, LoginActivity.class);
-                else {
+                } else {
                     btnBorrowClick();
                 }
                 break;
             case R.id.btn_repeyment:
-                if (StringUtils.isBlank(UserDao.getInstance(context).getToken()))
+                if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
                     IntentUtils.toActivity(context, LoginActivity.class);
-                else
+                } else {
                     IntentUtils.toRepaymentActivity(context, repay_amount + "");
+                }
                 break;
             case R.id.tv_check_progress:
-                if (StringUtils.isBlank(UserDao.getInstance(context).getToken()))
+                if (StringUtils.isBlank(UserDao.getInstance(context).getToken())) {
                     IntentUtils.toActivity(context, LoginActivity.class);
-                else
+                } else {
                     IntentUtils.toActivity(context, BorrowProgressActivity.class);
+                }
                 break;
             case R.id.iv_head:
                 MainActivity mainActivity = (MainActivity) getActivity();
@@ -427,6 +405,8 @@ public class HomeFragment extends BaseFragment {
                 break;
             case R.id.tv_agreement:
                 IntentUtils.toWebViewActivity(context, "用户协议", Urls.url_agreement);
+                break;
+            default:
                 break;
 
         }
@@ -506,26 +486,5 @@ public class HomeFragment extends BaseFragment {
 
                     }
                 });
-
-
-//        submitTask(apiRetrofit.getBorrowInfo(url), new CommonObserver<BorrowInfo>() {
-//
-//            @Override
-//            public void doSuccess(BaseResponse<BorrowInfo> response) {
-//                if (response.getSuccess().equals("true")) {
-//                    if (status == Consts.STATUS_BORROW_FIRST) {
-//                        IntentUtils.toActivity(context, MyInfoFirstActivity.class);
-//                    } else if (status == Consts.STATUS_BORROW_AGAIN) {
-//                        HomeGetUtils.checkPhone(context);
-//                    }
-//                    return;
-//                }
-//                if (StringUtils.isBlank(response.getData().getFrozen_time())) {
-//                    ToastUtils.showToast(context, response.getMessage());
-//                    return;
-//                }
-//                DialogUtils.getInstance(context).showOkTipsDialog(response.getMessage() + "\n账号还需" + response.getData().getFrozen_time() + "天解冻");
-//            }
-//        });
     }
 }
