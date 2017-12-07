@@ -83,7 +83,7 @@ public class MoreVerifyActivity extends BaseActivity {
                         }
                     })
                     .subscribeOn(Schedulers.io())
-                    .doOnSubscribe(new CustomConsumer<Disposable>(getBaseContext()))
+                    .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
                     .subscribeOn(AndroidSchedulers.mainThread())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new CommonObserver<String>() {
@@ -93,6 +93,7 @@ public class MoreVerifyActivity extends BaseActivity {
                             tvXuexinStatus.setTextColor(getResources().getColor(R.color.main_color));
                             llXuexinVerify.setEnabled(false);
                         }
+
                         @Override
                         public void doFail(String msg) {
                             tvXuexinStatus.setText("未认证");
@@ -152,6 +153,8 @@ public class MoreVerifyActivity extends BaseActivity {
                 break;
             case R.id.ll_taobao_verify:
                 IntentUtils.toActivity(context, TaoBaoVerifyActivity.class);
+                break;
+            default:
                 break;
         }
     }

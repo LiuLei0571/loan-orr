@@ -1,6 +1,5 @@
 package com.load.third.jqm.activity.info;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,26 +16,34 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
-import com.load.third.jqm.bean.UserDao;
-import com.load.third.jqm.http.ApiClient;
-import com.load.third.jqm.http.OkHttpClientManager;
-import com.load.third.jqm.http.result.DataJsonResult;
-import com.load.third.jqm.httpUtil.TokenLoginUtil;
-import com.load.third.jqm.tips.ProgressDialog;
+import com.load.third.jqm.activity.BaseActivity;
+import com.load.third.jqm.bean.UserBean;
+import com.load.third.jqm.newHttp.ApiException;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
+import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.PickerVewUtil;
 import com.load.third.jqm.utils.StringUtils;
 import com.load.third.jqm.utils.TextCheckUtil;
-import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
@@ -44,7 +51,7 @@ import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS
 /**
  * 职业信息
  */
-public class MyInfoSecondActivity extends Activity {
+public class MyInfoSecondActivity extends BaseActivity {
     @BindView(R.id.tv_job)
     TextView tvJob;
     @BindView(R.id.tv_wages)
@@ -82,11 +89,11 @@ public class MyInfoSecondActivity extends Activity {
     private List<String> list_wages;
     private List<String> list_wages_date;
     private List<String> list_job_time;
-    private Handler handler = new Handler( ) {
+    private Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_TOKEN_LOGIN_SUCCESS:
-                    postInfo( );
+                    postInfo();
                     break;
             }
         }
@@ -98,7 +105,7 @@ public class MyInfoSecondActivity extends Activity {
         setContentView(R.layout.activity_my_info_second);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
@@ -107,12 +114,12 @@ public class MyInfoSecondActivity extends Activity {
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         viewArr = Arrays.asList(new View[]{tvJob, tvWages, tvWagesDate, editCompanyName, tvCompanyProvince, tvCompanyCity,
                 editCompanyAddress, tvAreaCode, editCompanyPhone, tvJobTime});
-        setPickViewData( );
-        list_job = Arrays.asList(getResources( ).getStringArray(R.array.list_job));
-        list_wages = Arrays.asList(getResources( ).getStringArray(R.array.list_wages));
-        list_job_time = Arrays.asList(getResources( ).getStringArray(R.array.list_job_time));
-        setInfo( );
-        addTextListener( );
+        setPickViewData();
+        list_job = Arrays.asList(getResources().getStringArray(R.array.list_job));
+        list_wages = Arrays.asList(getResources().getStringArray(R.array.list_wages));
+        list_job_time = Arrays.asList(getResources().getStringArray(R.array.list_job_time));
+        setInfo();
+        addTextListener();
     }
 
     private void setInfo() {
@@ -131,7 +138,7 @@ public class MyInfoSecondActivity extends Activity {
 
     private void saveInfo() {
         SharedPreferences sp = getSharedPreferences("myInfoSecond", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit( );
+        SharedPreferences.Editor editor = sp.edit();
         editor.putString("job", StringUtils.getTextValue(tvJob));
         editor.putString("wages", StringUtils.getTextValue(tvWages));
         editor.putString("wagesDate", StringUtils.getTextValue(tvWagesDate));
@@ -142,11 +149,11 @@ public class MyInfoSecondActivity extends Activity {
         editor.putString("areaCode", StringUtils.getTextValue(tvAreaCode));
         editor.putString("companyPhone", StringUtils.getTextValue(editCompanyPhone));
         editor.putString("jobTime", StringUtils.getTextValue(tvJobTime));
-        editor.commit( );
+        editor.apply();
     }
 
     private void addTextListener() {
-        TextWatcher textWatcher = new TextWatcher( ) {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -154,7 +161,7 @@ public class MyInfoSecondActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                saveInfo( );
+                saveInfo();
             }
 
             @Override
@@ -162,7 +169,7 @@ public class MyInfoSecondActivity extends Activity {
 
             }
         };
-        for (int i = 0; i < viewArr.size( ); i++) {
+        for (int i = 0; i < viewArr.size(); i++) {
             if (viewArr.get(i) instanceof EditText) {
                 ((EditText) viewArr.get(i)).addTextChangedListener(textWatcher);
             }
@@ -174,7 +181,6 @@ public class MyInfoSecondActivity extends Activity {
 
     private void postInfo() {
         if (TextCheckUtil.checkText(viewArr)) {
-            String token = UserDao.getInstance(context).getToken( );
             int positionId = PickerVewUtil.getSelectItem(list_job, StringUtils.getTextValue(tvJob)) + 1;
             int incomeId = PickerVewUtil.getSelectItem(list_wages, StringUtils.getTextValue(tvWages)) + 1;
             int payDate = PickerVewUtil.getSelectItem(list_wages_date, StringUtils.getTextValue(tvWagesDate)) + 1;
@@ -184,25 +190,36 @@ public class MyInfoSecondActivity extends Activity {
             String companyAddress = StringUtils.getTextValue(editCompanyAddress);
             String companyCode = StringUtils.getTextValue(tvAreaCode);
             String companyTel = StringUtils.getTextValue(editCompanyPhone);
-            ProgressDialog.showProgressBar(context, "请稍后...");
-            ApiClient.getInstance( ).myInfoSecond(token, positionId, incomeId, payDate, companyName, companyProvince,
-                    companyCity, companyAddress, companyCode, companyTel, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
-
+            final Map<String, Object> params = new HashMap<>();
+            params.put("positionId", positionId);
+            params.put("incomeId", incomeId);
+            params.put("payDate", payDate);
+            params.put("companyName", companyName);
+            params.put("companyProvince", companyProvince);
+            params.put("companyCity", companyCity);
+            params.put("companyAddress", companyAddress);
+            params.put("companyCode", companyCode);
+            params.put("companyTel", companyTel);
+            apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                    .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
                         @Override
-                        public void onError(Request request, Exception e, String error) {
-                            ProgressDialog.cancelProgressBar( );
-                            ToastUtils.showToast(context, "网络请求失败");
-                        }
-
-                        @Override
-                        public void onResponse(DataJsonResult<String> response) {
-                            ProgressDialog.cancelProgressBar( );
-                            if (response.getSuccess( ) == "true") {
-                                IntentUtils.toActivity(context, MyInfoThirdActivity.class);
-                                ToastUtils.showToast(context, "信息已提交");
+                        public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
+                            if (userBeanBaseResponse.getSuccess()) {
+                                return apiRetrofit.getMyInfoSecond(UrlParams.getUrl(Apis.myInfoSecond.getUrl(), params));
                             } else {
-                                ToastUtils.showToast(context, response.getMessage( ));
+                                return Observable.error(new ApiException(userBeanBaseResponse.getMessage()));
                             }
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<String>() {
+                        @Override
+                        public void doSuccess(BaseResponse<String> result) {
+                            IntentUtils.toActivity(context, MyInfoThirdActivity.class);
+                            ToastUtils.showToast(context, "信息已提交");
                         }
                     });
         } else {
@@ -212,19 +229,20 @@ public class MyInfoSecondActivity extends Activity {
 
     private void choseCity() {
         int cityPosition = -1;
-        for (int i = 0; i < province.size( ); i++) {
-            if (province.get(i).equals(StringUtils.getTextValue(tvCompanyProvince)))
+        for (int i = 0; i < province.size(); i++) {
+            if (province.get(i).equals(StringUtils.getTextValue(tvCompanyProvince))) {
                 cityPosition = i;
+            }
         }
         if (cityPosition == -1) {
             ToastUtils.showToast(context, "请先选择单位所在省");
         } else {
-            final List<String> options1Items = new ArrayList<>( );
+            final List<String> options1Items = new ArrayList<>();
             final List<String> city = Arrays.asList(cityList.get(cityPosition));
-            for (int j = 0; j < city.size( ); j++) {
+            for (int j = 0; j < city.size(); j++) {
                 options1Items.add(city.get(j).split(",")[0]);
             }
-            PickerVewUtil.showChoseArea(context, options1Items, tvCompanyCity, new OptionsPickerView.OnOptionsSelectListener( ) {
+            PickerVewUtil.showChoseArea(context, options1Items, tvCompanyCity, new OptionsPickerView.OnOptionsSelectListener() {
                 @Override
                 public void onOptionsSelect(int options1, int options2, int options3, View v) {
                     tvCompanyCity.setText(options1Items.get(options1));
@@ -236,13 +254,14 @@ public class MyInfoSecondActivity extends Activity {
 
     @OnClick({R.id.tv_job, R.id.tv_wages, R.id.tv_wages_date, R.id.tv_company_province, R.id.tv_company_city, R.id.tv_job_time, R.id.iv_back, R.id.tv_right})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_back:
-                finish( );
+                finish();
                 break;
             case R.id.tv_right:
                 if (!MyApp.isNeedUpdate) {
-                    TokenLoginUtil.loginWithToken(context, handler);
+                    postInfo();
+//                    TokenLoginUtil.loginWithToken(context, handler);
                 }
                 break;
             case R.id.tv_job:
@@ -255,7 +274,7 @@ public class MyInfoSecondActivity extends Activity {
                 PickerVewUtil.showPickerView(context, list_wages_date, tvWagesDate);
                 break;
             case R.id.tv_company_province:
-                PickerVewUtil.showChoseArea(context, province, tvCompanyProvince, new OptionsPickerView.OnOptionsSelectListener( ) {
+                PickerVewUtil.showChoseArea(context, province, tvCompanyProvince, new OptionsPickerView.OnOptionsSelectListener() {
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         tvCompanyProvince.setText(province.get(options1));
@@ -265,54 +284,56 @@ public class MyInfoSecondActivity extends Activity {
                 });
                 break;
             case R.id.tv_company_city:
-                choseCity( );
+                choseCity();
                 break;
             case R.id.tv_job_time:
                 PickerVewUtil.showPickerView(context, list_job_time, tvJobTime);
+                break;
+            default:
                 break;
         }
     }
 
     private void setPickViewData() {
-        list_wages_date = new ArrayList<>( );
+        list_wages_date = new ArrayList<>();
         for (int i = 0; i < 31; i++) {
             list_wages_date.add((i + 1) + "号");
         }
-        province = Arrays.asList(getResources( ).getStringArray(R.array.list_province));
-        cityList = new ArrayList<>( );
-        cityList.add(getResources( ).getStringArray(R.array.beijing));
-        cityList.add(getResources( ).getStringArray(R.array.tianjing));
-        cityList.add(getResources( ).getStringArray(R.array.shanghai));
-        cityList.add(getResources( ).getStringArray(R.array.chongqing));
-        cityList.add(getResources( ).getStringArray(R.array.hebei));
-        cityList.add(getResources( ).getStringArray(R.array.shanxi));
-        cityList.add(getResources( ).getStringArray(R.array.liaoning));
-        cityList.add(getResources( ).getStringArray(R.array.jiling));
-        cityList.add(getResources( ).getStringArray(R.array.heilongjiang));
-        cityList.add(getResources( ).getStringArray(R.array.jiangsu));
-        cityList.add(getResources( ).getStringArray(R.array.zhejiang));
-        cityList.add(getResources( ).getStringArray(R.array.anhui));
-        cityList.add(getResources( ).getStringArray(R.array.fujian));
-        cityList.add(getResources( ).getStringArray(R.array.jiangxi));
-        cityList.add(getResources( ).getStringArray(R.array.shandong));
-        cityList.add(getResources( ).getStringArray(R.array.henan));
-        cityList.add(getResources( ).getStringArray(R.array.hubei));
-        cityList.add(getResources( ).getStringArray(R.array.hunan));
-        cityList.add(getResources( ).getStringArray(R.array.guangdong));
-        cityList.add(getResources( ).getStringArray(R.array.hainan));
-        cityList.add(getResources( ).getStringArray(R.array.sichuan));
-        cityList.add(getResources( ).getStringArray(R.array.guizhou));
-        cityList.add(getResources( ).getStringArray(R.array.yunnan));
-        cityList.add(getResources( ).getStringArray(R.array.shengxi));
-        cityList.add(getResources( ).getStringArray(R.array.gansu));
-        cityList.add(getResources( ).getStringArray(R.array.qinghai));
-        cityList.add(getResources( ).getStringArray(R.array.xianggang));
-        cityList.add(getResources( ).getStringArray(R.array.aomen));
-        cityList.add(getResources( ).getStringArray(R.array.taiwan));
-        cityList.add(getResources( ).getStringArray(R.array.guangxi));
-        cityList.add(getResources( ).getStringArray(R.array.neimenggu));
-        cityList.add(getResources( ).getStringArray(R.array.xizang));
-        cityList.add(getResources( ).getStringArray(R.array.ningxia));
-        cityList.add(getResources( ).getStringArray(R.array.xinjiang));
+        province = Arrays.asList(getResources().getStringArray(R.array.list_province));
+        cityList = new ArrayList<>();
+        cityList.add(getResources().getStringArray(R.array.beijing));
+        cityList.add(getResources().getStringArray(R.array.tianjing));
+        cityList.add(getResources().getStringArray(R.array.shanghai));
+        cityList.add(getResources().getStringArray(R.array.chongqing));
+        cityList.add(getResources().getStringArray(R.array.hebei));
+        cityList.add(getResources().getStringArray(R.array.shanxi));
+        cityList.add(getResources().getStringArray(R.array.liaoning));
+        cityList.add(getResources().getStringArray(R.array.jiling));
+        cityList.add(getResources().getStringArray(R.array.heilongjiang));
+        cityList.add(getResources().getStringArray(R.array.jiangsu));
+        cityList.add(getResources().getStringArray(R.array.zhejiang));
+        cityList.add(getResources().getStringArray(R.array.anhui));
+        cityList.add(getResources().getStringArray(R.array.fujian));
+        cityList.add(getResources().getStringArray(R.array.jiangxi));
+        cityList.add(getResources().getStringArray(R.array.shandong));
+        cityList.add(getResources().getStringArray(R.array.henan));
+        cityList.add(getResources().getStringArray(R.array.hubei));
+        cityList.add(getResources().getStringArray(R.array.hunan));
+        cityList.add(getResources().getStringArray(R.array.guangdong));
+        cityList.add(getResources().getStringArray(R.array.hainan));
+        cityList.add(getResources().getStringArray(R.array.sichuan));
+        cityList.add(getResources().getStringArray(R.array.guizhou));
+        cityList.add(getResources().getStringArray(R.array.yunnan));
+        cityList.add(getResources().getStringArray(R.array.shengxi));
+        cityList.add(getResources().getStringArray(R.array.gansu));
+        cityList.add(getResources().getStringArray(R.array.qinghai));
+        cityList.add(getResources().getStringArray(R.array.xianggang));
+        cityList.add(getResources().getStringArray(R.array.aomen));
+        cityList.add(getResources().getStringArray(R.array.taiwan));
+        cityList.add(getResources().getStringArray(R.array.guangxi));
+        cityList.add(getResources().getStringArray(R.array.neimenggu));
+        cityList.add(getResources().getStringArray(R.array.xizang));
+        cityList.add(getResources().getStringArray(R.array.ningxia));
+        cityList.add(getResources().getStringArray(R.array.xinjiang));
     }
 }

@@ -57,7 +57,7 @@ public class ApiClient {
                 + "&mobile_type=" + mobile_type + "&version=" + versionkey;
         okHttpClientManager.getAsyn(postText, callback);
     }
-
+    @Deprecated
     public void loginWithToken(String token, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + "logged/LoginInfo" + "?token=" + token;
         okHttpClientManager.getAsyn(postText, callback);
@@ -98,6 +98,7 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void myInfoFirst(String token, String realName, String idcard, String qq, String email, int education,
                             int marriage, int child, String temporaryAdddress, int temporaryTime,
                             OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
@@ -107,6 +108,7 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void myInfoSecond(String token, int positionId, int incomeId, int payDate, String companyName, String companyProvince,
                              String companyCity, String companyAddress, String companyCode, String companyTel,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
@@ -117,6 +119,7 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void myInfoThird(String token, int cognateRelation, String cognateMobile, int socialRelation, String socialMobile,
                             OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "logged/updateSH" + "?token=" + token + "&cognateRelation="
@@ -125,10 +128,12 @@ public class ApiClient {
         okHttpClientManager.getAsyn(postText, callback);
     }
 
+    @Deprecated
     public void getBankName(String bankcard, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         String postText = url + "logged/selectBankName" + "?bankcard=" + bankcard;
         okHttpClientManager.getAsyn(postText, callback);
     }
+
     @Deprecated
     public void bindBankCard(String token, String bankcard, String bankname, String bankAccount,
                              OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
@@ -145,6 +150,7 @@ public class ApiClient {
         okHttpClientManager.getAsyn(url + Urls.url_getQiNiuToken, callback);
     }
 
+    @Deprecated
     public void bindIdCard(String token, String url0, String url1, String url2, String url3, String url4,
                            OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         String postText = url + "logged/newSavePic" + "?token=" + token + "&url0=" + url0 + "&url1=" + url1
@@ -170,6 +176,7 @@ public class ApiClient {
     public void isStudentAuth(String token, OkHttpClientManager.ResultCallback<DataJsonResult<String>> callback) {
         okHttpClientManager.getAsyn(url + "logged/selectStudentAuth" + "?token=" + token, callback);
     }
+
     @Deprecated
     public void studyAuth(String token, String username, String password, String captcha, OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>> callback) {
         okHttpClientManager.getAsyn(Urls.url_xuexin_verify + "?token=" + token + "&username=" + username

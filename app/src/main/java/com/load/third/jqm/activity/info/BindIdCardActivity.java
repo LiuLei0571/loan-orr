@@ -1,7 +1,7 @@
 package com.load.third.jqm.activity.info;
 
 import android.Manifest;
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,23 +12,23 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.alibaba.fastjson.JSONObject;
 import com.load.third.jqm.ImgUtil.ImageViewUtils;
 import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
-import com.load.third.jqm.bean.UserDao;
-import com.load.third.jqm.http.ApiClient;
-import com.load.third.jqm.http.OkHttpClientManager;
-import com.load.third.jqm.http.result.DataJsonResult;
+import com.load.third.jqm.activity.BaseActivity;
+import com.load.third.jqm.bean.newBean.QiniuName;
 import com.load.third.jqm.httpUtil.QiNiuGetUtils;
 import com.load.third.jqm.httpUtil.TokenLoginUtil;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.tips.DialogUtils;
 import com.load.third.jqm.tips.ProgressDialog;
 import com.load.third.jqm.tips.ToastUtils;
@@ -36,18 +36,20 @@ import com.load.third.jqm.utils.GlideLoader;
 import com.load.third.jqm.utils.ImageFactory;
 import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
-import com.squareup.okhttp.Request;
 import com.yancy.imageselector.ImageConfig;
 import com.yancy.imageselector.ImageSelector;
 import com.yancy.imageselector.ImageSelectorActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 import static com.load.third.jqm.httpUtil.QiNiuGetUtils.MSG_GET_QINIU_UPLOAD;
@@ -56,7 +58,7 @@ import static com.load.third.jqm.utils.TempUtils.tempPicDirectory;
 import static com.load.third.jqm.utils.TempUtils.tempPicFile;
 import static com.load.third.jqm.utils.TempUtils.tempPicPath;
 
-public class BindIdCardActivity extends Activity {
+public class BindIdCardActivity extends BaseActivity {
     private static final int PERMISSIONS_REQUEST_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_CAMERA = 2;
     public static final int select_idcard_front = 101;
@@ -103,9 +105,11 @@ public class BindIdCardActivity extends Activity {
     private String pic_idcard_photo;//持证照片,本地路径
     private String pic_life_photo;//生活照,本地路径
     private String pic_work_photo;//工作照,本地路径
-    private List<String> picList = new ArrayList<>( );//上传图片到七牛后返回的url
+    private List<String> picList = new ArrayList<>();//上传图片到七牛后返回的url
     private String qiniuToken;
-    private Handler handler = new Handler( ) {
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MSG_TOKEN_LOGIN_SUCCESS:
@@ -124,10 +128,12 @@ public class BindIdCardActivity extends Activity {
                 case MSG_GET_QINIU_UPLOAD:
                     if (StringUtils.isNotBlank((String) msg.obj)) {
                         picList.add((String) msg.obj);
-                        if (picList.size( ) == 5) {
-                            bindIdCard( );
+                        if (picList.size() == 5) {
+                            bindIdCard();
                         }
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -139,7 +145,7 @@ public class BindIdCardActivity extends Activity {
         setContentView(R.layout.activity_bind_id_card);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
@@ -154,24 +160,24 @@ public class BindIdCardActivity extends Activity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_EXTERNAL_STORAGE);
         } else {
-            selectPic( );
+            selectPic();
         }
     }
 
     //    打开本地相册选取照片
     private void selectPic() {
-        if (!tempPicFile.exists( )) {
-            tempPicFile.mkdirs( );
+        if (!tempPicFile.exists()) {
+            tempPicFile.mkdirs();
         }
         ImageConfig imageConfig
-                = new ImageConfig.Builder(new GlideLoader( ))
-                .titleBgColor(getResources( ).getColor(R.color.main_color))
-                .titleSubmitTextColor(getResources( ).getColor(R.color.main_color))
-                .titleTextColor(getResources( ).getColor(R.color.white))
-                .singleSelect( )
-                .showCamera( )
+                = new ImageConfig.Builder(new GlideLoader())
+                .titleBgColor(getResources().getColor(R.color.main_color))
+                .titleSubmitTextColor(getResources().getColor(R.color.main_color))
+                .titleTextColor(getResources().getColor(R.color.white))
+                .singleSelect()
+                .showCamera()
                 .filePath(tempPicPath)
-                .build( );
+                .build();
         ImageSelector.open(this, imageConfig);
     }
 
@@ -182,10 +188,13 @@ public class BindIdCardActivity extends Activity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, PERMISSIONS_REQUEST_CAMERA);
         } else {
-            if (resultCode == select_idcard_front || resultCode == select_idcard_back)
+            if (resultCode == select_idcard_front || resultCode == select_idcard_back) {
                 toCameraActivity(type, resultCode);
-            else if (resultCode == select_idcard_photo)
-                takePhoto( );
+            } else {
+                if (resultCode == select_idcard_photo) {
+                    takePhoto();
+                }
+            }
         }
     }
 
@@ -199,7 +208,7 @@ public class BindIdCardActivity extends Activity {
     private Uri takePhotoUrl;//拍摄持证照片的Url
 
     private void takePhoto() {
-        takePhotoUrl = Uri.fromFile(new File(tempPicDirectory, System.currentTimeMillis( ) + ".jpg"));
+        takePhotoUrl = Uri.fromFile(new File(tempPicDirectory, System.currentTimeMillis() + ".jpg"));
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, takePhotoUrl);
         startActivityForResult(intent, select_idcard_photo);
@@ -207,10 +216,10 @@ public class BindIdCardActivity extends Activity {
 
     private void setImageView(String path, String outPath, ImageView imageView) {
         try {
-            new ImageFactory( ).compressAndGenImage(path, outPath, 200, false);
+            new ImageFactory().compressAndGenImage(path, outPath, 200, false);
             ImageViewUtils.displayImage(context, outPath, imageView);
         } catch (Exception e) {
-            e.printStackTrace( );
+            e.printStackTrace();
         }
     }
 
@@ -241,68 +250,98 @@ public class BindIdCardActivity extends Activity {
     }
 
     private void getQiNiuName(final String picPath) {
-        ApiClient.getInstance( ).getQiNiuName(new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>( ) {
 
-            @Override
-            public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar( );
-                ToastUtils.showToast(context, "网络请求失败");
-                Log.e("http_msg", "获取七牛name失败");
-            }
+        apiRetrofit.getQiNiuName(Apis.getQiNiuName.getUrl())
 
-            @Override
-            public void onResponse(DataJsonResult<JSONObject> response) {
-                if (response.getSuccess( ) == "true") {
-                    String qiniuName = response.getData( ).getString("fileName") + ".jpg";
-                    if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(picPath)) {
-                        QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, picPath);
+                .subscribeOn(Schedulers.io())
+                .subscribe(new CommonObserver<QiniuName>() {
+                    @Override
+                    public void doSuccess(BaseResponse<QiniuName> result) {
+                        if (result != null) {
+                            String qiniuName = result.getData().getFileName() + ".jpg";
+                            if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(picPath)) {
+                                QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, picPath);
+                            }
+                        }
+
                     }
-                } else {
-                    ProgressDialog.cancelProgressBar( );
-                    ToastUtils.showToast(context, "网络请求失败");
-                    Log.e("http_msg", "获取七牛name失败");
-                }
-            }
-        });
+                });
+        //        ApiClient.getInstance().getQiNiuName(new OkHttpClientManager.ResultCallback<DataJsonResult<JSONObject>>() {
+//
+//            @Override
+//            public void onError(Request request, Exception e, String error) {
+//                ProgressDialog.cancelProgressBar();
+//                ToastUtils.showToast(context, "网络请求失败");
+//                Log.e("http_msg", "获取七牛name失败");
+//            }
+//
+//            @Override
+//            public void onResponse(DataJsonResult<JSONObject> response) {
+//                if (response.getSuccess() == "true") {
+//                    String qiniuName = response.getData().getString("fileName") + ".jpg";
+//                    if (StringUtils.isNotBlank(qiniuName) && StringUtils.isNotBlank(picPath)) {
+//                        QiNiuGetUtils.uploadToQianNiuYun(context, handler, qiniuToken, qiniuName, picPath);
+//                    }
+//                } else {
+//                    ProgressDialog.cancelProgressBar();
+//                    ToastUtils.showToast(context, "网络请求失败");
+//                    Log.e("http_msg", "获取七牛name失败");
+//                }
+//            }
+//        });
     }
 
     private void bindIdCard() {
-        String token = UserDao.getInstance(context).getToken( );
-        ApiClient.getInstance( ).bindIdCard(token, picList.get(0), picList.get(1), picList.get(2),
-                picList.get(4), picList.get(3), new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
 
-                    @Override
-                    public void onError(Request request, Exception e, String error) {
-                        ProgressDialog.cancelProgressBar( );
-//                        ToastUtils.showToast(context, error);
-                        ToastUtils.showToast(context, "绑定失败，请重试");
-                    }
+        Map<String, Object> params = new HashMap<>();
+        for (int i = 0; i < picList.size(); i++) {
+            params.put("url" + i, picList.get(i));
+        }
+        submitTask(apiRetrofit.getBindIdCard(UrlParams.getUrl(Apis.bindIdCard.getUrl(), params)), new CommonObserver() {
+            @Override
+            public void doSuccess(BaseResponse result) {
+                IntentUtils.toMainActivity(context);
+                ToastUtils.showToast(context, "绑定成功");
+            }
 
-                    @Override
-                    public void onResponse(DataJsonResult<String> response) {
-                        ProgressDialog.cancelProgressBar( );
-                        if (response.getSuccess( ) == "true") {
-                            IntentUtils.toMainActivity(context);
-                            ToastUtils.showToast(context, "绑定成功");
-                        } else {
-                            ToastUtils.showToast(context, response.getMessage( ));
-                        }
-                    }
-                });
+        });
+
+//        String token = UserDao.getInstance(context).getToken();
+//        ApiClient.getInstance().bindIdCard(token, picList.get(0), picList.get(1), picList.get(2),
+//                picList.get(4), picList.get(3), new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
+//
+//                    @Override
+//                    public void onError(Request request, Exception e, String error) {
+//                        ProgressDialog.cancelProgressBar();
+////                        ToastUtils.showToast(context, error);
+//                        ToastUtils.showToast(context, "绑定失败，请重试");
+//                    }
+//
+//                    @Override
+//                    public void onResponse(DataJsonResult<String> response) {
+//                        ProgressDialog.cancelProgressBar();
+//                        if (response.getSuccess() == "true") {
+//                            IntentUtils.toMainActivity(context);
+//                            ToastUtils.showToast(context, "绑定成功");
+//                        } else {
+//                            ToastUtils.showToast(context, response.getMessage());
+//                        }
+//                    }
+//                });
     }
 
     @Override
     protected void onActivityResult(final int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == select_idcard_front && resultCode == RESULT_OK && data != null) {
-            pic_idcard_front = data.getExtras( ).getString("camera_result");
+            pic_idcard_front = data.getExtras().getString("camera_result");
             ImageViewUtils.displayImage(context, pic_idcard_front, ivIdcardFront);
         } else if (requestCode == select_idcard_back && resultCode == RESULT_OK && data != null) {
-            pic_idcard_back = data.getExtras( ).getString("camera_result");
+            pic_idcard_back = data.getExtras().getString("camera_result");
             ImageViewUtils.displayImage(context, pic_idcard_back, ivIdcardBack);
         } else if (requestCode == select_idcard_photo && resultCode == RESULT_OK && takePhotoUrl != null) {
 //                手持证件照，直接拍照
-            pic_idcard_photo = takePhotoUrl.getPath( );
+            pic_idcard_photo = takePhotoUrl.getPath();
             ImageViewUtils.displayImage(context, pic_idcard_photo, ivIdcardPhoto);
         } else if (requestCode == ImageSelector.IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             switch (select_type) {
@@ -319,6 +358,8 @@ public class BindIdCardActivity extends Activity {
                     pic_work_photo = data.getStringArrayListExtra(ImageSelectorActivity.EXTRA_RESULT).get(0);
                     ImageViewUtils.displayImage(context, pic_work_photo, ivWorkPhoto);
                     break;
+                default:
+                    break;
             }
         }
     }
@@ -329,7 +370,7 @@ public class BindIdCardActivity extends Activity {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_EXTERNAL_STORAGE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    selectPic( );
+                    selectPic();
                 } else {
                     ToastUtils.showToast(context, "请在设置中打开访问设备文件权限");
                 }
@@ -341,27 +382,29 @@ public class BindIdCardActivity extends Activity {
                     ToastUtils.showToast(context, "请在设置中打开相机权限");
                 }
                 break;
+            default:
+                break;
         }
     }
 
     private void back() {
-        DialogUtils.getInstance(context).showTipsDialog("是否退出证件照绑定？", new View.OnClickListener( ) {
+        DialogUtils.getInstance(context).showTipsDialog("是否退出证件照绑定？", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtils.getInstance(context).dismiss( );
-                finish( );
+                DialogUtils.getInstance(context).dismiss();
+                finish();
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        back( );
+        back();
     }
 
     @OnClick({R.id.iv_idcard_front, R.id.iv_idcard_back, R.id.iv_idcard_photo, R.id.iv_life_photo, R.id.iv_work_photo, R.id.btn_next, R.id.iv_back})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_idcard_front:
                 checkCameraPermission(CameraActivity.TYPE_CAMERA_FRONT, select_idcard_front);
                 break;
@@ -377,17 +420,19 @@ public class BindIdCardActivity extends Activity {
                 break;
             case R.id.iv_life_photo:
                 select_type = select_life_photo;
-                checkPermission( );
+                checkPermission();
                 break;
             case R.id.iv_work_photo:
                 select_type = select_work_photo;
-                checkPermission( );
+                checkPermission();
                 break;
             case R.id.btn_next:
-                uploadPic( );
+                uploadPic();
                 break;
             case R.id.iv_back:
-                back( );
+                back();
+                break;
+            default:
                 break;
         }
     }

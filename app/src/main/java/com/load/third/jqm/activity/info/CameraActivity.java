@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.load.third.jqm.R;
+import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.utils.ImageFactory;
 import com.load.third.jqm.utils.Utils;
 import com.load.third.jqm.view.MaskView;
@@ -30,7 +31,10 @@ import butterknife.OnClick;
 import static com.load.third.jqm.utils.TempUtils.tempPicDirectory;
 import static com.load.third.jqm.utils.TempUtils.tempPicFile;
 
-public class CameraActivity extends Activity {
+/**
+ * @author liulei
+ */
+public class CameraActivity extends BaseActivity {
     public static final String TYPE_CAMERA = "type_camera";
     public static final int TYPE_CAMERA_FRONT = 0;
     public static final int TYPE_CAMERA_BACK = 1;
@@ -102,6 +106,8 @@ public class CameraActivity extends Activity {
                 tvTips.setText("请拍摄身份证（国徽面），并尝试与线框对齐");
                 ivIdcardBack.setVisibility(View.VISIBLE);
                 break;
+            default:
+                break;
         }
     }
 
@@ -119,6 +125,8 @@ public class CameraActivity extends Activity {
                 break;
             case R.id.iv_back:
                 finish();
+                break;
+            default:
                 break;
         }
     }
@@ -146,7 +154,7 @@ public class CameraActivity extends Activity {
 //        int x = (bitmap.getWidth() - width - (int) (Utils.dip2px(context, 78) * rate)) / 2;
 //        int y = (bitmap.getHeight() - height - (int) (Utils.dip2px(context, 31) * rate)) / 2;
 //        Bitmap rectBitmap = Bitmap.createBitmap(bitmap, x, y, width, height);
-        Bitmap rectBitmap=bitmap;
+        Bitmap rectBitmap = bitmap;
         String outPath = tempPicDirectory + System.currentTimeMillis() + ".jpg";
         new ImageFactory().compressAndGenImage(rectBitmap, outPath, 2000000);
         Intent resultIntent = new Intent();
@@ -218,6 +226,8 @@ public class CameraActivity extends Activity {
                 break;
             case Surface.ROTATION_270:
                 degree = 180;
+                break;
+            default:
                 break;
         }
         return degree;

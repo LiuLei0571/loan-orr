@@ -9,14 +9,11 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,36 +22,44 @@ import android.widget.TextView;
 
 import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
-import com.load.third.jqm.bean.UserDao;
-import com.load.third.jqm.http.ApiClient;
-import com.load.third.jqm.http.OkHttpClientManager;
-import com.load.third.jqm.http.result.DataJsonResult;
-import com.load.third.jqm.httpUtil.HomeGetUtils;
-import com.load.third.jqm.httpUtil.TokenLoginUtil;
-import com.load.third.jqm.tips.ProgressDialog;
+import com.load.third.jqm.activity.BaseActivity;
+import com.load.third.jqm.bean.UserBean;
+import com.load.third.jqm.bean.newBean.CheckPhone;
+import com.load.third.jqm.newHttp.ApiException;
+import com.load.third.jqm.newHttp.Apis;
+import com.load.third.jqm.newHttp.BaseResponse;
+import com.load.third.jqm.newHttp.CommonObserver;
+import com.load.third.jqm.newHttp.CustomConsumer;
+import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.ContactsTxtUtil;
+import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.PickerVewUtil;
 import com.load.third.jqm.utils.StringUtils;
 import com.load.third.jqm.utils.TextCheckUtil;
-import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
 import static com.load.third.jqm.utils.TempUtils.tempDirectory;
 
 /**
- * 提交社会关系
+ * 提交社
  */
-public class MyInfoThirdActivity extends Activity {
+public class MyInfoThirdActivity extends BaseActivity {
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
     private static final int RESULT_CHOSE_FAMILY = 101;
     private static final int RESULT_CHOSE_SOCIAL = 102;
@@ -84,15 +89,7 @@ public class MyInfoThirdActivity extends Activity {
     private List<String> list_relation_social;
     private String phoneFamily;
     private String phoneSocial;
-    private Handler handler = new Handler( ) {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    postInfo( );
-                    break;
-            }
-        }
-    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,7 +97,7 @@ public class MyInfoThirdActivity extends Activity {
         setContentView(R.layout.activity_my_info_third);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
@@ -108,10 +105,10 @@ public class MyInfoThirdActivity extends Activity {
         tvRight.setText("下一步");
         OverScrollDecoratorHelper.setUpOverScroll(scrollView);
         viewArr = Arrays.asList(new View[]{tvRelationFamily, tvPhoneFamily, tvRelationSocial, tvPhoneSocial});
-        list_relation_family = Arrays.asList(getResources( ).getStringArray(R.array.list_relation_family));
-        list_relation_social = Arrays.asList(getResources( ).getStringArray(R.array.list_relation_social));
-        setInfo( );
-        addTextListener( );
+        list_relation_family = Arrays.asList(getResources().getStringArray(R.array.list_relation_family));
+        list_relation_social = Arrays.asList(getResources().getStringArray(R.array.list_relation_social));
+        setInfo();
+        addTextListener();
     }
 
     private void setInfo() {
@@ -124,16 +121,16 @@ public class MyInfoThirdActivity extends Activity {
 
     private void saveInfo() {
         SharedPreferences sp = getSharedPreferences("myInfoThird", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit( );
+        SharedPreferences.Editor editor = sp.edit();
         editor.putString("relationFamily", StringUtils.getTextValue(tvRelationFamily));
         editor.putString("phoneFamily", StringUtils.getTextValue(tvPhoneFamily));
         editor.putString("relationSocial", StringUtils.getTextValue(tvRelationSocial));
         editor.putString("phoneSocial", StringUtils.getTextValue(tvPhoneSocial));
-        editor.commit( );
+        editor.commit();
     }
 
     private void addTextListener() {
-        TextWatcher textWatcher = new TextWatcher( ) {
+        TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -141,7 +138,7 @@ public class MyInfoThirdActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                saveInfo( );
+                saveInfo();
             }
 
             @Override
@@ -149,7 +146,7 @@ public class MyInfoThirdActivity extends Activity {
 
             }
         };
-        for (int i = 0; i < viewArr.size( ); i++) {
+        for (int i = 0; i < viewArr.size(); i++) {
             if (viewArr.get(i) instanceof EditText) {
                 ((EditText) viewArr.get(i)).addTextChangedListener(textWatcher);
             }
@@ -161,32 +158,46 @@ public class MyInfoThirdActivity extends Activity {
 
     private void postInfo() {
         if (TextCheckUtil.checkText(viewArr)) {
-            ProgressDialog.showProgressBar(context, "请稍后...");
-            String token = UserDao.getInstance(context).getToken( );
             int cognateRelation = PickerVewUtil.getSelectItem(list_relation_family, StringUtils.getTextValue(tvRelationFamily)) + 1;
             int socialRelation = PickerVewUtil.getSelectItem(list_relation_social, StringUtils.getTextValue(tvRelationSocial)) + 1;
-            ApiClient.getInstance( ).myInfoThird(token, cognateRelation, phoneFamily, socialRelation, phoneSocial, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>( ) {
+            final Map<String, Object> params = new HashMap<>();
+            params.put("cognateRelation", cognateRelation);
+            params.put("cognateMobile", phoneFamily);
+            params.put("socialRelation", socialRelation);
+            params.put("socialMobile", phoneSocial);
 
-                @Override
-                public void onError(Request request, Exception e, String error) {
-                    ProgressDialog.cancelProgressBar( );
-                    ToastUtils.showToast(context, "网络请求失败");
-                    Log.e("http_msg", "社会关系信息提交失败");
-                }
+            apiRetrofit.getLoginWithToken(Apis.loginWithToken.getUrl())
+                    .flatMap(new Function<BaseResponse<UserBean>, Observable<BaseResponse<String>>>() {
+                        @Override
+                        public Observable<BaseResponse<String>> apply(BaseResponse<UserBean> userBeanBaseResponse) throws Exception {
+                            if (userBeanBaseResponse.getSuccess()) {
+                                return apiRetrofit.getMyInfoThird(UrlParams.getUrl(Apis.myInfoThird.getUrl(), params));
+                            } else {
+                                return Observable.error(new ApiException(userBeanBaseResponse.getMessage()));
+                            }
+                        }
+                    })
+                    .flatMap(new Function<BaseResponse<String>, Observable<BaseResponse<CheckPhone>>>() {
 
-                @Override
-                public void onResponse(DataJsonResult<String> response) {
-                    ProgressDialog.cancelProgressBar( );
-                    if (response.getSuccess( ) == "true") {
-                        HomeGetUtils.checkPhone(context);
-                        ToastUtils.showToast(context, "信息已提交");
-                        Log.e("http_msg", "社会关系信息已提交");
-                    } else {
-                        ToastUtils.showToast(context, response.getMessage( ));
-                        Log.e("http_msg", "社会关系信息提交失败");
-                    }
-                }
-            });
+
+                        @Override
+                        public Observable<BaseResponse<CheckPhone>> apply(BaseResponse<String> stringBaseResponse) throws Exception {
+                            return apiRetrofit.getCheckPhone(Apis.checkPhone.getUrl());
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new CommonObserver<CheckPhone>() {
+                        @Override
+                        public void doSuccess(BaseResponse<CheckPhone> result) {
+                            if (result.getData() != null) {
+                                IntentUtils.toWebViewActivity(context, "手机验证", result.getData().getRedirectUrl());
+                            }
+
+                        }
+                    });
         } else {
             ToastUtils.showToast(context, "请填入完整的信息");
         }
@@ -196,7 +207,7 @@ public class MyInfoThirdActivity extends Activity {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
         } else {
-            chosePeople( );
+            chosePeople();
         }
     }
 
@@ -209,12 +220,12 @@ public class MyInfoThirdActivity extends Activity {
     private void getContact(int requestCode, Intent data) {
         if (data != null) {
             try {
-                Uri uri = data.getData( );
+                Uri uri = data.getData();
                 if (uri != null) {
-                    Cursor cursor = getContentResolver( )
+                    Cursor cursor = getContentResolver()
                             .query(uri, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,
                                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}, null, null, null);
-                    while (cursor.moveToNext( )) {
+                    while (cursor.moveToNext()) {
                         switch (requestCode) {
                             case RESULT_CHOSE_FAMILY:
                                 phoneFamily = cursor.getString(0).replaceAll(" ", "");
@@ -224,33 +235,37 @@ public class MyInfoThirdActivity extends Activity {
                                 phoneSocial = cursor.getString(0).replaceAll(" ", "");
                                 tvPhoneSocial.setText(cursor.getString(1) + "  (" + cursor.getString(0).replaceAll(" ", "") + ")");
                                 break;
+                            default:
+                                break;
                         }
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace( );
+                e.printStackTrace();
             }
         }
     }
 
     private void getContactsList() {
-        myContactsList = new ArrayList<>( );
+        myContactsList = new ArrayList<>();
         try {
             Uri contactUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-            Cursor cursor = getContentResolver( )
+            Cursor cursor = getContentResolver()
                     .query(contactUri, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,
                             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME}, null, null, null);
             String contactName;
             String contactNumber;
-            while (cursor.moveToNext( )) {
+            assert cursor != null;
+            while (cursor.moveToNext()) {
                 contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 contactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                if (contactName != null)
+                if (contactName != null) {
                     myContactsList.add(contactName + "  " + contactNumber);
+                }
             }
-            cursor.close( );
+            cursor.close();
         } catch (Exception e) {
-            e.printStackTrace( );
+            e.printStackTrace();
         }
     }
 
@@ -259,17 +274,17 @@ public class MyInfoThirdActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         getContact(requestCode, data);
         if (myContactsList == null) {
-            getContactsList( );
+            getContactsList();
             //保存通讯录到本地
-            String txtName = System.currentTimeMillis( ) + ".txt";
+            String txtName = System.currentTimeMillis() + ".txt";
             String txtPath = tempDirectory + txtName;
-            for (int i = 0; i < myContactsList.size( ); i++) {
+            for (int i = 0; i < myContactsList.size(); i++) {
                 ContactsTxtUtil.writeTxtToFile(txtName, (i + 1) + "  " + myContactsList.get(i));
             }
             SharedPreferences sp = getSharedPreferences("contactsTxt", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sp.edit( );
+            SharedPreferences.Editor editor = sp.edit();
             editor.putString("txtPath", txtPath);
-            editor.commit( );
+            editor.apply();
         }
     }
 
@@ -278,7 +293,7 @@ public class MyInfoThirdActivity extends Activity {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 ToastUtils.showToast(context, "获取权限成功");
-                chosePeople( );
+                chosePeople();
             } else {
                 ToastUtils.showToast(context, "请在设置中打开读取通讯录权限");
             }
@@ -289,13 +304,13 @@ public class MyInfoThirdActivity extends Activity {
 
     @OnClick({R.id.tv_relation_family, R.id.tv_phone_family, R.id.tv_relation_social, R.id.tv_phone_social, R.id.iv_back, R.id.tv_right})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_back:
-                finish( );
+                finish();
                 break;
             case R.id.tv_right:
                 if (!MyApp.isNeedUpdate) {
-                    TokenLoginUtil.loginWithToken(context, handler);
+//                    TokenLoginUtil.loginWithToken(context, handler);
                 }
                 break;
             case R.id.tv_relation_family:
@@ -303,14 +318,16 @@ public class MyInfoThirdActivity extends Activity {
                 break;
             case R.id.tv_phone_family:
                 chose_type = RESULT_CHOSE_FAMILY;
-                checkPermission( );
+                checkPermission();
                 break;
             case R.id.tv_relation_social:
                 PickerVewUtil.showPickerView(context, list_relation_social, tvRelationSocial);
                 break;
             case R.id.tv_phone_social:
                 chose_type = RESULT_CHOSE_SOCIAL;
-                checkPermission( );
+                checkPermission();
+                break;
+            default:
                 break;
         }
     }

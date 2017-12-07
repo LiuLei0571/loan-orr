@@ -36,6 +36,9 @@ import butterknife.OnClick;
 
 import static com.load.third.jqm.activity.mine.LoginActivity.mobile;
 
+/** 短信登录
+ * @author liulei
+ */
 public class LoginVerifyActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
@@ -85,25 +88,6 @@ public class LoginVerifyActivity extends BaseActivity {
             }
         });
 
-//        ApiClient.getInstance().getSMScode(mobile, new OkHttpClientManager.ResultCallback<DataJsonResult<String>>() {
-//
-//            @Override
-//            public void onError(Request request, Exception e, String error) {
-//                ProgressDialog.cancelProgressBar();
-//                ToastUtils.showToast(context, "网络请求失败");
-//            }
-//
-//            @Override
-//            public void onResponse(DataJsonResult<String> response) {
-//                ProgressDialog.cancelProgressBar();
-//                if (response.getSuccess() == "true") {
-//                    ToastUtils.showToast(context, "发送验证码成功");
-//                    new CountDownTimerUtil(120 * 1000, 1000, tvVerifyCode).start();
-//                } else {
-//                    ToastUtils.showToast(context, response.getMessage());
-//                }
-//            }
-//        });
     }
 
     private void login() {
@@ -130,43 +114,6 @@ public class LoginVerifyActivity extends BaseActivity {
             }
         });
 
-//        ApiClient.getInstance().login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>() {
-//
-//            @Override
-//            public void onError(Request request, Exception e, String error) {
-//                ProgressDialog.cancelProgressBar();
-//                ToastUtils.showToast(context, "网络请求失败");
-//                Log.e("http_msg", "登录失败");
-//            }
-//
-//            @Override
-//            public void onResponse(DataJsonResult<UserBean> response) {
-//                ProgressDialog.cancelProgressBar();
-//                if (response.getSuccess() == "true") {
-//                    Log.d("http_msg", "登录成功");
-////                    用户信息实体类
-//                    UserBean userBean = response.getData();
-//                    Log.d("http_msg", "response token:" + userBean.getToken());
-//                    String token = userBean.getToken();
-//                    //网络请求的token需要转码，将获得的token先转码
-//                    try {
-//                        token = URLEncoder.encode(userBean.getToken(), "UTF-8");
-//                    } catch (UnsupportedEncodingException e) {
-//                        e.printStackTrace();
-//                    }
-//                    userBean.setToken(token);
-//                    //利用UserDao类使用MySharedPreference储存用户信息
-//                    UserDao.getInstance(context).setAllData(userBean);
-//                    UserDao.getInstance(context).setMobile(mobile);
-//                    IntentUtils.toMainActivity(context);
-//                    ToastUtils.showToast(context, "登录成功");
-//                    Log.d("http_msg", "userBean token:" + UserDao.getInstance(context).getToken());
-//                } else {
-//                    ToastUtils.showToast(context, response.getMessage());
-//                    Log.e("http_msg", "登录失败" + response.getMessage());
-//                }
-//            }
-//        });
     }
 
     @OnClick({R.id.iv_back, R.id.tv_verify_code, R.id.btn_next})
@@ -180,6 +127,8 @@ public class LoginVerifyActivity extends BaseActivity {
                 break;
             case R.id.btn_next:
                 login();
+                break;
+            default:
                 break;
         }
     }

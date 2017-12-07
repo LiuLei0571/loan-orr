@@ -43,7 +43,7 @@ public class SettingActivity extends BaseActivity {
         setContentView(R.layout.activity_setting);
         ButterKnife.bind(this);
         context = this;
-        initView( );
+        initView();
     }
 
     private void initView() {
@@ -52,30 +52,30 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void cleanCache() {
-        DialogUtils.getInstance(context).showTipsDialog("是否清除缓存？", new View.OnClickListener( ) {
+        DialogUtils.getInstance(context).showTipsDialog("是否清除缓存？", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TempUtils.deleteFolderFile(TempUtils.tempDirectory, false);
                 tvCache.setText("0 B");
-                DialogUtils.getInstance(context).dismiss( );
+                DialogUtils.getInstance(context).dismiss();
             }
         });
     }
 
     private void loginOut() {
-        DialogUtils.getInstance(context).showTipsDialog("是否退出登录？", new View.OnClickListener( ) {
+        DialogUtils.getInstance(context).showTipsDialog("是否退出登录？", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                清空token
                 UserDao.getInstance(context).setToken("");
 //                清空缓存的个人三块信息
                 SharedPreferences myInfoFirst = getSharedPreferences("myInfoFirst", Context.MODE_PRIVATE);
-                myInfoFirst.edit( ).clear( ).commit( );
+                myInfoFirst.edit().clear().commit();
                 SharedPreferences myInfoSecond = getSharedPreferences("myInfoSecond", Context.MODE_PRIVATE);
-                myInfoSecond.edit( ).clear( ).commit( );
+                myInfoSecond.edit().clear().commit();
                 SharedPreferences myInfoThird = getSharedPreferences("myInfoThird", Context.MODE_PRIVATE);
-                myInfoThird.edit( ).clear( ).commit( );
-                DialogUtils.getInstance(context).dismiss( );
+                myInfoThird.edit().clear().commit();
+                DialogUtils.getInstance(context).dismiss();
                 IntentUtils.toMainActivity(context);
             }
         });
@@ -83,18 +83,20 @@ public class SettingActivity extends BaseActivity {
 
     @OnClick({R.id.iv_back, R.id.ll_clean_cache, R.id.btn_set_mine_info, R.id.btn_login_out})
     public void onViewClicked(View view) {
-        switch (view.getId( )) {
+        switch (view.getId()) {
             case R.id.iv_back:
-                finish( );
+                finish();
                 break;
             case R.id.ll_clean_cache:
-                cleanCache( );
+                cleanCache();
                 break;
             case R.id.btn_set_mine_info:
                 ToastUtils.showToast(context, "建设中...");
                 break;
             case R.id.btn_login_out:
-                loginOut( );
+                loginOut();
+                break;
+            default:
                 break;
         }
     }

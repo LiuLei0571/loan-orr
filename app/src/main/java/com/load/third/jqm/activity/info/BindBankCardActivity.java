@@ -2,8 +2,6 @@ package com.load.third.jqm.activity.info;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -42,8 +40,6 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
-
 public class BindBankCardActivity extends BaseActivity {
 
     @BindView(R.id.edit_bank_card)
@@ -61,16 +57,6 @@ public class BindBankCardActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     private Context context;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    postInfo();
-                    break;
-            }
-        }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +92,7 @@ public class BindBankCardActivity extends BaseActivity {
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new CustomConsumer<Disposable>(getBaseContext()))
+                .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommonObserver<String>() {
@@ -229,12 +215,13 @@ public class BindBankCardActivity extends BaseActivity {
     }
 
     private boolean checkText() {
-        if (StringUtils.getTextValue(editBankCard).length() <= 0)
+        if (StringUtils.getTextValue(editBankCard).length() <= 0) {
             return false;
-        else if (StringUtils.getTextValue(tvBankName).length() <= 0)
+        } else if (StringUtils.getTextValue(tvBankName).length() <= 0) {
             return false;
-        else if (StringUtils.getTextValue(editBankDetailName).length() <= 0)
+        } else if (StringUtils.getTextValue(editBankDetailName).length() <= 0) {
             return false;
+        }
         return true;
     }
 
@@ -268,6 +255,8 @@ public class BindBankCardActivity extends BaseActivity {
                 break;
             case R.id.iv_back:
                 back();
+                break;
+            default:
                 break;
         }
     }

@@ -32,7 +32,6 @@ public class ApiException extends RuntimeException {
                 break;
             default:
                 MyApp.isNeedUpdate = false;
-
                 message = "未知错误";
 
         }

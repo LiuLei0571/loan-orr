@@ -2,8 +2,6 @@ package com.load.third.jqm.activity.info;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,10 +37,9 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
-
 /**
  * 学信认证
+ * @author liulei
  */
 public class XueXinVerifyActivity extends BaseActivity {
 
@@ -66,16 +63,6 @@ public class XueXinVerifyActivity extends BaseActivity {
     TextView tvTitle;
     private Context context;
     private String captcha;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    studyAuth();
-                    break;
-            }
-        }
-    };
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +120,7 @@ public class XueXinVerifyActivity extends BaseActivity {
                     }
                 })
                 .subscribeOn(Schedulers.io())
-                .doOnSubscribe(new CustomConsumer<Disposable>(getBaseContext()))
+                .doOnSubscribe(new CustomConsumer<Disposable>(getBaseActivity()))
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommonObserver<String>() {
@@ -141,11 +128,6 @@ public class XueXinVerifyActivity extends BaseActivity {
                     public void doSuccess(BaseResponse<String> result) {
                         ToastUtils.showToast(context, "认证成功");
                         finish();
-                    }
-
-                    @Override
-                    public void doFail(String msg) {
-                        super.doFail(msg);
                     }
                 });
 //        ProgressDialog.showProgressBar(context, "请稍后...");
@@ -203,6 +185,8 @@ public class XueXinVerifyActivity extends BaseActivity {
                 break;
             case R.id.iv_back:
                 back();
+                break;
+            default:
                 break;
         }
     }

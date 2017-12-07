@@ -29,8 +29,14 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class TicketActivity extends BaseActivity {
     public static final String TYPE_TICKET = "type_ticket";
-    public static final int TYPE_TICKET_LIST = 0;//从个人中心点击进入，查看优惠券列表
-    public static final int TYPE_TICKET_CHOSE = 1;//从首页点击进入，选取优惠券
+    /**
+     * 从个人中心点击进入，查看优惠券列表
+     */
+    public static final int TYPE_TICKET_LIST = 0;
+    /**
+     * 从首页点击进入，选取优惠券
+     */
+    public static final int TYPE_TICKET_CHOSE = 1;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_title)
@@ -69,12 +75,13 @@ public class TicketActivity extends BaseActivity {
             case TYPE_TICKET_CHOSE:
                 tvRight.setText("不使用代金券");
                 break;
+            default:
+                break;
         }
         setLvTicket();
     }
 
     private void setLvTicket() {
-//        llTicketNull.setVisibility(View.GONE);
         adapter = new TicketListAdapter(context, list, type);
         lvTicket.setAdapter(adapter);
         lvTicket.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -101,10 +108,14 @@ public class TicketActivity extends BaseActivity {
                     case TYPE_TICKET_CHOSE:
                         finish();
                         break;
+                    default:
+                        break;
                 }
                 break;
             case R.id.btn_invite:
                 DialogUtils.showInviteDialog(context);
+                break;
+            default:
                 break;
         }
     }

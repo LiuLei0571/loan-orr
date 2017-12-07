@@ -53,7 +53,7 @@ public class TaoBaoVerifyActivity extends Activity {
     TextView tvProgressTips;
     @BindView(R.id.ll_indicator)
     LinearLayout llIndicator;
-
+    private CrawlerMetaModel model;
     private Context context;
     private String userId;
     private CrawlerMetaModel crawlerMetaModel;
@@ -90,6 +90,7 @@ public class TaoBaoVerifyActivity extends Activity {
     }
 
     public class CustomWebViewClient extends WebViewClient {
+        @Override
         public void onPageFinished(WebView view, String url) {
             System.out.println("加载完成:" + url);
             if (crawlerMetaModel != null) {
@@ -133,7 +134,7 @@ public class TaoBaoVerifyActivity extends Activity {
                     String code = jsonObject.getString("code");
                     String message = jsonObject.getString("message");
                     if (result == true) {
-                        CrawlerMetaModel model = jsonObject.getObject("object", CrawlerMetaModel.class);
+                        model = jsonObject.getObject("object", CrawlerMetaModel.class);
                         if (model != null) {
                             crawlerMetaModel = model;
                             final String url = model.getLoginUrl();
@@ -172,7 +173,7 @@ public class TaoBaoVerifyActivity extends Activity {
 
             @Override
             public void onResponse(Object response, int id) {
-
+                webView.loadUrl(model.getLoginUrl());
             }
         });
     }
@@ -200,7 +201,7 @@ public class TaoBaoVerifyActivity extends Activity {
                             String code = jsonObject.getString("code");
                             final String message = jsonObject.getString("message");
                             if (result == true) {
-                                final CrawlerMetaModel model = jsonObject.getObject("object", CrawlerMetaModel.class);
+                                model = jsonObject.getObject("object", CrawlerMetaModel.class);
                                 if (model != null) {
                                     final String nextCrawlerUrl = model.getNextCrawlerUrl();
                                     crawlerMetaModel.setNextCrawlerUrl(nextCrawlerUrl);
@@ -215,14 +216,9 @@ public class TaoBaoVerifyActivity extends Activity {
                                     });
                                 }
                             } else if (code.equals("200")) {
-                                wbvWebView.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        crawlerMetaModel.setPercent(BigDecimal.ONE);
-                                        crawlerMetaModel.setMessage(message);
-                                        triggerFinished();
-                                    }
-                                });
+
+                                crawlerMetaModel.setPercent(BigDecimal.ONE);
+                                crawlerMetaModel.setMessage(message);
                             }
                         }
                         return null;
@@ -240,7 +236,8 @@ public class TaoBaoVerifyActivity extends Activity {
 
                     @Override
                     public void onResponse(Object response, int id) {
-
+                        wbvWebView.loadUrl(model.getNextCrawlerUrl());
+                        updatePercent();
                     }
                 });
             }
