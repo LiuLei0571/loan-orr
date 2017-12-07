@@ -14,9 +14,6 @@ import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.bean.UserBean;
 import com.load.third.jqm.bean.UserDao;
 import com.load.third.jqm.help.UrlHelp;
-import com.load.third.jqm.http.ApiClient;
-import com.load.third.jqm.http.OkHttpClientManager;
-import com.load.third.jqm.http.result.DataJsonResult;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
@@ -28,10 +25,7 @@ import com.load.third.jqm.utils.IntentUtils;
 import com.load.third.jqm.utils.StringUtils;
 import com.load.third.jqm.utils.TextWatcherUtil;
 import com.load.third.jqm.utils.VersionUtils;
-import com.squareup.okhttp.Request;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -122,57 +116,57 @@ public class LoginVerifyActivity extends BaseActivity {
         params.put("code", code);
         params.put("mobile_type", "android");
         params.put("version", UrlHelp.getEncode(version + ""));
-//        submitTask(apiRetrofit.getLogin(UrlParams.getUrl(Apis.login.getUrl(), params)), new CommonObserver<UserBean>() {
-//            @Override
-//            public void doSuccess(BaseResponse<UserBean> response) {
-//                if (response.getData() != null) {
-//                    UserBean userBean = response.getData();
-//                    userBean.setToken(UrlHelp.getEncode(userBean.getToken()));
-//                    UserDao.getInstance(context).setAllData(userBean);
-//                    IntentUtils.toMainActivity(context);
-//                    ToastUtils.showToast(context, "登录成功");
-//                }
-//
-//            }
-//        });
-
-        ApiClient.getInstance().login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>() {
-
+        submitTask(apiRetrofit.getLogin(UrlParams.getUrl(Apis.login.getUrl(), params)), new CommonObserver<UserBean>() {
             @Override
-            public void onError(Request request, Exception e, String error) {
-                ProgressDialog.cancelProgressBar();
-                ToastUtils.showToast(context, "网络请求失败");
-                Log.e("http_msg", "登录失败");
-            }
-
-            @Override
-            public void onResponse(DataJsonResult<UserBean> response) {
-                ProgressDialog.cancelProgressBar();
-                if (response.getSuccess() == "true") {
-                    Log.d("http_msg", "登录成功");
-//                    用户信息实体类
+            public void doSuccess(BaseResponse<UserBean> response) {
+                if (response.getData() != null) {
                     UserBean userBean = response.getData();
-                    Log.d("http_msg", "response token:" + userBean.getToken());
-                    String token = userBean.getToken();
-                    //网络请求的token需要转码，将获得的token先转码
-                    try {
-                        token = URLEncoder.encode(userBean.getToken(), "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    userBean.setToken(token);
-                    //利用UserDao类使用MySharedPreference储存用户信息
+                    userBean.setToken(UrlHelp.getEncode(userBean.getToken()));
                     UserDao.getInstance(context).setAllData(userBean);
-                    UserDao.getInstance(context).setMobile(mobile);
                     IntentUtils.toMainActivity(context);
                     ToastUtils.showToast(context, "登录成功");
-                    Log.d("http_msg", "userBean token:" + UserDao.getInstance(context).getToken());
-                } else {
-                    ToastUtils.showToast(context, response.getMessage());
-                    Log.e("http_msg", "登录失败" + response.getMessage());
                 }
+
             }
         });
+
+//        ApiClient.getInstance().login(mobile, code, "android", version, new OkHttpClientManager.ResultCallback<DataJsonResult<UserBean>>() {
+//
+//            @Override
+//            public void onError(Request request, Exception e, String error) {
+//                ProgressDialog.cancelProgressBar();
+//                ToastUtils.showToast(context, "网络请求失败");
+//                Log.e("http_msg", "登录失败");
+//            }
+//
+//            @Override
+//            public void onResponse(DataJsonResult<UserBean> response) {
+//                ProgressDialog.cancelProgressBar();
+//                if (response.getSuccess() == "true") {
+//                    Log.d("http_msg", "登录成功");
+////                    用户信息实体类
+//                    UserBean userBean = response.getData();
+//                    Log.d("http_msg", "response token:" + userBean.getToken());
+//                    String token = userBean.getToken();
+//                    //网络请求的token需要转码，将获得的token先转码
+//                    try {
+//                        token = URLEncoder.encode(userBean.getToken(), "UTF-8");
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
+//                    userBean.setToken(token);
+//                    //利用UserDao类使用MySharedPreference储存用户信息
+//                    UserDao.getInstance(context).setAllData(userBean);
+//                    UserDao.getInstance(context).setMobile(mobile);
+//                    IntentUtils.toMainActivity(context);
+//                    ToastUtils.showToast(context, "登录成功");
+//                    Log.d("http_msg", "userBean token:" + UserDao.getInstance(context).getToken());
+//                } else {
+//                    ToastUtils.showToast(context, response.getMessage());
+//                    Log.e("http_msg", "登录失败" + response.getMessage());
+//                }
+//            }
+//        });
     }
 
     @OnClick({R.id.iv_back, R.id.tv_verify_code, R.id.btn_next})

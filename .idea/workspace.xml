@@ -13,8 +13,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58e168cf-7962-42aa-80ca-7787be6b6eca" name="Default" comment="底层修改">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java" />
+    <list default="true" id="58e168cf-7962-42aa-80ca-7787be6b6eca" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ListTypeAdapterFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -24,9 +24,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpIntercept.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpIntercept.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java" />
     </list>
     <list id="4e9a0fd2-487c-4cd1-a40d-2d1310d74741" name="newDefault" comment="newDefault" />
@@ -52,14 +50,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LoginVerifyActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginVerifyActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="155" column="55" lean-forward="true" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+            <state relative-caret-position="-416">
+              <caret line="90" column="38" lean-forward="false" selection-start-line="90" selection-start-column="38" selection-end-line="90" selection-end-column="38" />
               <folding>
-                <element signature="e#2760#3023#0" expanded="true" />
-                <element signature="e#3022#3023#0" expanded="true" />
+                <element signature="e#2503#2766#0" expanded="true" />
+                <element signature="e#2765#2766#0" expanded="true" />
+                <element signature="e#4272#4814#0" expanded="true" />
+                <element signature="e#4813#4814#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListTypeAdapterFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ListTypeAdapterFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="16" column="3" lean-forward="false" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1189#1233#1" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -75,12 +88,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoanOkHttpClient.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoanOkHttpClient.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-              <folding />
+            <state relative-caret-position="183">
+              <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+              <folding>
+                <element signature="e#2143#2144#0" expanded="true" />
+                <element signature="e#2179#2180#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StringDefaultAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,8 +116,8 @@
       <file leaf-file-name="ApiManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="43" column="46" lean-forward="false" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -1888,7 +1916,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/bean/HomeExpenseDataBean.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ILoading.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/ProgressDialog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanObserver.java" />
@@ -1929,16 +1956,17 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/httpUtil/HomeGetUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/DialogUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/OkHttpClientManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/CommonObserver.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpIntercept.java" />
         <option value="$USER_HOME$/Library/Android/sdk/sources/android-23/java/lang/Object.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/IntegerDefault0Adapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ListTypeAdapterFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/OkHttpClientManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java" />
       </list>
     </option>
   </component>
@@ -2472,7 +2500,7 @@
     <property name="android.sdk.path" value="D:/sdk/android-sdk-windows" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/http/OkHttpClientManager.java&#10;Apis&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/Apis.java&#10;Toas&#9;PSI&#9;JAVA://com.load.third.jqm.tips.ToastUtils&#10;Log&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;Api&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/http/ApiClient.java&#10;Home&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;Url&#9;PSI&#9;JAVA://com.load.third.jqm.newHttp.UrlUtils&#10;Login&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;cONT&#9;FILE&#9;jar:///Users/liulei/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class&#10;BaseActivity&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java&#10;BaseA&#9;PSI&#9;JAVA://com.load.third.jqm.activity.BaseActivity&#10;ApiR&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java&#10;Toke&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;To&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;Ur&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;ApiRe&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRequest.java&#10;UrlP&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;H&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;HomeF&#9;PSI&#9;JAVA://com.load.third.jqm.fragment.HomeFragment" />
+    <property name="SearchEverywhereHistoryKey" value="TypeAdapterRuntimeTypeWrapper&#9;FILE&#9;jar:///Users/liulei/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java&#10;Apis&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/Apis.java&#10;Toas&#9;PSI&#9;JAVA://com.load.third.jqm.tips.ToastUtils&#10;Log&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;Api&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/http/ApiClient.java&#10;Home&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;Url&#9;PSI&#9;JAVA://com.load.third.jqm.newHttp.UrlUtils&#10;Login&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/mine/LoginActivity.java&#10;cONT&#9;FILE&#9;jar:///Users/liulei/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class&#10;BaseActivity&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/activity/BaseActivity.java&#10;BaseA&#9;PSI&#9;JAVA://com.load.third.jqm.activity.BaseActivity&#10;ApiR&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRetrofit.java&#10;Toke&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;To&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/httpUtil/TokenLoginUtil.java&#10;Ur&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;ApiRe&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/ApiRequest.java&#10;UrlP&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/newHttp/UrlParams.java&#10;H&#9;FILE&#9;file:///Users/liulei/Product/LoanORR/app/src/main/java/com/load/third/jqm/fragment/HomeFragment.java&#10;HomeF&#9;PSI&#9;JAVA://com.load.third.jqm.fragment.HomeFragment" />
     <property name="device.picker.selection" value="0309f07108e5a251" />
     <property name="android.profiler.active" value="true" />
     <property name="android.project.structure.last.selected" value="app" />
@@ -2570,7 +2598,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512615333616" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512622148920" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2618,7 +2646,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512615333616" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512622148920" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2801,7 +2829,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512615333618" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1512622148921" />
       </method>
     </configuration>
     <list size="1">
@@ -2952,7 +2980,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512529021270</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="优化脏数据">
+      <created>1512615351129</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1512615351129</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2977,7 +3012,7 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6210526" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32894737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3047,7 +3082,8 @@
     <MESSAGE value="完成3个接口的串联" />
     <MESSAGE value="优化代码" />
     <MESSAGE value="底层修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="底层修改" />
+    <MESSAGE value="优化脏数据" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化脏数据" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -3059,42 +3095,23 @@
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java</url>
-          <line>24</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java</url>
+          <line>46</line>
           <properties />
-          <option name="timeStamp" value="29" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java</url>
-          <line>30</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java</url>
+          <line>52</line>
           <properties />
-          <option name="timeStamp" value="30" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="31" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="55" column="72" lean-forward="false" selection-start-line="55" selection-start-column="60" selection-end-line="55" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Library/Android/sdk/extras/android/m2repository/com/android/support/support-v4/23.3.0/support-v4-23.3.0-sources.jar!/android/support/v4/app/FragmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="297" column="24" lean-forward="false" selection-start-line="297" selection-start-column="24" selection-end-line="297" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/load/third/jqm/ExampleInstrumentedTest.java" />
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-23/android.jar!/android/content/ContextWrapper.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -3366,14 +3383,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/OkHttpClientManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="50" column="5" lean-forward="false" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/tips/DialogUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
@@ -3455,14 +3464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -3479,16 +3480,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="13" column="24" lean-forward="false" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanHttpIntercept.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="482">
@@ -3497,21 +3488,73 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.7/bbb63ca253b483da8ee53a50374593923e3de2e2/gson-2.7-sources.jar!/com/google/gson/internal/bind/TypeAdapterRuntimeTypeWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="20" column="12" lean-forward="false" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+        <state relative-caret-position="-573">
+          <caret line="27" column="12" lean-forward="false" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ListTypeAdapterFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="3" lean-forward="false" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1189#1233#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/ApiManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="43" column="46" lean-forward="false" selection-start-line="43" selection-start-column="46" selection-end-line="43" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/StringDefaultAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/http/OkHttpClientManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="404">
+          <caret line="53" column="38" lean-forward="false" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/activity/mine/LoginVerifyActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="155" column="55" lean-forward="true" selection-start-line="155" selection-start-column="55" selection-end-line="155" selection-end-column="55" />
+        <state relative-caret-position="-416">
+          <caret line="90" column="38" lean-forward="false" selection-start-line="90" selection-start-column="38" selection-end-line="90" selection-end-column="38" />
           <folding>
-            <element signature="e#2760#3023#0" expanded="true" />
-            <element signature="e#3022#3023#0" expanded="true" />
+            <element signature="e#2503#2766#0" expanded="true" />
+            <element signature="e#2765#2766#0" expanded="true" />
+            <element signature="e#4272#4814#0" expanded="true" />
+            <element signature="e#4813#4814#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/load/third/jqm/newHttp/LoanOkHttpClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="53" column="29" lean-forward="true" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+          <folding>
+            <element signature="e#2143#2144#0" expanded="true" />
+            <element signature="e#2179#2180#0" expanded="true" />
           </folding>
         </state>
       </provider>
