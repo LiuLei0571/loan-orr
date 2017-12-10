@@ -1,4 +1,4 @@
-package com.load.third.okhttp.utils;
+package com.load.third.jqm.help;
 
 import android.graphics.BitmapFactory;
 import android.util.DisplayMetrics;

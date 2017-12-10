@@ -27,7 +27,7 @@ import com.load.third.jqm.bean.newBean.QiniuToken;
 import com.load.third.jqm.fragment.HomeFragment;
 import com.load.third.jqm.fragment.MineFragment;
 import com.load.third.jqm.help.UserHelper;
-import com.load.third.jqm.httpUtil.QiNiuGetUtils;
+import com.load.third.jqm.help.QiNiuGetUtils;
 import com.load.third.jqm.newHttp.ApiException;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;

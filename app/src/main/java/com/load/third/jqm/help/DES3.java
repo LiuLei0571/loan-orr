@@ -1,4 +1,4 @@
-package com.load.third.jqm.http;
+package com.load.third.jqm.help;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

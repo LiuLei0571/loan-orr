@@ -1,5 +1,6 @@
 package com.load.third.jqm.activity.info;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -75,6 +76,7 @@ public class CameraActivity extends BaseActivity {
         initView();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void setSurfaceView() {
         screenMetrics = Utils.getScreenMetrics(context);
         wRect = Utils.dip2px(context, CAMERA_WIDTH);

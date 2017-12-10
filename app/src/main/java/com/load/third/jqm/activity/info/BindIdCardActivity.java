@@ -23,14 +23,12 @@ import com.load.third.jqm.MyApp;
 import com.load.third.jqm.R;
 import com.load.third.jqm.activity.BaseActivity;
 import com.load.third.jqm.bean.newBean.QiniuName;
-import com.load.third.jqm.httpUtil.QiNiuGetUtils;
-import com.load.third.jqm.httpUtil.TokenLoginUtil;
+import com.load.third.jqm.help.QiNiuGetUtils;
 import com.load.third.jqm.newHttp.Apis;
 import com.load.third.jqm.newHttp.BaseResponse;
 import com.load.third.jqm.newHttp.CommonObserver;
 import com.load.third.jqm.newHttp.UrlParams;
 import com.load.third.jqm.tips.DialogUtils;
-import com.load.third.jqm.tips.ProgressDialog;
 import com.load.third.jqm.tips.ToastUtils;
 import com.load.third.jqm.utils.GlideLoader;
 import com.load.third.jqm.utils.ImageFactory;
@@ -52,8 +50,7 @@ import butterknife.OnClick;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
-import static com.load.third.jqm.httpUtil.QiNiuGetUtils.MSG_GET_QINIU_UPLOAD;
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
+import static com.load.third.jqm.help.QiNiuGetUtils.MSG_GET_QINIU_UPLOAD;
 import static com.load.third.jqm.utils.TempUtils.tempPicDirectory;
 import static com.load.third.jqm.utils.TempUtils.tempPicFile;
 import static com.load.third.jqm.utils.TempUtils.tempPicPath;
@@ -112,10 +109,6 @@ public class BindIdCardActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    ProgressDialog.showProgressBar(context, "请稍后...");
-                    QiNiuGetUtils.getQiNiuToken(context, handler);
-                    break;
                 case QiNiuGetUtils.MSG_GET_QINIU_TOKEN:
                     qiniuToken = (String) msg.obj;
                     if (StringUtils.isNotBlank(qiniuToken)) {
@@ -245,7 +238,7 @@ public class BindIdCardActivity extends BaseActivity {
             return;
         }
         if (!MyApp.isNeedUpdate) {
-            TokenLoginUtil.loginWithToken(context, handler);
+//            TokenLoginUtil.loginWithToken(context, handler);
         }
     }
 

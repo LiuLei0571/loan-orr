@@ -3,8 +3,6 @@ package com.load.third.jqm.activity.info;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -45,8 +43,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
-
-import static com.load.third.jqm.httpUtil.TokenLoginUtil.MSG_TOKEN_LOGIN_SUCCESS;
 
 /**
  * 职业信息
@@ -89,15 +85,6 @@ public class MyInfoSecondActivity extends BaseActivity {
     private List<String> list_wages;
     private List<String> list_wages_date;
     private List<String> list_job_time;
-    private Handler handler = new Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_TOKEN_LOGIN_SUCCESS:
-                    postInfo();
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
