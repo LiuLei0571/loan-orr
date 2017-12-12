@@ -1,5 +1,7 @@
 package com.load.third.commpent.cdi.cmp;
 
+import android.content.Context;
+
 import dagger.Module;
 
 /**
@@ -10,4 +12,8 @@ import dagger.Module;
 
 @Module
 public class AppModule {
+    public Context context;
+    public AppModule(Context appCompent) {
+    this.context=appCompent;
+    }
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 
+import com.load.third.commpent.cdi.CDI;
+
 /**
  * Created by Administrator on 2017/4/17.
  */
@@ -27,6 +29,7 @@ public class MyApp extends Application {
         super.onCreate();
         mContext = getApplicationContext();
         initStrict();
+        CDI.init(mContext);
         //监听应用内Activity的生命周期
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
