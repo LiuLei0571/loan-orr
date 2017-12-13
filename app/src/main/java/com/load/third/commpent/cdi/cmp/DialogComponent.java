@@ -1,6 +1,6 @@
 package com.load.third.commpent.cdi.cmp;
 
-import com.load.third.commpent.cdi.annimation.ActivityScope;
+import com.load.third.commpent.cdi.annimation.DialogScope;
 
 import dagger.Subcomponent;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * 邮箱：liulei2@aixuedai.com
  */
 
-@ActivityScope
-@Subcomponent(modules = {ActivityModule.class})
-public interface ActivityCompent {
+@DialogScope
+@Subcomponent(modules = {DialogModule.class})
+public interface DialogComponent {
 }

@@ -14,13 +14,14 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {ManagerModule.class, AppModule.class})
-public interface AppCompent {
-    ActivityCompent plus(ActivityCompent activityCompent);
+public interface AppComponent {
+    ActivityComponent plus(ActivityModule activityCompent);
 
-    FragmentCompent plus(FragmentCompent fragmentCompent);
+    FragmentComponent plus(FragmentModule fragmentCompent);
 
-    DialogCompent plus(DialogCompent dialogCompent);
+    DialogComponent plus(DialogModule dialogCompent);
 
-    ServiceCompent plus(ServiceCompent serviceCompent);
+    ServiceComponent plus(ServiceModule serviceCompent);
     void plus(CDIHelper cdiHelper);
+
 }

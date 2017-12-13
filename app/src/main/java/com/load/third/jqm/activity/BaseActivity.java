@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.load.third.commpent.cdi.CDI;
+import com.load.third.commpent.cdi.cmp.ActivityComponent;
 import com.load.third.jqm.newHttp.ApiManager;
 import com.load.third.jqm.newHttp.ApiRetrofit;
 import com.load.third.jqm.newHttp.CommonObserver;
@@ -24,11 +26,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class BaseActivity extends AppCompatActivity {
     public ApiRetrofit apiRetrofit;
-
+    private ActivityComponent activityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiRetrofit = ApiManager.apiManager.initRetrofit();
+        activityComponent = CDI.createActivityComponent(this);
     }
 
 

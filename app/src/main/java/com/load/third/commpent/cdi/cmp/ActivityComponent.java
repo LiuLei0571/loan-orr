@@ -1,6 +1,6 @@
 package com.load.third.commpent.cdi.cmp;
 
-import com.load.third.commpent.cdi.annimation.ServiceScope;
+import com.load.third.commpent.cdi.annimation.ActivityScope;
 
 import dagger.Subcomponent;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * 邮箱：liulei2@aixuedai.com
  */
 
-@ServiceScope
-@Subcomponent(modules = {ServiceModule.class})
-public interface ServiceCompent {
+@ActivityScope
+@Subcomponent(modules = {ActivityModule.class})
+public interface ActivityComponent {
 }

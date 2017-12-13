@@ -1,6 +1,6 @@
 package com.load.third.commpent.cdi.cmp;
 
-import com.load.third.commpent.cdi.annimation.DialogScope;
+import com.load.third.commpent.cdi.annimation.FragmentScope;
 
 import dagger.Subcomponent;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
  * 邮箱：liulei2@aixuedai.com
  */
 
-@DialogScope
-@Subcomponent(modules = {DialogModule.class})
-public interface DialogCompent {
+@FragmentScope
+@Subcomponent(modules = {FragmentModule.class})
+public interface FragmentComponent {
 }
